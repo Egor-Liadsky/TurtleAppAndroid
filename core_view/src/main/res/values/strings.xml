@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Bottom navigation view-->
+    <string name="bottom_navigation_view_group">Группы</string>
+    <string name="bottom_navigation_view_teacher">Преподаватели</string>
+    <string name="bottom_navigation_view_additional">Дополнительно</string>
+    <string name="bottom_navigation_view_settings">Настройки</string>
+
+</resources>
