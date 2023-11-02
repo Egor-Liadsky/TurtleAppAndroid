@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.turtleteam.core_view"
+    namespace = "com.turtleteam.storage"
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
+        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -23,9 +24,6 @@ android {
             )
         }
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -33,15 +31,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures.compose = true
 }
 
 dependencies {
-    implementation("androidx.compose.material:material:1.5.4")
-    implementation("androidx.compose.foundation:foundation:1.6.0-alpha08")
-    implementation(Dependencies.JetpackCompose.material)
-    implementation(Dependencies.JetpackCompose.ui)
-    implementation(Dependencies.JetpackCompose.composeNavigation)
-    implementation(Dependencies.JetpackCompose.runtime)
-    implementation(Dependencies.Android.lifecycle)
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(Dependencies.Android.androidCore)
+    implementation(Dependencies.DI.koin)
 }

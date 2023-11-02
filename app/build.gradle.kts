@@ -49,6 +49,7 @@ dependencies {
     implementation(project(Modules.core_navigation))
     implementation(project(Modules.core_view))
     implementation(project(Modules.core_data))
+    implementation(project(Modules.storage))
 
     implementation(project(":feature:welcome:api"))
     implementation(project(":feature:welcome:impl"))

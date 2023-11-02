@@ -18,6 +18,7 @@ include(":feature")
 include("core_navigation")
 include(":core_view")
 include(":core_data")
+include(":storage")
 
 //Welcome
 include(":feature:welcome")

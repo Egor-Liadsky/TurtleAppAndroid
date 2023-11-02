@@ -1,5 +1,6 @@
 package com.turtleteam.turtleapp.navigation
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -9,11 +10,15 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.turtleteam.api.navigation.AdditionalNavigation
@@ -27,26 +32,24 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.navigation.BottomNavigationBar
 import com.turtleteam.core_view.navigation.NavigationItem
 import com.turtleteam.core_view.theme.TurtleTheme
+import com.turtleteam.core_view.view.background.TurtlesBackground
+import com.turtleteam.storage.Storage
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 @Composable
 fun MainNavigationScreen(
     navController: NavHostController,
     errorService: ErrorService = koinInject(),
+    storage: Storage = koinInject()
 ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route?.substringBefore("/")
 
-//    LaunchedEffect(key1 = Unit, block = {
-//        navController.navigate(if (settings.getToken() == null) accountFeature.baseRoute else accountFeature.pincodeRoute) {
-//            popUpTo(0) {
-//                inclusive = true
-//            }
-//            launchSingleTop = true
-//        }
-//    })
+    val scope = rememberCoroutineScope()
 
     val welcomeFeature: WelcomeNavigation = koinInject()
     val groupFeature: GroupNavigation = koinInject()
@@ -59,6 +62,9 @@ fun MainNavigationScreen(
             scaffoldState.snackbarHostState.showSnackbar(it, actionLabel = "Закрыть")
         }
     }
+
+    var welcomeStartDestination = false
+    scope.launch { welcomeStartDestination = storage.getInstitution().isNullOrBlank() == true }
 
     val bottomNavigationItems = listOf(
         NavigationItem(
@@ -82,19 +88,21 @@ fun MainNavigationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         bottomBar = {
-            BottomNavigationBar(
-                routes = bottomNavigationItems,
-                currentRoute = currentRoute,
-                onClick = {
-                    navController.navigate(it) {
-                        popUpTo(navController.graph.id) {
-                            saveState = true
+            if (welcomeStartDestination){
+                BottomNavigationBar(
+                    routes = bottomNavigationItems,
+                    currentRoute = currentRoute,
+                    onClick = {
+                        navController.navigate(it) {
+                            popUpTo(navController.graph.id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
                     }
-                }
-            )
+                )
+            }
         },
         snackbarHost = { snackbarHostStatet ->
             SnackbarHost(snackbarHostStatet, Modifier.zIndex(2f)) {
@@ -104,13 +112,17 @@ fun MainNavigationScreen(
     ) { paddingValues ->
         val bottomNavigationViewModifier =
             Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+        TurtlesBackground()
         NavHost(
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(1f),
             navController = navController,
-            startDestination = groupFeature.baseRoute
+            startDestination = if(!welcomeStartDestination) welcomeFeature.baseRoute else groupFeature.baseRoute
         ) {
+//            composable(route = "splash"){
+//                SplashScreen(navController = navController, isWelcome = true, welcomeRoute = , groupRoute = )
+//            }
             register(groupFeature, navController, bottomNavigationViewModifier)
             register(teacherFeature, navController, bottomNavigationViewModifier)
             register(additionalFeature, navController, bottomNavigationViewModifier)

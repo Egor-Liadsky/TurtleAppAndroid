@@ -1,6 +1,8 @@
 package com.turtleteam.turtleapp.di
 
 import com.turtleteam.core_navigation.error.ErrorService
+import com.turtleteam.storage.Storage
+import com.turtleteam.storage.StorageImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.engine.okhttp.*
@@ -31,4 +33,7 @@ val commonModule = module {
 
     // Services
     single { ErrorService() }
+
+    //Storage
+    single<Storage> { StorageImpl(get()) }
 }

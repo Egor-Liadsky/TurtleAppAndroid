@@ -13,13 +13,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EventApp"
+        android:theme="@style/Theme.TurtleApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EventApp"
+            android:theme="@style/Theme.TurtleApp"
             android:name="com.turtleteam.turtleapp.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

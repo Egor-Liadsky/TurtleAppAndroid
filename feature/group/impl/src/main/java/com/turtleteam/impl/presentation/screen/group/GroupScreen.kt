@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun GroupScreen(modifier: Modifier = Modifier) {
-    Column(Modifier.fillMaxSize().then(modifier).background(Color.White)) {
+    Column(Modifier.fillMaxSize().then(modifier)) {
         Text("Group Screen")
     }
 }

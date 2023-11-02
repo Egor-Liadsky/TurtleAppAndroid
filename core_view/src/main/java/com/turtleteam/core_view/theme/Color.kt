@@ -7,6 +7,11 @@ import androidx.compose.ui.graphics.Color
 val LocalColors = compositionLocalOf<Colors> { error("colors wasnt provided") }
 
 data class Colors(
+
+    //Buttons
+    val commonButtonBackground: Color,
+    val commonButtonTextColor: Color,
+
     val transparentBackground: Color,
     val btnGroupTeacherText: Color,
     val btnDoneText: Color,
@@ -46,6 +51,9 @@ data class Colors(
 )
 
 val darkColors = Colors(
+    commonButtonBackground = Color(0xFF417B65),
+    commonButtonTextColor = Color(0xFFFFFFFF), //TODO change for dark theme
+
     transparentBackground = Color(0xD9464F6B),
     btnGroupTeacherText = Color(0xFF8D91D1),
     btnDoneText = Color(0xFF8D91D1),
@@ -87,6 +95,9 @@ val darkColors = Colors(
 )
 
 val colors = Colors(
+    commonButtonBackground = Color(0xFF417B65),
+    commonButtonTextColor = Color(0xFFFFFFFF),
+
     transparentBackground = Color(0xFFECF4E4),
     btnGroupTeacherText = Color.Black,
     btnDoneText = Color.White,
