@@ -8,9 +8,25 @@ val LocalColors = compositionLocalOf<Colors> { error("colors wasnt provided") }
 
 data class Colors(
 
+    //StageBar
+    val stageBarSelectTextColor: Color,
+    val stageBarSelectBackgroundColor: Color,
+    val stageBarUnselectTextColor: Color,
+    val stageBarUnselectBackgroundColor: Color,
+
     //Buttons
     val commonButtonBackground: Color,
     val commonButtonTextColor: Color,
+
+    //Schedule Frame
+    val selectScheduleArrowColor: Color,
+    val selectScheduleTitleColor: Brush,
+    val selectTextColor: Color,
+    val sheetBackground: Color,
+    val institutionBackgroundColor: Color,
+
+    //Divider
+    val divider: Color,
 
     val transparentBackground: Color,
     val btnGroupTeacherText: Color,
@@ -51,8 +67,26 @@ data class Colors(
 )
 
 val darkColors = Colors(
+
+    stageBarSelectTextColor = Color(0xFFFFFFFF),
+    stageBarSelectBackgroundColor = Color(0xFF417B65),
+    stageBarUnselectTextColor = Color(0xFFD9D9D9),
+    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF), //TODO change for dark theme
+
     commonButtonBackground = Color(0xFF417B65),
     commonButtonTextColor = Color(0xFFFFFFFF), //TODO change for dark theme
+
+    //Schedule Frame
+    selectScheduleTitleColor = Brush.horizontalGradient(
+        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f))
+    ),
+    selectScheduleArrowColor = Color(0xFF2DA06D),
+    selectTextColor = Color(0xFF9E9C9F),
+    sheetBackground = Color(0xFFF0F6E7),
+    institutionBackgroundColor = Color(0xFFF3F6EE),
+
+    //Divider
+    divider = Color(0xFF9E9C9F),
 
     transparentBackground = Color(0xD9464F6B),
     btnGroupTeacherText = Color(0xFF8D91D1),
@@ -95,6 +129,24 @@ val darkColors = Colors(
 )
 
 val colors = Colors(
+
+    stageBarSelectTextColor = Color(0xFFFFFFFF),
+    stageBarSelectBackgroundColor = Color(0xFF417B65),
+    stageBarUnselectTextColor = Color(0xFFD9D9D9),
+    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF),//TODO change for dark theme
+
+    //Schedule Frame
+    selectScheduleTitleColor = Brush.horizontalGradient(
+        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f))
+    ),
+    selectScheduleArrowColor = Color(0xFF2DA06D),//TODO change for dark theme
+    selectTextColor = Color(0xFF9E9C9F),
+    sheetBackground = Color(0xFFF0F6E7),
+    institutionBackgroundColor = Color(0xFFF3F6EE),
+
+    //Divider
+    divider = Color(0xFF9E9C9F),
+
     commonButtonBackground = Color(0xFF417B65),
     commonButtonTextColor = Color(0xFFFFFFFF),
 

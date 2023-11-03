@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 data class OnBoarding(
     val title: String,
     @DrawableRes
-    val icon: Int,
+    val icon: Int
 )
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -81,28 +81,24 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
                 modifier = Modifier.padding(top = 35.dp)
             )
         }
-        Column(
-            Modifier.fillMaxSize().padding(bottom = 46.dp),
-            verticalArrangement = Arrangement.Bottom
+        CommonButton(
+            Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 46.dp, start = 32.dp, end = 32.dp),
+            title = "ДАЛЕЕ",
+            textColor = TurtleTheme.color.commonButtonTextColor,
+            background = TurtleTheme.color.commonButtonBackground,
+            indicationColor = TurtleTheme.color.commonButtonTextColor,
         ) {
-            CommonButton(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 130.dp, start = 32.dp, end = 32.dp),
-                title = "ДАЛЕЕ",
-                textColor = TurtleTheme.color.commonButtonTextColor,
-                background = TurtleTheme.color.commonButtonBackground,
-                indicationColor = TurtleTheme.color.commonButtonTextColor
-            ) {
-                if (pagerState.currentPage == onBoardingList.lastIndex){
-                    viewModel.navigateToWelcome()
-                } else {
-                    scope.launch {
-                        pagerState.animateScrollToPage(
-                            pagerState.currentPage + 1,
-                            animationSpec = spring(stiffness = Spring.StiffnessLow)
-                        )
-                    }
+            if (pagerState.currentPage == onBoardingList.lastIndex){
+                viewModel.navigateToWelcome()
+            } else {
+                scope.launch {
+                    pagerState.animateScrollToPage(
+                        pagerState.currentPage + 1,
+                        animationSpec = spring(stiffness = Spring.StiffnessLow)
+                    )
                 }
             }
         }

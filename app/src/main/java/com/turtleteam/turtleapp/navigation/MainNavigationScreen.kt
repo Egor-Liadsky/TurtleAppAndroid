@@ -88,7 +88,7 @@ fun MainNavigationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         bottomBar = {
-            if (welcomeStartDestination){
+//            if (welcomeStartDestination){
                 BottomNavigationBar(
                     routes = bottomNavigationItems,
                     currentRoute = currentRoute,
@@ -102,7 +102,7 @@ fun MainNavigationScreen(
                         }
                     }
                 )
-            }
+//            }
         },
         snackbarHost = { snackbarHostStatet ->
             SnackbarHost(snackbarHostStatet, Modifier.zIndex(2f)) {
@@ -118,7 +118,7 @@ fun MainNavigationScreen(
                 .fillMaxSize()
                 .zIndex(1f),
             navController = navController,
-            startDestination = if(!welcomeStartDestination) welcomeFeature.baseRoute else groupFeature.baseRoute
+            startDestination = groupFeature.baseRoute//if(!welcomeStartDestination) welcomeFeature.baseRoute else groupFeature.baseRoute
         ) {
 //            composable(route = "splash"){
 //                SplashScreen(navController = navController, isWelcome = true, welcomeRoute = , groupRoute = )

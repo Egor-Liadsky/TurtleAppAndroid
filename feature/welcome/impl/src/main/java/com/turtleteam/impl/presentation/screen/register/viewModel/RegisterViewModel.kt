@@ -1,0 +1,71 @@
+package com.turtleteam.impl.presentation.screen.register.viewModel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.turtleteam.api.data.model.Institution
+import com.turtleteam.api.data.repository.WelcomeRepository
+import com.turtleteam.core_navigation.error.ErrorService
+import com.turtleteam.core_network.error.exceptionHandleable
+import com.turtleteam.core_view.state.LoadingState
+import com.turtleteam.impl.presentation.navigation.WelcomeNavigator
+import com.turtleteam.impl.presentation.screen.register.state.RegisterState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+class RegisterViewModel(
+    private val navigator: WelcomeNavigator,
+    private val welcomeRepository: WelcomeRepository,
+    private val errorService: ErrorService
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(RegisterState())
+    val state = _state.asStateFlow()
+
+    fun onNextClick() {
+        if (_state.value.stage < 2) {
+            _state.update { it.copy(stage = _state.value.stage + 1) }
+        } else {
+            viewModelScope.launch {
+                navigator.navigateToGroup()
+            }
+        }
+    }
+
+    fun onBackAction() {
+        if (_state.value.stage > 1)
+            _state.update { it.copy(stage = _state.value.stage - 1) }
+        else
+            navigator.onBackButtonClick()
+    }
+
+    fun onInstitutionClick() {
+        viewModelScope.launch {
+            exceptionHandleable(
+                executionBlock = {
+                    if (state.value.institutions == null) {
+                        val institutions = welcomeRepository.getInstitutions()
+                        _state.update {
+                            it.copy(
+                                institutionLoadingState = LoadingState.Loading,
+                                institutions = institutions
+                            )
+                        }
+                    }
+                },
+                failureBlock = { throwable ->
+                    _state.update { it.copy(institutionLoadingState = LoadingState.Error(throwable.toString())) }
+                    errorService.showError(throwable.toString())
+                },
+                completionBlock = {
+                    _state.update { it.copy(institutionLoadingState = LoadingState.Success) }
+                }
+            )
+        }
+    }
+
+    fun onSelectInstitutionClick(institution: Institution){
+        _state.update { it.copy(selectInstitution = institution) }
+    }
+}

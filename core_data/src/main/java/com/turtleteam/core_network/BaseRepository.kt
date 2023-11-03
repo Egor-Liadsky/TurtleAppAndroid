@@ -24,7 +24,7 @@ abstract class BaseRepository(private val httpClient: HttpClient) {
         headers: Map<String, String>? = null,
         body: String? = null
     ): String {
-        val url = "http://45.155.207.232:12222/api"
+        val url = "http://45.155.207.232:8080/api/v2/"
         val response: HttpResponse
         try {
             response = httpClient.request(url) {

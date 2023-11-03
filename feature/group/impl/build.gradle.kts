@@ -41,6 +41,7 @@ android {
 dependencies {
 
     implementation(project(":feature:group:api"))
+    implementation(project(":feature:welcome:api"))
     implementation(project(Modules.core_view))
     implementation(project(Modules.core_navigation))
     implementation(project(Modules.core_data))
