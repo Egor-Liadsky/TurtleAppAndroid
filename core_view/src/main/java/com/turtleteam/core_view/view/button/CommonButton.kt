@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +18,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.core_view.theme.fontQanelas
@@ -32,6 +33,7 @@ fun CommonButton(
     indicationColor: Color = Color.Transparent,
     textColor: Color,
     background: Color,
+    fontSize: TextUnit = 22.sp,
     onClick: () -> Unit
 ) {
     Box(
@@ -53,7 +55,7 @@ fun CommonButton(
             Text(
                 text = title,
                 style = TextStyle(
-                    fontSize = 22.sp,
+                    fontSize = fontSize,
                     fontFamily = fontQanelas,
                     color = textColor,
                     textAlign = TextAlign.Center

@@ -40,6 +40,7 @@ import com.turtleteam.core_view.utils.SelectButtonIndicator
 fun SelectButton(
     modifier: Modifier = Modifier,
     title: String,
+    selectedItem: Boolean,
     indicationColor: Color = Color.Transparent,
     onClick: () -> Unit
 ) {
@@ -75,7 +76,7 @@ fun SelectButton(
                 style = TextStyle(
                     fontSize = 22.sp,
                     fontFamily = fontQanelas,
-                    color = TurtleTheme.color.selectTextColor,
+                    color = if (selectedItem) TurtleTheme.color.textColor else TurtleTheme.color.selectTextColor,
                     textAlign = TextAlign.Center
                 )
             )

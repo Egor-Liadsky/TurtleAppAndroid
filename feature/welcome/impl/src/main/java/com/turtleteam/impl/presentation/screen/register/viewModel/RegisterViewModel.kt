@@ -45,21 +45,15 @@ class RegisterViewModel(
             exceptionHandleable(
                 executionBlock = {
                     if (state.value.institutions == null) {
+                        _state.update { it.copy(institutionLoadingState = LoadingState.Loading) }
+
                         val institutions = welcomeRepository.getInstitutions()
-                        _state.update {
-                            it.copy(
-                                institutionLoadingState = LoadingState.Loading,
-                                institutions = institutions
-                            )
-                        }
+                        _state.update { it.copy(institutions = institutions, institutionLoadingState = LoadingState.Success) }
                     }
                 },
                 failureBlock = { throwable ->
                     _state.update { it.copy(institutionLoadingState = LoadingState.Error(throwable.toString())) }
                     errorService.showError(throwable.toString())
-                },
-                completionBlock = {
-                    _state.update { it.copy(institutionLoadingState = LoadingState.Success) }
                 }
             )
         }

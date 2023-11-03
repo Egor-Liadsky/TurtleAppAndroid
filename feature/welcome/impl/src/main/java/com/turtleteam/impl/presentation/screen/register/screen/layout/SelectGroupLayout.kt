@@ -31,7 +31,7 @@ fun SelectGroupLayout(viewModel: RegisterViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ScheduleSelectFrame(title = "группу", isGroup = true, selectButtonTitle = "Выбрать") {
+            ScheduleSelectFrame(title = "группу", isGroup = true, selectButtonTitle = "Выбрать", selectedItem = false) {
 
             }
         }

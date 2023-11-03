@@ -25,6 +25,7 @@ import com.turtleteam.core_view.view.button.SelectButton
 fun ScheduleSelectFrame(
     title: String,
     isGroup: Boolean = false,
+    selectedItem: Boolean,
     selectButtonTitle: String,
     onClick: () -> Unit,
 ) {
@@ -68,7 +69,8 @@ fun ScheduleSelectFrame(
         SelectButton(
             Modifier.padding(top = 10.dp),
             title = selectButtonTitle,
-            indicationColor = TurtleTheme.color.secondText
+            indicationColor = TurtleTheme.color.secondText,
+            selectedItem = selectedItem
         ) {
             onClick()
         }
