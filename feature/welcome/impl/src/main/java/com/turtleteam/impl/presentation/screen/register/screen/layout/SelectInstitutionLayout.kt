@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheetState) {
-
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -31,12 +30,12 @@ fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBotto
         Column(
             Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ScheduleSelectFrame(
                 title = "учебное заведение",
                 selectButtonTitle = if (state.value.selectInstitution == null) "Выбрать" else state.value.selectInstitution!!.title,
-                selectedItem = state.value.selectInstitution != null
+                selectedItem = state.value.selectInstitution != null,
             ) {
                 viewModel.onInstitutionClick()
                 scope.launch { sheetState.show() }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val navigator: WelcomeNavigator,
     private val welcomeRepository: WelcomeRepository,
-    private val errorService: ErrorService
+    private val errorService: ErrorService,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(RegisterState())
@@ -34,10 +34,11 @@ class RegisterViewModel(
     }
 
     fun onBackAction() {
-        if (_state.value.stage > 1)
+        if (_state.value.stage > 1) {
             _state.update { it.copy(stage = _state.value.stage - 1) }
-        else
+        } else {
             navigator.onBackButtonClick()
+        }
     }
 
     fun onInstitutionClick() {
@@ -48,18 +49,23 @@ class RegisterViewModel(
                         _state.update { it.copy(institutionLoadingState = LoadingState.Loading) }
 
                         val institutions = welcomeRepository.getInstitutions()
-                        _state.update { it.copy(institutions = institutions, institutionLoadingState = LoadingState.Success) }
+                        _state.update {
+                            it.copy(
+                                institutions = institutions,
+                                institutionLoadingState = LoadingState.Success,
+                            )
+                        }
                     }
                 },
                 failureBlock = { throwable ->
                     _state.update { it.copy(institutionLoadingState = LoadingState.Error(throwable.toString())) }
                     errorService.showError(throwable.toString())
-                }
+                },
             )
         }
     }
 
-    fun onSelectInstitutionClick(institution: Institution){
+    fun onSelectInstitutionClick(institution: Institution) {
         _state.update { it.copy(selectInstitution = institution) }
     }
 }

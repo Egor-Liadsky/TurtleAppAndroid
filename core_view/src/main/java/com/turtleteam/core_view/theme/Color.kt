@@ -8,24 +8,24 @@ val LocalColors = compositionLocalOf<Colors> { error("colors wasnt provided") }
 
 data class Colors(
 
-    //StageBar
+    // StageBar
     val stageBarSelectTextColor: Color,
     val stageBarSelectBackgroundColor: Color,
     val stageBarUnselectTextColor: Color,
     val stageBarUnselectBackgroundColor: Color,
 
-    //Buttons
+    // Buttons
     val commonButtonBackground: Color,
     val commonButtonTextColor: Color,
 
-    //Schedule Frame
+    // Schedule Frame
     val selectScheduleArrowColor: Color,
     val selectScheduleTitleColor: Brush,
     val selectTextColor: Color,
     val sheetBackground: Color,
     val institutionBackgroundColor: Color,
 
-    //Divider
+    // Divider
     val divider: Color,
 
     val transparentBackground: Color,
@@ -46,15 +46,15 @@ data class Colors(
 
     val backgroundTurtle: Color,
 
-    //Calls colors
+    // Calls colors
     val callTypeColor: Color,
     val numberBackground: Color,
     val callTimeColor: Color,
 
-    //text color
+    // text color
     val textColor: Color,
 
-    //items background
+    // items background
     val dateBackground: Color,
     val baseItemBackground: Color,
     val doctrineBackground: Color,
@@ -63,7 +63,7 @@ data class Colors(
     val turtleImageBackground: Color,
     val buttonSelectBackground: Color,
     val buttonSelectTurtle: Color,
-    val buttonNextBackground: Brush
+    val buttonNextBackground: Brush,
 )
 
 val darkColors = Colors(
@@ -71,21 +71,21 @@ val darkColors = Colors(
     stageBarSelectTextColor = Color(0xFFFFFFFF),
     stageBarSelectBackgroundColor = Color(0xFF417B65),
     stageBarUnselectTextColor = Color(0xFFD9D9D9),
-    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF), //TODO change for dark theme
+    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF), // TODO change for dark theme
 
     commonButtonBackground = Color(0xFF417B65),
-    commonButtonTextColor = Color(0xFFFFFFFF), //TODO change for dark theme
+    commonButtonTextColor = Color(0xFFFFFFFF), // TODO change for dark theme
 
-    //Schedule Frame
+    // Schedule Frame
     selectScheduleTitleColor = Brush.horizontalGradient(
-        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f))
+        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f)),
     ),
     selectScheduleArrowColor = Color(0xFF2DA06D),
     selectTextColor = Color(0xFF9E9C9F),
     sheetBackground = Color(0xFFF0F6E7),
     institutionBackgroundColor = Color(0xFFF3F6EE),
 
-    //Divider
+    // Divider
     divider = Color(0xFF9E9C9F),
 
     transparentBackground = Color(0xD9464F6B),
@@ -101,10 +101,10 @@ val darkColors = Colors(
         listOf(
             Color(0xFF112240),
             Color(0xFF112240),
-        )
+        ),
     ),
     bottomNavBarGradient = Brush.linearGradient(
-        listOf(Color(0xFF112240), Color(0xFF112240))
+        listOf(Color(0xFF112240), Color(0xFF112240)),
     ),
     backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF0A192F), Color(0xFF0A192F))),
     themeChangeButton = Color(0xFF8D91D1),
@@ -125,7 +125,7 @@ val darkColors = Colors(
     buttonSelectBackground = Color(0x590A192F),
     buttonSelectTurtle = Color(0xFF313A55),
     buttonNextBackground = Brush.horizontalGradient(listOf(Color(0xFF0A192F), Color(0xFF0A192F))),
-    backgroundTurtle = Color(0xD9464F6B)
+    backgroundTurtle = Color(0xD9464F6B),
 )
 
 val colors = Colors(
@@ -133,18 +133,18 @@ val colors = Colors(
     stageBarSelectTextColor = Color(0xFFFFFFFF),
     stageBarSelectBackgroundColor = Color(0xFF417B65),
     stageBarUnselectTextColor = Color(0xFFD9D9D9),
-    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF),//TODO change for dark theme
+    stageBarUnselectBackgroundColor = Color(0xFFFFFFFF), // TODO change for dark theme
 
-    //Schedule Frame
+    // Schedule Frame
     selectScheduleTitleColor = Brush.horizontalGradient(
-        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f))
+        listOf(Color(0xFF2DA06D), Color(0xFF93D062).copy(0.9f)),
     ),
-    selectScheduleArrowColor = Color(0xFF2DA06D),//TODO change for dark theme
+    selectScheduleArrowColor = Color(0xFF2DA06D), // TODO change for dark theme
     selectTextColor = Color(0xFF9E9C9F),
     sheetBackground = Color(0xFFF0F6E7),
     institutionBackgroundColor = Color(0xFFF3F6EE),
 
-    //Divider
+    // Divider
     divider = Color(0xFF9E9C9F),
 
     commonButtonBackground = Color(0xFF417B65),
@@ -161,7 +161,7 @@ val colors = Colors(
     bottomNavMenuColors = BottomNavMenuColors.DayColors,
     toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF417B65), Color(0xFFA7CE7B))),
     bottomNavBarGradient = Brush.linearGradient(
-        listOf(Color(0xFF86C8A7), Color(0xFFB3E3AE))
+        listOf(Color(0xFF86C8A7), Color(0xFFB3E3AE)),
     ),
     backgroundBrush = Brush.verticalGradient(
         listOf(Color(0xFFFCFDD7), Color(0xFFB5E7AB)),
@@ -185,9 +185,8 @@ val colors = Colors(
     buttonSelectBackground = Color.White,
     buttonSelectTurtle = Color(0xFFE8F0DF),
     buttonNextBackground = Brush.horizontalGradient(listOf(Color(0xFF417B65), Color(0xFFA7CE7B))),
-    backgroundTurtle = Color(0x47417B65)
+    backgroundTurtle = Color(0x47417B65),
 )
-
 
 sealed class BottomNavMenuColors(
     private val isCheckedTrue: Color,
@@ -196,10 +195,12 @@ sealed class BottomNavMenuColors(
     fun getColor(isChecked: Boolean): Color = if (isChecked) isCheckedTrue else isCheckedFalse
 
     object NightColors : BottomNavMenuColors(
-        isCheckedTrue = Color(0xFF8D91D1), isCheckedFalse = Color(0xFF9E9C9F)
+        isCheckedTrue = Color(0xFF8D91D1),
+        isCheckedFalse = Color(0xFF9E9C9F),
     )
 
     object DayColors : BottomNavMenuColors(
-        isCheckedTrue = Color(0xFFFFFFFF), isCheckedFalse = Color(0xFF575756)
+        isCheckedTrue = Color(0xFFFFFFFF),
+        isCheckedFalse = Color(0xFF575756),
     )
 }

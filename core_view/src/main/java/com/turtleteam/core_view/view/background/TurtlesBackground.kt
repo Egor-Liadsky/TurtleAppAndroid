@@ -17,13 +17,12 @@ import com.turtleteam.core_view.theme.TurtleTheme
 
 @Composable
 fun TurtlesBackground() {
-
     val tint = LocalColors.current.backgroundTurtle
 
     Box(
         Modifier
             .fillMaxSize()
-            .background(TurtleTheme.color.backgroundBrush)
+            .background(TurtleTheme.color.backgroundBrush),
     ) {
         Icon(
             modifier = Modifier
@@ -32,7 +31,7 @@ fun TurtlesBackground() {
                 .offset(x = 24.dp, y = (-111).dp),
             painter = painterResource(id = R.drawable.turtle_right),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -41,7 +40,7 @@ fun TurtlesBackground() {
                 .offset(x = (-35).dp, y = (-70).dp),
             painter = painterResource(id = R.drawable.turtle_right),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -50,7 +49,7 @@ fun TurtlesBackground() {
                 .offset(x = (-10).dp, y = (-149).dp),
             painter = painterResource(id = R.drawable.turtle_right),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -59,7 +58,7 @@ fun TurtlesBackground() {
                 .offset(x = (-24).dp, y = (-92).dp),
             painter = painterResource(id = R.drawable.turtle_left),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -68,7 +67,7 @@ fun TurtlesBackground() {
                 .offset(x = (16).dp, y = 171.dp),
             painter = painterResource(id = R.drawable.turtle_left),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -77,7 +76,7 @@ fun TurtlesBackground() {
                 .offset(x = (-50).dp, y = 52.dp),
             painter = painterResource(id = R.drawable.turtle_left),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
         Icon(
             modifier = Modifier
@@ -86,7 +85,7 @@ fun TurtlesBackground() {
                 .offset(x = (-20).dp, y = 158.dp),
             painter = painterResource(id = R.drawable.turtle_right),
             contentDescription = "",
-            tint = tint
+            tint = tint,
         )
     }
 }

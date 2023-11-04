@@ -1,14 +1,5 @@
 package com.turtleteam.impl.presentation.screen.register.screen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkHorizontally
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,8 +15,6 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,13 +30,11 @@ import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewMo
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WelcomeScreen(viewModel: RegisterViewModel) {
-
     val state = viewModel.state.collectAsState()
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true
+        skipHalfExpanded = true,
     )
-    var visible by remember { mutableStateOf(true) }
 
     ModalBottomSheetLayout(
         modifier = Modifier.fillMaxSize(),
@@ -59,24 +46,25 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                 Modifier
                     .fillMaxWidth()
                     .padding(top = 9.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Divider(
                     Modifier
                         .width(22.dp)
                         .height(3.dp)
-                        .clip(RoundedCornerShape(3.dp)), color = TurtleTheme.color.divider
+                        .clip(RoundedCornerShape(3.dp)),
+                    color = TurtleTheme.color.divider,
                 )
                 Column(Modifier.padding(top = 16.dp)) {
                     when (state.value.stage) {
                         1 -> InstitutionSheet(
                             sheetState = sheetState,
-                            registerViewModel = viewModel
+                            registerViewModel = viewModel,
                         )
                     }
                 }
             }
-        }
+        },
     ) {
         Column(Modifier.padding(top = 20.dp)) {
             StageBar(number = state.value.stage, count = 2)
