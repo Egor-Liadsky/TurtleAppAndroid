@@ -2,12 +2,12 @@ package com.turtleteam.turtleapp
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
@@ -27,13 +27,16 @@ class MainActivity : ComponentActivity() {
             val scope = rememberCoroutineScope()
             val storage: Storage = koinInject()
             val isWelcome = mutableStateOf(false)
+            val isDarkTheme = storage.theme.collectAsState(initial = false)
 
+            // Проверка на регистрацию пользователя, проводится при запуске splash-экрана
             content.viewTreeObserver.addOnPreDrawListener(
                 object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
                         scope.launch { isWelcome.value = storage.getInstitution() == null }
                         return if (isWelcome.value) {
                             content.viewTreeObserver.removeOnPreDrawListener(this)
+                            isWelcome.value = true
                             true
                         } else {
                             false
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
             )
 
             val navController = rememberNavController()
-            TurtleAppTheme(darkTheme = false) {
+            TurtleAppTheme(darkTheme = isDarkTheme.value) {
                 MainNavigationScreen(navController = navController, isWelcome.value)
             }
         }

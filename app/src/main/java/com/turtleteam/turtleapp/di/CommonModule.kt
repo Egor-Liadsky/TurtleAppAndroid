@@ -4,12 +4,13 @@ import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.storage.Storage
 import com.turtleteam.storage.StorageImpl
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.engine.okhttp.*
+import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+
 
 val commonModule = module {
     single {
@@ -34,6 +35,6 @@ val commonModule = module {
     // Services
     single { ErrorService() }
 
-    //Storage
+    // Storage
     single<Storage> { StorageImpl(get()) }
 }

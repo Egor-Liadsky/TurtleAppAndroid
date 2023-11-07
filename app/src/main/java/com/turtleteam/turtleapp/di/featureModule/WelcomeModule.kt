@@ -20,6 +20,6 @@ val welcomeModule = module {
         OnBoardingViewModel(params.get())
     }
     viewModel { params ->
-        RegisterViewModel(params.get(), get(), get())
+        RegisterViewModel(params.get(), get(), get(), get())
     }
 }

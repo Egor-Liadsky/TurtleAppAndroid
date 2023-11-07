@@ -13,7 +13,6 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.appendPathSegments
 import io.ktor.utils.io.errors.IOException
-import java.lang.Error
 
 abstract class BaseRepository(private val httpClient: HttpClient) {
 
@@ -22,7 +21,7 @@ abstract class BaseRepository(private val httpClient: HttpClient) {
         path: String,
         parameters: Map<String, String>? = null,
         headers: Map<String, String>? = null,
-        body: String? = null
+        body: String? = null,
     ): String {
         val url = "http://45.155.207.232:8080/api/v2/"
         val response: HttpResponse

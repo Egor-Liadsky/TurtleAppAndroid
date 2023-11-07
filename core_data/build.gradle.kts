@@ -33,6 +33,5 @@ android {
 }
 
 dependencies {
-
     implementation(Dependencies.Data.ktorCore)
 }

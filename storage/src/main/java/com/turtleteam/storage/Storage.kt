@@ -22,6 +22,7 @@ interface Storage {
     suspend fun saveGroup(group: String)
     suspend fun saveTeacher(teacher: String)
 
+    suspend fun getTheme(): Boolean
     suspend fun getInstitution(): String?
 }
 
@@ -81,6 +82,10 @@ class StorageImpl(private val context: Context): Storage {
         context.dataStore.edit { storage ->
             storage[TEACHER_KEY] = teacher
         }
+    }
+
+    override suspend fun getTheme(): Boolean {
+        return theme.first()
     }
 
     override suspend fun getInstitution(): String? {

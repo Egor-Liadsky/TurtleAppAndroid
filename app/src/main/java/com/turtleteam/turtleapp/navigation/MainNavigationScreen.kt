@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.turtleteam.api.navigation.AdditionalNavigation
 import com.turtleteam.api.navigation.GroupNavigation
@@ -30,7 +29,6 @@ import com.turtleteam.core_view.navigation.NavigationItem
 import com.turtleteam.core_view.view.background.TurtlesBackground
 import com.turtleteam.storage.Storage
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 @Composable
@@ -57,7 +55,6 @@ fun MainNavigationScreen(
             scaffoldState.snackbarHostState.showSnackbar(it, actionLabel = "Закрыть")
         }
     }
-
 
     val bottomNavigationItems = listOf(
         NavigationItem(

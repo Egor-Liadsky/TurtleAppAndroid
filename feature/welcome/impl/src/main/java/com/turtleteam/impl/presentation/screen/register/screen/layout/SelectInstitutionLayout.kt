@@ -1,21 +1,19 @@
 package com.turtleteam.impl.presentation.screen.register.screen.layout
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.turtleteam.core_view.theme.TurtleTheme
-import com.turtleteam.core_view.view.button.CommonButton
+import com.turtleteam.core_view.R
+import com.turtleteam.core_view.theme.LocalColors
+import com.turtleteam.core_view.view.button.SelectButton
 import com.turtleteam.core_view.view.frame.ScheduleSelectFrame
 import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
@@ -26,33 +24,23 @@ fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBotto
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    Box {
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+    ScheduleSelectFrame(
+        image = R.drawable.ic_choose_college,
+    ) {
+        SelectButton(
+            Modifier.padding(top = 10.dp),
+            title = if (state.value.selectInstitution == null) "Выбрать" else state.value.selectInstitution!!.title,
+            isSelected = state.value.selectInstitution != null,
+            trailingContent = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_turtle_select),
+                    contentDescription = null,
+                    tint = LocalColors.current.buttonSelectTurtle,
+                )
+            },
         ) {
-            ScheduleSelectFrame(
-                title = "учебное заведение",
-                selectButtonTitle = if (state.value.selectInstitution == null) "Выбрать" else state.value.selectInstitution!!.title,
-                selectedItem = state.value.selectInstitution != null,
-            ) {
-                viewModel.onInstitutionClick()
-                scope.launch { sheetState.show() }
-            }
-        }
-
-        CommonButton(
-            Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 46.dp, start = 32.dp, end = 32.dp),
-            title = "ДАЛЕЕ",
-            textColor = TurtleTheme.color.commonButtonTextColor,
-            background = TurtleTheme.color.commonButtonBackground,
-            indicationColor = TurtleTheme.color.commonButtonTextColor,
-        ) {
-            viewModel.onNextClick()
+            viewModel.onInstitutionClick()
+            scope.launch { sheetState.show() }
         }
     }
 }

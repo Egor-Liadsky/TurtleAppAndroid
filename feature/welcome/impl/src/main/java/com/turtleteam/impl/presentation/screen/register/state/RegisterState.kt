@@ -7,5 +7,6 @@ data class RegisterState(
     val stage: Int = 1,
     val institutions: List<Institution>? = null,
     val institutionLoadingState: LoadingState = LoadingState.Success,
-    val selectInstitution: Institution? = null
+    val selectInstitution: Institution? = null,
+    val selectThemeIsDark: Boolean? = null
 )

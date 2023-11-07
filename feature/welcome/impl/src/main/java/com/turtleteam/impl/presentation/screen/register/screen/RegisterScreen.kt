@@ -1,5 +1,7 @@
 package com.turtleteam.impl.presentation.screen.register.screen
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,18 +16,20 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.theme.TurtleTheme
+import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.topbar.StageBar
 import com.turtleteam.impl.presentation.screen.register.screen.component.InstitutionSheet
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectInstitutionLayout
+import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectThemeLayout
 import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
+import com.turtleteam.storage.Storage
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -67,11 +71,32 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
         },
     ) {
         Column(Modifier.padding(top = 20.dp)) {
-            StageBar(number = state.value.stage, count = 2)
+            StageBar(number = state.value.stage, count = 3)
         }
-        when (state.value.stage) {
-            1 -> SelectInstitutionLayout(viewModel = viewModel, sheetState)
-            2 -> SelectGroupLayout(viewModel = viewModel)
+        Box {
+            Column(
+                Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                when (state.value.stage) {
+                    1 -> SelectInstitutionLayout(viewModel = viewModel, sheetState)
+                    2 -> SelectGroupLayout(viewModel = viewModel, sheetState)
+                    3 -> SelectThemeLayout(viewModel = viewModel)
+                }
+            }
+            CommonButton(
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(bottom = 46.dp, start = 32.dp, end = 32.dp),
+                title = "ДАЛЕЕ",
+                textColor = TurtleTheme.color.commonButtonTextColor,
+                background = TurtleTheme.color.commonButtonBackground,
+                indicationColor = TurtleTheme.color.commonButtonTextColor,
+            ) {
+                viewModel.onNextClick()
+            }
         }
     }
 }

@@ -46,6 +46,7 @@ dependencies {
     implementation(project(Modules.core_view))
     implementation(project(Modules.core_navigation))
     implementation(project(Modules.core_data))
+    implementation(project(Modules.storage))
 
     implementation("androidx.compose.material:material:1.4.0")
     implementation(Dependencies.Data.ktorJson)
@@ -57,4 +58,5 @@ dependencies {
     implementation(Dependencies.JetpackCompose.ui)
     implementation(Dependencies.JetpackCompose.navigation)
     implementation(Dependencies.DI.koin)
+    implementation("io.insert-koin:koin-core:3.3.2")
 }
