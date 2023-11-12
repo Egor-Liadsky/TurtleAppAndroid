@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization")
 }
 
 android {
@@ -21,7 +20,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -35,6 +34,7 @@ android {
 }
 
 dependencies {
-    implementation(Dependencies.Data.ktorJson)
     implementation(project(Modules.core_navigation))
+    implementation(project(Modules.core_data))
+    implementation(project(Modules.core_view))
 }

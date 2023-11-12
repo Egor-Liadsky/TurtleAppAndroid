@@ -1,8 +1,9 @@
-package com.turtleteam.core_network
+package com.turtleteam.core_data
 
-import com.turtleteam.core_network.error.AppError
-import com.turtleteam.core_network.error.Code
-import com.turtleteam.core_network.error.ServerException
+import com.turtleteam.core_data.error.AppError
+import com.turtleteam.core_data.error.Code
+import com.turtleteam.core_data.error.ServerException
+import com.turtleteam.storage.Storage
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
@@ -13,8 +14,12 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.appendPathSegments
 import io.ktor.utils.io.errors.IOException
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-abstract class BaseRepository(private val httpClient: HttpClient) {
+abstract class BaseRepository(private val httpClient: HttpClient) : KoinComponent {
+
+    private val storage: Storage by inject()
 
     protected suspend fun executeCall(
         type: HttpMethod,
@@ -23,7 +28,9 @@ abstract class BaseRepository(private val httpClient: HttpClient) {
         headers: Map<String, String>? = null,
         body: String? = null,
     ): String {
-        val url = "http://45.155.207.232:8080/api/v2/"
+        val port = storage.getInstitutionPort()
+
+        val url = "http://45.155.207.232:${port ?: "8080"}/api/v2/"
         val response: HttpResponse
         try {
             response = httpClient.request(url) {

@@ -31,10 +31,10 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),
-            title = if (state.value.selectInstitution == null) "Выбрать" else state.value.selectInstitution!!.title,
-            isSelected = state.value.selectInstitution != null,
+            title = if (state.value.selectGroup == null) "Выбрать" else state.value.selectGroup!!,
+            isSelected = state.value.selectGroup != null,
         ) {
-            viewModel.onInstitutionClick()
+            viewModel.onGroupClick()
             scope.launch { sheetState.show() }
         }
     }

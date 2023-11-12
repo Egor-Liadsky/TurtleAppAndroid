@@ -1,4 +1,4 @@
-package com.turtleteam.core_network.error
+package com.turtleteam.core_data.error
 
 import kotlinx.coroutines.CancellationException
 

@@ -68,6 +68,7 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc")
     implementation("androidx.compose.material:material:1.5.4")
+
     implementation(Dependencies.Data.ktorClient)
     implementation(Dependencies.JetpackCompose.runtime)
     implementation(Dependencies.JetpackCompose.navigation)
@@ -81,3 +82,4 @@ dependencies {
     implementation(Dependencies.Data.ktorContentNegotiation)
     implementation(Dependencies.Kotlin.kotlinxSerialization)
 }
+

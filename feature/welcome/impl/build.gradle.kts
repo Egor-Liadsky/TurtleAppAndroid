@@ -58,5 +58,4 @@ dependencies {
     implementation(Dependencies.JetpackCompose.ui)
     implementation(Dependencies.JetpackCompose.navigation)
     implementation(Dependencies.DI.koin)
-    implementation("io.insert-koin:koin-core:3.3.2")
 }

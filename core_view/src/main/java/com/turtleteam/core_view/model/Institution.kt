@@ -1,4 +1,4 @@
-package com.turtleteam.api.data.model
+package com.turtleteam.core_view.model
 
 import kotlinx.serialization.Serializable
 

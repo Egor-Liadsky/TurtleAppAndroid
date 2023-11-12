@@ -1,4 +1,4 @@
-package com.turtleteam.core_network
+package com.turtleteam.core_data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

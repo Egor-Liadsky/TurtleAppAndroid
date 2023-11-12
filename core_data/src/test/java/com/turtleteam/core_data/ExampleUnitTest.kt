@@ -1,4 +1,4 @@
-package com.turtleteam.core_network
+package com.turtleteam.core_data
 
 import org.junit.Test
 

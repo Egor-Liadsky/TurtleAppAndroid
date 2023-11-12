@@ -19,26 +19,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.api.data.model.Institution
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 import com.turtleteam.core_view.utils.SelectButtonIndicator
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
-fun InstitutionItem(
-    institution: Institution,
-    selectInstitution: Institution?,
+fun SheetItem(
+    modifier: Modifier = Modifier,
+    title: String,
+    isSelected: Boolean,
     onClick: () -> Unit,
 ) {
-    val isSelectedInstitution = selectInstitution == institution
     Column(
-        Modifier
+        modifier
             .height(40.dp)
             .width(130.dp)
             .border(
                 1.dp,
-                color = if (isSelectedInstitution) {
+                color = if (isSelected) {
                     Color(0xFF417B65)
                 } else {
                     Color(0x417B6559)
@@ -59,11 +58,11 @@ fun InstitutionItem(
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = institution.title,
+            text = title,
             style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = fontQanelas,
-                color = if (isSelectedInstitution) TurtleTheme.color.textColor else Color(0x417B6559),
+                color = if (isSelected) TurtleTheme.color.textColor else Color(0x417B6559),
             ),
         )
     }

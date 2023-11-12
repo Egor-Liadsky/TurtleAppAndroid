@@ -23,13 +23,12 @@ import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.topbar.StageBar
+import com.turtleteam.impl.presentation.screen.register.screen.component.GroupSheet
 import com.turtleteam.impl.presentation.screen.register.screen.component.InstitutionSheet
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectInstitutionLayout
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectThemeLayout
 import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
-import com.turtleteam.storage.Storage
-import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -61,10 +60,8 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                 )
                 Column(Modifier.padding(top = 16.dp)) {
                     when (state.value.stage) {
-                        1 -> InstitutionSheet(
-                            sheetState = sheetState,
-                            registerViewModel = viewModel,
-                        )
+                        1 -> InstitutionSheet(sheetState = sheetState, registerViewModel = viewModel,)
+                        2 -> GroupSheet(sheetState = sheetState, registerViewModel = viewModel)
                     }
                 }
             }

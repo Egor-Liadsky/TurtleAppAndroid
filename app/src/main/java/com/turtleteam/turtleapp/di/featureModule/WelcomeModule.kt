@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val welcomeModule = module {
     single<WelcomeNavigation> { WelcomeNavigationImpl() }
-    single<WelcomeRepository> { WelcomeRepositoryImpl(get()) }
+    factory<WelcomeRepository> { WelcomeRepositoryImpl(get()) }
     factory { navController ->
         WelcomeNavigator(get(), get(), navController.get())
     }
@@ -20,6 +20,6 @@ val welcomeModule = module {
         OnBoardingViewModel(params.get())
     }
     viewModel { params ->
-        RegisterViewModel(params.get(), get(), get(), get())
+        RegisterViewModel(params.get(), get(), get())
     }
 }
