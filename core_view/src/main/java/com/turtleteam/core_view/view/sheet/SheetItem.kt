@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.screen.register.screen.component
+package com.turtleteam.core_view.view.sheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

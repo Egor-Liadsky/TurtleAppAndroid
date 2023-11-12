@@ -1,79 +1,73 @@
-package com.turtleteam.impl.presentation.screen.register.screen.component
+package com.turtleteam.impl.presentation.group.screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
-import com.turtleteam.core_view.theme.fontQanelas
+import com.turtleteam.core_view.utils.searchItem
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.sheet.SheetItem
-import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
+import com.turtleteam.core_view.view.textField.CommonTextField
+import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: RegisterViewModel) {
-    val state = registerViewModel.state.collectAsState()
+fun GroupSheet(sheetState: ModalBottomSheetState, groupViewModel: GroupViewModel) {
+    val state = groupViewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     Column(
         Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(TurtleTheme.color.sheetBackground)
             .padding(horizontal = 16.dp),
     ) {
-        Text(
-            text = "Ваше учебное заведение",
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontFamily = fontQanelas,
-                color = TurtleTheme.color.textColor,
-                textAlign = TextAlign.Center,
+        CommonTextField(
+            Modifier.padding(bottom = 16.dp),
+            placeholder = "Поиск",
+            trailingIcon = R.drawable.ic_search,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Search,
             ),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        HorizontalDivider(
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp, bottom = 20.dp)
-                .clip(
-                    RoundedCornerShape(3.dp),
-                ),
-            color = Color(0xFFB9B9B9),
+            keyboardActions = KeyboardActions(
+                onSearch = { focusManager.clearFocus() },
+            ),
+            value = state.value.textFieldValue,
+            onValueChange = { groupViewModel.onTextFieldValueChanged(it) },
         )
 
-        when (state.value.institutionLoadingState) {
+        when (state.value.groupsLoadingState) {
             LoadingState.Loading -> {
                 Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 28.dp),
+                    Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     CircularProgressIndicator(
                         Modifier.size(24.dp),
@@ -81,19 +75,26 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     )
                 }
             }
+
             LoadingState.Success -> {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    items(items = state.value.institutions ?: listOf()) { institution ->
-                        SheetItem(
-                            modifier = Modifier.padding(bottom = 5.dp),
-                            title = institution.title ?: "",
-                            isSelected = state.value.selectInstitution == institution,
-                        ) {
-                            registerViewModel.onSelectInstitutionClick(institution)
-                            scope.launch { sheetState.hide() }
+                    items(
+                        items = state.value.groups?.searchItem(state.value.textFieldValue)
+                            ?: listOf(),
+                    ) { group ->
+                        if (group != null) {
+                            SheetItem(
+                                modifier = Modifier.padding(bottom = 5.dp),
+                                title = group,
+                                isSelected = state.value.selectedGroup == group,
+                            ) {
+                                groupViewModel.onSelectGroupClick(group)
+                                scope.launch { sheetState.hide() }
+                                focusManager.clearFocus()
+                            }
                         }
                     }
                     item {
@@ -104,6 +105,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     }
                 }
             }
+
             is LoadingState.Error -> ErrorLayout()
             else -> {}
         }
