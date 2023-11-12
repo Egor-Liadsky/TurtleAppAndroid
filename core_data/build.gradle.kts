@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(Modules.storage))
+    implementation(project(Modules.core_view))
     implementation(Dependencies.Data.ktorCore)
     implementation(Dependencies.DI.koin)
 }

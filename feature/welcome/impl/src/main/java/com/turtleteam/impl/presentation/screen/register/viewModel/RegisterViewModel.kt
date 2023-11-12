@@ -127,4 +127,8 @@ class RegisterViewModel(
             _state.update { it.copy(selectThemeIsDark = isDark) }
         }
     }
+
+    fun onTextFieldValueChanged(value: String) {
+        _state.update { it.copy(textFieldValue = value) }
+    }
 }

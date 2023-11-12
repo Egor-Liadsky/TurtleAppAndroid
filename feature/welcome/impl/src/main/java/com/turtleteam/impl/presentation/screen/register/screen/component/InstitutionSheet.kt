@@ -88,7 +88,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     items(items = state.value.institutions ?: listOf()) { institution ->
                         SheetItem(
                             modifier = Modifier.padding(bottom = 5.dp),
-                            title = institution.title,
+                            title = institution.title ?: "",
                             isSelected = state.value.selectInstitution == institution,
                         ) {
                             registerViewModel.onSelectInstitutionClick(institution)

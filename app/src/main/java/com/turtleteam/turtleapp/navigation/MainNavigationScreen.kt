@@ -108,7 +108,7 @@ fun MainNavigationScreen(
                 .fillMaxSize()
                 .zIndex(1f),
             navController = navController,
-            startDestination = welcomeFeature.baseRoute, // if (isWelcome) welcomeFeature.baseRoute else groupFeature.baseRoute,
+            startDestination = if (isWelcome) welcomeFeature.baseRoute else groupFeature.baseRoute,
         ) {
             register(groupFeature, navController, bottomNavigationViewModifier)
             register(teacherFeature, navController, bottomNavigationViewModifier)

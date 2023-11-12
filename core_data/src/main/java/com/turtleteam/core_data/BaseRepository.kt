@@ -3,7 +3,7 @@ package com.turtleteam.core_data
 import com.turtleteam.core_data.error.AppError
 import com.turtleteam.core_data.error.Code
 import com.turtleteam.core_data.error.ServerException
-import com.turtleteam.storage.Storage
+import com.turtleteam.storage.InstitutionDataStore
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
@@ -19,7 +19,7 @@ import org.koin.core.component.inject
 
 abstract class BaseRepository(private val httpClient: HttpClient) : KoinComponent {
 
-    private val storage: Storage by inject()
+    private val institutionDataStore: InstitutionDataStore by inject()
 
     protected suspend fun executeCall(
         type: HttpMethod,
@@ -28,7 +28,7 @@ abstract class BaseRepository(private val httpClient: HttpClient) : KoinComponen
         headers: Map<String, String>? = null,
         body: String? = null,
     ): String {
-        val port = storage.getInstitutionPort()
+        val port = institutionDataStore.getInstitution()?.port
 
         val url = "http://45.155.207.232:${port ?: "8080"}/api/v2/"
         val response: HttpResponse

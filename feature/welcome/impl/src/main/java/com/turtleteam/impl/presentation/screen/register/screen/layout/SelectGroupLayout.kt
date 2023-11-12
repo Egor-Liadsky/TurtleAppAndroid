@@ -10,7 +10,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
-import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.SelectButton
 import com.turtleteam.core_view.view.frame.ScheduleSelectFrame
 import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
@@ -23,7 +22,11 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
     val scope = rememberCoroutineScope()
 
     BackHandler {
-        viewModel.onBackAction()
+        if (sheetState.isVisible) {
+            scope.launch { sheetState.show() }
+        } else {
+            viewModel.onBackAction()
+        }
     }
 
     ScheduleSelectFrame(
