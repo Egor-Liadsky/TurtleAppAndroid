@@ -1,10 +1,13 @@
 package com.turtleteam.impl.presentation.group.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +16,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,8 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
-import com.turtleteam.impl.presentation.group.screen.components.GroupSheet
+import com.turtleteam.core_view.view.layout.ErrorLayout
+import com.turtleteam.core_view.view.layout.ScheduleLayout
+import com.turtleteam.core_view.view.sheet.GroupSheet
+import com.turtleteam.impl.presentation.group.screen.components.AdditionalButton
 import com.turtleteam.impl.presentation.group.screen.components.GroupTopBar
 import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
@@ -57,7 +65,16 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                     color = TurtleTheme.color.divider,
                 )
                 Column(Modifier.padding(top = 16.dp)) {
-                    GroupSheet(sheetState = sheetState, groupViewModel = viewModel)
+                    GroupSheet(
+                        sheetState = sheetState,
+                        textFieldValue = state.value.textFieldValue,
+                        onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
+                        loadingState = state.value.groupsLoadingState,
+                        groups = state.value.groups ?: listOf(),
+                        selectedGroup = state.value.selectedGroup ?: "",
+                    ) {
+                        viewModel.onSelectGroupClick(it)
+                    }
                 }
             }
         },
@@ -70,13 +87,51 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
             GroupTopBar(
                 selectedGroup = state.value.selectedGroup ?: "",
             ) {
-                viewModel.onGroupClick()
                 scope.launch { sheetState.show() }
+                viewModel.onGroupClick()
             }
-            LazyColumn {
-                item {
-                    Text(state.value.schedule.toString())
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 10.dp, bottom = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AdditionalButton(title = "Звонки") {
                 }
+                AdditionalButton(title = "Планшетка") {
+                }
+                AdditionalButton(title = "Замены") {
+                }
+            }
+
+            when (state.value.scheduleLoading) {
+                LoadingState.Loading -> {
+                    Column(
+                        Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        CircularProgressIndicator(
+                            Modifier.size(24.dp),
+                            color = TurtleTheme.color.textColor,
+                        )
+                    }
+                }
+
+                LoadingState.Success -> {
+                    state.value.schedule?.let {
+                        ScheduleLayout(data = it)
+                    }
+                }
+
+                LoadingState.Empty -> {
+                    Text(text = "Empty")
+                }
+
+                is LoadingState.Error -> ErrorLayout()
             }
         }
     }

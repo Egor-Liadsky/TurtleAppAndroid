@@ -34,14 +34,14 @@ import com.turtleteam.core_view.theme.fontQanelas
 fun GroupButton(
     modifier: Modifier = Modifier,
     title: String,
-    onButtonClick: () -> Unit
+    onButtonClick: () -> Unit,
 ) {
     Button(
         modifier = modifier
             .fillMaxWidth()
             .height(55.dp),
         onClick = { onButtonClick() },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD3E0D1)),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF5F6F1).copy(0.76f)),
         border = BorderStroke(
             1.dp,
             TurtleTheme.color.textColor,

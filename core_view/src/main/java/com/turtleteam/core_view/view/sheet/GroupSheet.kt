@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.group.screen.components
+package com.turtleteam.core_view.view.sheet
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,13 +30,19 @@ import com.turtleteam.core_view.utils.searchItem
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.sheet.SheetItem
 import com.turtleteam.core_view.view.textField.CommonTextField
-import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GroupSheet(sheetState: ModalBottomSheetState, groupViewModel: GroupViewModel) {
-    val state = groupViewModel.state.collectAsState()
+fun GroupSheet(
+    sheetState: ModalBottomSheetState,
+    textFieldValue: String,
+    onTextFieldValueChanged: (String) -> Unit,
+    loadingState: LoadingState,
+    groups: List<String>,
+    selectedGroup: String,
+    onSelectGroupClick: (String) -> Unit
+) {
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
 
@@ -58,11 +63,11 @@ fun GroupSheet(sheetState: ModalBottomSheetState, groupViewModel: GroupViewModel
             keyboardActions = KeyboardActions(
                 onSearch = { focusManager.clearFocus() },
             ),
-            value = state.value.textFieldValue,
-            onValueChange = { groupViewModel.onTextFieldValueChanged(it) },
+            value = textFieldValue,
+            onValueChange = { onTextFieldValueChanged(it) },
         )
 
-        when (state.value.groupsLoadingState) {
+        when (loadingState) {
             LoadingState.Loading -> {
                 Column(
                     Modifier.fillMaxSize(),
@@ -81,17 +86,14 @@ fun GroupSheet(sheetState: ModalBottomSheetState, groupViewModel: GroupViewModel
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    items(
-                        items = state.value.groups?.searchItem(state.value.textFieldValue)
-                            ?: listOf(),
-                    ) { group ->
+                    items(items = groups.searchItem(textFieldValue)) { group ->
                         if (group != null) {
                             SheetItem(
                                 modifier = Modifier.padding(bottom = 5.dp),
                                 title = group,
-                                isSelected = state.value.selectedGroup == group,
+                                isSelected = selectedGroup == group,
                             ) {
-                                groupViewModel.onSelectGroupClick(group)
+                                onSelectGroupClick(group)
                                 scope.launch { sheetState.hide() }
                                 focusManager.clearFocus()
                             }

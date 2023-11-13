@@ -84,8 +84,8 @@ class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinC
     fun onSelectGroupClick(group: String) {
         viewModelScope.launch(Dispatchers.IO) {
             storage.saveGroup(group)
-            getSchedule(group)
             _state.update { it.copy(selectedGroup = group) }
+            getSchedule(group)
         }
     }
 

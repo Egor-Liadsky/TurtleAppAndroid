@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.CommonButton
+import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.StageBar
-import com.turtleteam.impl.presentation.screen.register.screen.component.GroupSheet
 import com.turtleteam.impl.presentation.screen.register.screen.component.InstitutionSheet
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.screen.register.screen.layout.SelectInstitutionLayout
@@ -71,7 +71,18 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                             registerViewModel = viewModel,
                         )
 
-                        2 -> GroupSheet(sheetState = sheetState, registerViewModel = viewModel)
+                        2 -> {
+                            GroupSheet(
+                                sheetState = sheetState,
+                                textFieldValue = state.value.textFieldValue,
+                                onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
+                                loadingState = state.value.groupsLoadingState,
+                                groups = state.value.groups ?: listOf(),
+                                selectedGroup = state.value.selectGroup ?: "",
+                            ) {
+                                viewModel.onSelectGroupClick(it)
+                            }
+                        }
                     }
                 }
             }

@@ -12,22 +12,22 @@ data class Schedule(
 @Serializable
 data class Day(
     @SerialName("apairs")
-    val pairs: List<Pairs>,
+    val pairs: List<Pair>,
     val isoDateDay: String,
     val day: String,
 )
 
 @Serializable
-data class Pairs(
+data class Pair(
     val time: String,
     @SerialName("apair")
-    val pair: List<Pair>,
+    val pairInfo: List<PairInfo>,
     val isoDateStart: String,
     val isoDateEnd: String,
 )
 
 @Serializable
-data class Pair(
+data class PairInfo(
     val doctrine: String,
     val teacher: String,
     val auditoria: String,
