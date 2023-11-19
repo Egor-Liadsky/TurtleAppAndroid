@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.SettingsNavigation
-import com.turtleteam.impl.presentation.screen.settings.SettingsScreen
+import com.turtleteam.impl.presentation.presentation.settings.SettingsScreen
 
 class SettingsNavigationImpl: SettingsNavigation {
 

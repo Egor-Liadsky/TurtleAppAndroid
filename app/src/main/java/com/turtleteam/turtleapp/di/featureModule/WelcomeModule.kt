@@ -2,11 +2,11 @@ package com.turtleteam.turtleapp.di.featureModule
 
 import com.turtleteam.api.data.repository.WelcomeRepository
 import com.turtleteam.api.navigation.WelcomeNavigation
-import com.turtleteam.impl.presentation.data.repository.WelcomeRepositoryImpl
+import com.turtleteam.impl.data.repository.WelcomeRepositoryImpl
 import com.turtleteam.impl.presentation.navigation.WelcomeNavigationImpl
 import com.turtleteam.impl.presentation.navigation.WelcomeNavigator
-import com.turtleteam.impl.presentation.screen.onBoarding.viewModel.OnBoardingViewModel
-import com.turtleteam.impl.presentation.screen.register.viewModel.RegisterViewModel
+import com.turtleteam.impl.presentation.presentation.onBoarding.viewModel.OnBoardingViewModel
+import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

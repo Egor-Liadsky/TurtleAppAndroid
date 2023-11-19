@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +33,7 @@ fun CommonButton(
     textColor: Color,
     background: Color,
     fontSize: TextUnit = 22.sp,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -44,13 +43,13 @@ fun CommonButton(
             .clickable(
                 onClick = onClick,
                 interactionSource = MutableInteractionSource(),
-                indication = SelectButtonIndicator(indicationColor, 12.dp)
+                indication = SelectButtonIndicator(indicationColor, 12.dp),
             ),
     ) {
         Column(
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = title,
@@ -58,9 +57,9 @@ fun CommonButton(
                     fontSize = fontSize,
                     fontFamily = fontQanelas,
                     color = textColor,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 ),
-                modifier = Modifier.padding(vertical = 20.dp)
+                modifier = Modifier.padding(vertical = 20.dp),
             )
         }
     }

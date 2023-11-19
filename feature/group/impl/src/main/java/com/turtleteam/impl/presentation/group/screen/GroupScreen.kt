@@ -2,14 +2,12 @@ package com.turtleteam.impl.presentation.group.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,11 +25,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
+import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.layout.ScheduleLayout
 import com.turtleteam.core_view.view.sheet.GroupSheet
-import com.turtleteam.impl.presentation.group.screen.components.AdditionalButton
-import com.turtleteam.impl.presentation.group.screen.components.GroupTopBar
+import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
 import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
 
@@ -84,28 +82,28 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                 .fillMaxSize()
                 .then(modifier),
         ) {
-            GroupTopBar(
-                selectedGroup = state.value.selectedGroup ?: "",
+            SelectGroupTopBar(
+                selectedGroup = state.value.selectedGroup ?: "Выбрать",
             ) {
                 scope.launch { sheetState.show() }
                 viewModel.onGroupClick()
             }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 10.dp, bottom = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                AdditionalButton(title = "Звонки") {
-                }
-                AdditionalButton(title = "Планшетка") {
-                }
-                AdditionalButton(title = "Замены") {
-                }
-            }
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(horizontal = 16.dp)
+//                    .padding(top = 10.dp, bottom = 20.dp),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                verticalAlignment = Alignment.CenterVertically,
+//            ) {
+//                AdditionalButton(title = "Звонки") {
+//                }
+//                AdditionalButton(title = "Планшетка") {
+//                }
+//                AdditionalButton(title = "Замены") {
+//                }
+//            }
 
             when (state.value.scheduleLoading) {
                 LoadingState.Loading -> {
@@ -128,7 +126,7 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                 }
 
                 LoadingState.Empty -> {
-                    Text(text = "Empty")
+                    EmptyLayout(title = "Выберите группу")
                 }
 
                 is LoadingState.Error -> ErrorLayout()

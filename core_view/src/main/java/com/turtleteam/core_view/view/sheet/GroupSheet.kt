@@ -12,9 +12,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -28,7 +28,6 @@ import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.utils.searchItem
 import com.turtleteam.core_view.view.layout.ErrorLayout
-import com.turtleteam.core_view.view.sheet.SheetItem
 import com.turtleteam.core_view.view.textField.CommonTextField
 import kotlinx.coroutines.launch
 

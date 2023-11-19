@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.AdditionalNavigation
-import com.turtleteam.impl.presentation.screen.additional.AdditionalScreen
+import com.turtleteam.impl.presentation.presentation.additional.AdditionalScreen
 
 class AdditionalNavigationImpl: AdditionalNavigation {
 

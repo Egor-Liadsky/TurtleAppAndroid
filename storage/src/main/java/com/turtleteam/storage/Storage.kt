@@ -21,6 +21,7 @@ interface Storage {
 
     suspend fun getTheme(): Boolean
     suspend fun getGroup(): String?
+    suspend fun getTeacher(): String?
 }
 
 class StorageImpl(private val context: Context) : Storage {
@@ -46,10 +47,12 @@ class StorageImpl(private val context: Context) : Storage {
         }
     }
 
-//    override val teacher: Flow<String>
-//        get() = context.dataStore.data.map { prefs ->
-//            prefs[TEACHER_KEY] ?: ""
-//        }
+    private val teacher by lazy {
+        context.dataStore.data.map { prefs ->
+            val value = prefs[TEACHER_KEY]
+            if (value.isNullOrBlank()) null else value
+        }
+    }
 
     override suspend fun setTheme(value: Boolean) {
         context.dataStore.edit { storage ->
@@ -75,5 +78,9 @@ class StorageImpl(private val context: Context) : Storage {
 
     override suspend fun getGroup(): String? {
         return group.first()
+    }
+
+    override suspend fun getTeacher(): String? {
+        return teacher.first()
     }
 }

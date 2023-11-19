@@ -28,33 +28,33 @@ class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinC
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update {
-                it.copy(
-                    selectedGroup = storage.getGroup(),
-                )
-            }
-            getSchedule(storage.getGroup() ?: "")
+            _state.update { it.copy(selectedGroup = storage.getGroup()) }
+            getSchedule(storage.getGroup())
         }
     }
 
-    private fun getSchedule(group: String) {
+    private fun getSchedule(group: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            exceptionHandleable(
-                executionBlock = {
-                    _state.update { it.copy(scheduleLoading = LoadingState.Loading) }
-                    val schedule = groupRepository.getSchedule(group)
-                    _state.update {
-                        it.copy(
-                            schedule = schedule,
-                            scheduleLoading = LoadingState.Success,
-                        )
-                    }
-                },
-                failureBlock = { throwable ->
-                    _state.update { it.copy(scheduleLoading = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
-                },
-            )
+            if (group != null) {
+                exceptionHandleable(
+                    executionBlock = {
+                        _state.update { it.copy(scheduleLoading = LoadingState.Loading) }
+                        val schedule = groupRepository.getSchedule(group)
+                        _state.update {
+                            it.copy(
+                                schedule = schedule,
+                                scheduleLoading = LoadingState.Success,
+                            )
+                        }
+                    },
+                    failureBlock = { throwable ->
+                        _state.update { it.copy(scheduleLoading = LoadingState.Error(throwable.toString())) }
+                        errorService.showError(throwable.toString())
+                    },
+                )
+            } else {
+                _state.update { it.copy(scheduleLoading = LoadingState.Empty) }
+            }
         }
     }
 

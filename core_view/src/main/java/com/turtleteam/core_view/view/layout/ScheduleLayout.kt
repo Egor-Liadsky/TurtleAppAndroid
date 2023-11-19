@@ -1,11 +1,6 @@
 package com.turtleteam.core_view.view.layout
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -59,71 +54,52 @@ fun ScheduleLayout(data: Schedule) {
     val pagerState = rememberPagerState { data.days.size }
     val scope = rememberCoroutineScope()
 
-    AnimatedVisibility(
-        visibleState = visible,
-        enter = scaleIn(
-            initialScale = 0.6F,
-            animationSpec = tween(
-                delayMillis = 150,
-                durationMillis = 150,
-                easing = LinearEasing,
-            ),
-        ) + fadeIn(
-            initialAlpha = 0F,
-            animationSpec = tween(
-                delayMillis = 150,
-                durationMillis = 450,
-                easing = LinearEasing,
-            ),
-        ),
-    ) {
-        HorizontalPager(
-            state = pagerState,
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier.fillMaxSize(),
+    ) { page ->
+        LazyColumn(
             modifier = Modifier.fillMaxSize(),
-        ) { page ->
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(
-                    top = 30.dp,
-                    end = 16.dp,
-                    start = 16.dp,
-                    bottom = 16.dp,
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                stickyHeader {
-                    val width = remember { mutableStateOf(0.dp) }
-                    val density = LocalDensity.current
-                    Column(
-                        modifier = Modifier.onGloballyPositioned {
-                            width.value = with(density) { it.size.width.toDp() }
-                        },
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        val popUpExpanded = remember { mutableStateOf(false) }
-                        DateItem(day = data.days[page]) {
-                            popUpExpanded.value = true
-                        }
-                        DatesPopup(
-                            expanded = popUpExpanded.value,
-                            onDismissRequest = { popUpExpanded.value = false },
-                            list = data,
-                            onItemClick = {
-                                scope.launch {
-                                    popUpExpanded.value = false
-                                    delay(100)
-                                    pagerState.scrollToPage(it)
-                                }
-                            },
-                            page,
-                            width.value,
-                        )
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(
+                top = 30.dp,
+                end = 16.dp,
+                start = 16.dp,
+                bottom = 16.dp,
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            stickyHeader {
+                val width = remember { mutableStateOf(0.dp) }
+                val density = LocalDensity.current
+                Column(
+                    modifier = Modifier.onGloballyPositioned {
+                        width.value = with(density) { it.size.width.toDp() }
+                    },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    val popUpExpanded = remember { mutableStateOf(false) }
+                    DateItem(day = data.days[page]) {
+                        popUpExpanded.value = true
                     }
+                    DatesPopup(
+                        expanded = popUpExpanded.value,
+                        onDismissRequest = { popUpExpanded.value = false },
+                        list = data,
+                        onItemClick = {
+                            scope.launch {
+                                popUpExpanded.value = false
+                                delay(100)
+                                pagerState.scrollToPage(it)
+                            }
+                        },
+                        page,
+                        width.value,
+                    )
                 }
-                items(data.days[page].pairs) {
-                    PairItem(pair = it, pagerState.isScrollInProgress)
-                }
+            }
+            items(data.days[page].pairs) {
+                PairItem(pair = it, pagerState.isScrollInProgress)
             }
         }
     }
@@ -183,4 +159,3 @@ fun DatesPopup(
         }
     }
 }
-

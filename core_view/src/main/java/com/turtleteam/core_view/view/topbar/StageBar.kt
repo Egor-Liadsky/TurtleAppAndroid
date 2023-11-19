@@ -11,14 +11,13 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,19 +38,20 @@ fun StageBar(modifier: Modifier = Modifier, number: Int, count: Int) {
             .then(modifier),
         contentPadding = PaddingValues(horizontal = (width)),
         horizontalArrangement = Arrangement.spacedBy(3.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         repeat(count) { iteration ->
             item {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(3.dp)
+                    horizontalArrangement = Arrangement.spacedBy(3.dp),
                 ) {
                     Text(
-                        text = (iteration + 1).toString(), modifier = Modifier
+                        text = (iteration + 1).toString(),
+                        modifier = Modifier
                             .background(
                                 color = if (number == iteration + 1) TurtleTheme.color.stageBarSelectBackgroundColor else TurtleTheme.color.stageBarUnselectBackgroundColor,
-                                shape = CircleShape
+                                shape = CircleShape,
                             )
                             .size(25.dp),
                         style = TextStyle(
@@ -59,20 +59,20 @@ fun StageBar(modifier: Modifier = Modifier, number: Int, count: Int) {
                             fontSize = 18.sp,
                             fontFamily = fontQanelas,
                             textAlign = TextAlign.Center,
-                        )
+                        ),
                     )
-                    if (iteration + 1 != count)
+                    if (iteration + 1 != count) {
                         Spacer(
                             modifier = Modifier
                                 .size(16.dp, 1.dp)
                                 .background(
                                     if (number == iteration + 1) TurtleTheme.color.stageBarSelectBackgroundColor else TurtleTheme.color.stageBarUnselectBackgroundColor,
-                                    RoundedCornerShape(5.dp)
-                                )
+                                    RoundedCornerShape(5.dp),
+                                ),
                         )
+                    }
                 }
             }
         }
     }
 }
-
