@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
 import com.turtleteam.core_view.theme.TurtleAppTheme
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
             val content: View = findViewById(android.R.id.content)
             val scope = rememberCoroutineScope()
             val storage: Storage = koinInject()
-            val isWelcome = mutableStateOf(false)
+            val isWelcome = remember { mutableStateOf(false) }
             val isDarkTheme = storage.theme.collectAsState(initial = false)
 
             // Проверка на регистрацию пользователя, проводится при запуске splash-экрана

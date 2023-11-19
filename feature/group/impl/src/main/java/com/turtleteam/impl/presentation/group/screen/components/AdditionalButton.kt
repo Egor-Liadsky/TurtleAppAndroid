@@ -3,9 +3,9 @@ package com.turtleteam.impl.presentation.group.screen.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +25,7 @@ fun AdditionalButton(
     Button(
         modifier = modifier,
         onClick = { onButtonClick() },
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF5F6F1).copy(0.76f)),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFF5F6F1).copy(0.76f)),
         border = BorderStroke(1.dp, TurtleTheme.color.textColor),
         shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(0.dp),

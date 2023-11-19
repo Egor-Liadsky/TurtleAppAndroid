@@ -27,15 +27,18 @@ val LocalTheme = compositionLocalOf<Boolean> { false }
 @Composable
 fun TurtleAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-
     CompositionLocalProvider(
         LocalTheme provides darkTheme,
-        LocalTextStyle provides TextStyle(fontWeight = FontWeight(700),letterSpacing = 0.sp, fontFamily = fontQanelas),
+        LocalTextStyle provides TextStyle(
+            fontWeight = FontWeight(700),
+            letterSpacing = 0.sp,
+            fontFamily = fontQanelas,
+        ),
         LocalColors provides if (darkTheme) darkColors else colors,
         LocalImages provides if (darkTheme) darkImages else images,
         LocalShapes provides turtleShapes,
-        content = content
+        content = content,
     )
 }

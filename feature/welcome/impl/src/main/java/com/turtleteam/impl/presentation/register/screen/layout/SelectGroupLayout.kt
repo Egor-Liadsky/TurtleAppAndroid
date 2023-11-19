@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.register.screen.layout
+package com.turtleteam.impl.presentation.register.screen.layout
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
@@ -30,7 +30,7 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
     }
 
     ScheduleSelectFrame(
-        image = R.drawable.ic_choose_college,
+        image = R.drawable.ic_choose_group,
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),

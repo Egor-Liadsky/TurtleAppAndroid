@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.register.state
+package com.turtleteam.impl.presentation.register.state
 
 import com.turtleteam.core_view.model.Institution
 import com.turtleteam.core_view.state.LoadingState

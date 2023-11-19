@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.WelcomeNavigation
 import com.turtleteam.impl.presentation.presentation.onBoarding.screen.OnBoardingScreen
 import com.turtleteam.impl.presentation.presentation.onBoarding.viewModel.OnBoardingViewModel
-import com.turtleteam.impl.presentation.presentation.register.screen.WelcomeScreen
+import com.turtleteam.impl.presentation.register.screen.WelcomeScreen
 import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -24,33 +24,35 @@ class WelcomeNavigationImpl : WelcomeNavigation {
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,
-        modifier: Modifier
+        modifier: Modifier,
     ) {
-        navGraphBuilder.composable(route = baseRoute,
+        navGraphBuilder.composable(
+            route = baseRoute,
             enterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             popEnterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             popExitTransition = {
                 slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
-            }) {
+            },
+        ) {
             val navigator =
                 koinInject<WelcomeNavigator>(parameters = { parametersOf(navController) })
             val viewModel =
@@ -58,31 +60,33 @@ class WelcomeNavigationImpl : WelcomeNavigation {
             OnBoardingScreen(viewModel)
         }
 
-        navGraphBuilder.composable("$baseRoute/register",
+        navGraphBuilder.composable(
+            "$baseRoute/register",
             enterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             popEnterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
             },
             popExitTransition = {
                 slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(animDuration)
+                    animationSpec = tween(animDuration),
                 )
-            }) {
+            },
+        ) {
             val navigator =
                 koinInject<WelcomeNavigator>(parameters = { parametersOf(navController) })
             val viewModel =

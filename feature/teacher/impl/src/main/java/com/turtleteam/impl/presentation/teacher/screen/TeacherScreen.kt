@@ -1,12 +1,10 @@
 package com.turtleteam.impl.presentation.teacher.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -14,7 +12,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,6 +23,7 @@ import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
+import com.turtleteam.core_view.view.layout.LoadingLayout
 import com.turtleteam.core_view.view.layout.ScheduleLayout
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
@@ -89,18 +87,7 @@ fun TeacherScreen(modifier: Modifier = Modifier, viewModel: TeacherViewModel) {
             }
 
             when (state.value.scheduleLoading) {
-                LoadingState.Loading -> {
-                    Column(
-                        Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        CircularProgressIndicator(
-                            Modifier.size(24.dp),
-                            color = TurtleTheme.color.textColor,
-                        )
-                    }
-                }
+                LoadingState.Loading -> LoadingLayout()
 
                 LoadingState.Success -> {
                     state.value.schedule?.let {

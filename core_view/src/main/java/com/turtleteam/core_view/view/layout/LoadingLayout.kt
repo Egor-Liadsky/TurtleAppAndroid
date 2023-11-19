@@ -3,10 +3,13 @@ package com.turtleteam.core_view.view.layout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.turtleteam.core_view.theme.TurtleTheme
 
 @Composable
 fun LoadingLayout() {
@@ -15,6 +18,6 @@ fun LoadingLayout() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(Modifier.size(30.dp), color = TurtleTheme.color.textColor)
     }
 }

@@ -1,9 +1,9 @@
-package com.turtleteam.impl.presentation.presentation.register.screen.layout
+package com.turtleteam.impl.presentation.register.screen.layout
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier

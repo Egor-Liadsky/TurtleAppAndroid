@@ -19,7 +19,7 @@ interface Storage {
     suspend fun saveGroup(group: String)
     suspend fun saveTeacher(teacher: String)
 
-    suspend fun getTheme(): Boolean
+    suspend fun getTheme(): Boolean?
     suspend fun getGroup(): String?
     suspend fun getTeacher(): String?
 }

@@ -11,11 +11,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -57,7 +57,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
             ),
             modifier = Modifier.fillMaxWidth(),
         )
-        HorizontalDivider(
+        Divider(
             Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, bottom = 20.dp)
@@ -81,6 +81,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     )
                 }
             }
+
             LoadingState.Success -> {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
@@ -104,6 +105,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     }
                 }
             }
+
             is LoadingState.Error -> ErrorLayout()
             else -> {}
         }

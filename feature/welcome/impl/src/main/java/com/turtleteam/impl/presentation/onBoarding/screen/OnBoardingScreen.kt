@@ -22,7 +22,7 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.pager.PageIndicator
-import com.turtleteam.impl.presentation.presentation.onBoarding.screen.component.OnBoardingItem
+import com.turtleteam.impl.presentation.onBoarding.screen.component.OnBoardingItem
 import com.turtleteam.impl.presentation.presentation.onBoarding.viewModel.OnBoardingViewModel
 import kotlinx.coroutines.launch
 

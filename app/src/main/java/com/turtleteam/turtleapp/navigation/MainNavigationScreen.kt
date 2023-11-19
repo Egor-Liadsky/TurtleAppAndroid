@@ -10,7 +10,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
@@ -27,7 +26,6 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.navigation.BottomNavigationBar
 import com.turtleteam.core_view.navigation.NavigationItem
 import com.turtleteam.core_view.view.background.TurtlesBackground
-import com.turtleteam.storage.Storage
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.compose.koinInject
 
@@ -36,13 +34,10 @@ fun MainNavigationScreen(
     navController: NavHostController,
     isWelcome: Boolean,
     errorService: ErrorService = koinInject(),
-    storage: Storage = koinInject(),
 ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route?.substringBefore("/")
-
-    val scope = rememberCoroutineScope()
 
     val welcomeFeature: WelcomeNavigation = koinInject()
     val groupFeature: GroupNavigation = koinInject()

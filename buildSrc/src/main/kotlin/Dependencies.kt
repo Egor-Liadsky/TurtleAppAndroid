@@ -22,7 +22,7 @@ object Versions {
     object JetpackCompose {
         const val ui = "1.5.3"
         const val activityCompose = "1.5.3"
-        const val material = "1.2.0-alpha10"
+        const val material = "1.5.4"
         const val toolingPreview = "1.5.0-beta01"
         const val navigation = "0.33.2-alpha"
         const val composeNavigation = "2.5.3"
@@ -51,7 +51,7 @@ object Dependencies {
         val uiGraphics by lazy { "androidx.compose.ui:ui:${Versions.JetpackCompose.ui}" }
         val uiToolingPreview by lazy { "androidx.compose.ui:ui-tooling-preview-android:1.5.0-beta01" }
         val foundation by lazy { "androidx.compose.foundation:foundation:${Versions.JetpackCompose.ui}" }
-        val material by lazy { "androidx.compose.material3:material3:${Versions.JetpackCompose.material}" }
+        val material by lazy { "androidx.compose.material:material:${Versions.JetpackCompose.material}" }
         val activityCompose by lazy { "androidx.activity:activity-compose:${Versions.JetpackCompose.activityCompose}" }
         val runtime by lazy { "androidx.compose.runtime:runtime:${Versions.JetpackCompose.ui}" }
         val navigation by lazy { "com.google.accompanist:accompanist-navigation-animation:${Versions.JetpackCompose.navigation}" }

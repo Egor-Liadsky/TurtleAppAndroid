@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.register.screen
+package com.turtleteam.impl.presentation.register.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,9 +27,9 @@ import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.StageBar
 import com.turtleteam.impl.presentation.presentation.register.screen.component.InstitutionSheet
-import com.turtleteam.impl.presentation.presentation.register.screen.layout.SelectGroupLayout
-import com.turtleteam.impl.presentation.presentation.register.screen.layout.SelectInstitutionLayout
-import com.turtleteam.impl.presentation.presentation.register.screen.layout.SelectThemeLayout
+import com.turtleteam.impl.presentation.register.screen.layout.SelectGroupLayout
+import com.turtleteam.impl.presentation.register.screen.layout.SelectInstitutionLayout
+import com.turtleteam.impl.presentation.register.screen.layout.SelectThemeLayout
 import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject

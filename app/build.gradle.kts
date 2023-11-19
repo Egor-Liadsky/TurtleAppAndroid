@@ -67,7 +67,6 @@ dependencies {
     implementation(project(":feature:settings:impl"))
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc")
-    implementation("androidx.compose.material:material:1.5.4")
 
     implementation(Dependencies.Data.ktorClient)
     implementation(Dependencies.JetpackCompose.runtime)

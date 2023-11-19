@@ -6,18 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -27,7 +24,9 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.utils.searchItem
+import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
+import com.turtleteam.core_view.view.layout.LoadingLayout
 import com.turtleteam.core_view.view.textField.CommonTextField
 import kotlinx.coroutines.launch
 
@@ -40,7 +39,7 @@ fun GroupSheet(
     loadingState: LoadingState,
     groups: List<String>,
     selectedGroup: String,
-    onSelectGroupClick: (String) -> Unit
+    onSelectGroupClick: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
@@ -67,35 +66,22 @@ fun GroupSheet(
         )
 
         when (loadingState) {
-            LoadingState.Loading -> {
-                Column(
-                    Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    CircularProgressIndicator(
-                        Modifier.size(24.dp),
-                        color = TurtleTheme.color.textColor,
-                    )
-                }
-            }
+            LoadingState.Loading -> LoadingLayout()
 
             LoadingState.Success -> {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Adaptive(148.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     items(items = groups.searchItem(textFieldValue)) { group ->
-                        if (group != null) {
-                            SheetItem(
-                                modifier = Modifier.padding(bottom = 5.dp),
-                                title = group,
-                                isSelected = selectedGroup == group,
-                            ) {
-                                onSelectGroupClick(group)
-                                scope.launch { sheetState.hide() }
-                                focusManager.clearFocus()
-                            }
+                        SheetItem(
+                            modifier = Modifier.padding(bottom = 5.dp),
+                            title = group,
+                            isSelected = selectedGroup == group,
+                        ) {
+                            onSelectGroupClick(group)
+                            scope.launch { sheetState.hide() }
+                            focusManager.clearFocus()
                         }
                     }
                     item {
@@ -107,8 +93,9 @@ fun GroupSheet(
                 }
             }
 
+            LoadingState.Empty -> EmptyLayout(title = "Пусто")
+
             is LoadingState.Error -> ErrorLayout()
-            else -> {}
         }
     }
 }

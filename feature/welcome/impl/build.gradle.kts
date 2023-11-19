@@ -48,7 +48,6 @@ dependencies {
     implementation(project(Modules.core_data))
     implementation(project(Modules.storage))
 
-    implementation("androidx.compose.material:material:1.4.0")
     implementation(Dependencies.Data.ktorJson)
     implementation(Dependencies.Data.ktorCore)
     implementation(Dependencies.Android.androidCore)
