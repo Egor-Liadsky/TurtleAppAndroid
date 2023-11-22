@@ -36,4 +36,5 @@ android {
 dependencies {
     implementation(Dependencies.Data.ktorJson)
     implementation(project(Modules.core_navigation))
+    implementation(project(Modules.core_view))
 }

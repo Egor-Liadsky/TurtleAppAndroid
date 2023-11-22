@@ -46,13 +46,19 @@ fun SelectGroupButton(
             1.dp,
             TurtleTheme.color.textColor,
         ),
+        elevation = ButtonDefaults.elevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 0.dp
+        ),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFF5F6F1).copy(0.76f)),
         shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(0.dp),
     ) {
         Box(Modifier.fillMaxSize()) {
             Column(
-                Modifier.fillMaxSize().background(Color(0xFFF5F6F1).copy(0.76f)),
+                Modifier
+                    .fillMaxSize()
+                    .background(Color(0xFFF5F6F1).copy(0.76f)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -66,7 +72,11 @@ fun SelectGroupButton(
                     ),
                 )
             }
-            Column(Modifier.align(Alignment.CenterEnd).padding(end = 10.dp)) {
+            Column(
+                Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 10.dp)
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_next),
                     contentDescription = null,

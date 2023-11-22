@@ -5,7 +5,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.AdditionalNavigation
-import com.turtleteam.impl.presentation.presentation.additional.AdditionalScreen
+import com.turtleteam.impl.presentation.presentation.additional.screen.AdditionalScreen
+import com.turtleteam.impl.presentation.presentation.additional.viewModel.AdditionalViewModel
+import org.koin.androidx.compose.koinViewModel
 
 class AdditionalNavigationImpl: AdditionalNavigation {
 
@@ -17,7 +19,8 @@ class AdditionalNavigationImpl: AdditionalNavigation {
         modifier: Modifier
     ) {
         navGraphBuilder.composable(route = baseRoute) {
-            AdditionalScreen(modifier)
+            val viewModel = koinViewModel<AdditionalViewModel>()
+            AdditionalScreen(modifier, viewModel)
         }
     }
 }

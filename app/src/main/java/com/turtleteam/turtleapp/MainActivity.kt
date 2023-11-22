@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,22 +31,24 @@ class MainActivity : ComponentActivity() {
             val isDarkTheme = storage.theme.collectAsState(initial = false)
 
             // Проверка на регистрацию пользователя, проводится при запуске splash-экрана
-            content.viewTreeObserver.addOnPreDrawListener(
-                object : ViewTreeObserver.OnPreDrawListener {
-                    override fun onPreDraw(): Boolean {
-                        scope.launch { isWelcome.value = storage.getGroup() == null }
-                        return if (isWelcome.value) {
-                            content.viewTreeObserver.removeOnPreDrawListener(this)
-                            isWelcome.value = true
-                            true
-                        } else {
-                            content.viewTreeObserver.removeOnPreDrawListener(this)
-                            isWelcome.value = false
-                            false
+            LaunchedEffect(key1 = null) {
+                content.viewTreeObserver.addOnPreDrawListener(
+                    object : ViewTreeObserver.OnPreDrawListener {
+                        override fun onPreDraw(): Boolean {
+                            scope.launch { isWelcome.value = storage.getGroup() == null }
+                            return if (isWelcome.value) {
+                                content.viewTreeObserver.removeOnPreDrawListener(this)
+                                isWelcome.value = true
+                                true
+                            } else {
+                                content.viewTreeObserver.removeOnPreDrawListener(this)
+                                isWelcome.value = false
+                                false
+                            }
                         }
-                    }
-                },
-            )
+                    },
+                )
+            }
 
             val navController = rememberNavController()
             TurtleAppTheme(darkTheme = isDarkTheme.value) {

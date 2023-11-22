@@ -253,7 +253,7 @@ fun PairInfo(pair: PairInfo) {
         ) {
             Icon(
                 modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.ic_teachers),
+                painter = painterResource(id = R.drawable.ic_teacher),
                 contentDescription = "",
                 tint = LocalColors.current.pairInfo,
             )

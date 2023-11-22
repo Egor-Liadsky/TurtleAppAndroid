@@ -54,7 +54,7 @@ fun MainNavigationScreen(
     val bottomNavigationItems = listOf(
         NavigationItem(
             route = groupFeature.baseRoute,
-            icon = R.drawable.ic_group,
+            icon = R.drawable.ic_calendar,
         ),
         NavigationItem(
             route = teacherFeature.baseRoute,
@@ -62,7 +62,7 @@ fun MainNavigationScreen(
         ),
         NavigationItem(
             route = additionalFeature.baseRoute,
-            icon = R.drawable.ic_additional,
+            icon = R.drawable.ic_menu,
         ),
         NavigationItem(
             route = settingsFeature.baseRoute,

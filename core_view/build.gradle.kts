@@ -38,10 +38,8 @@ android {
 }
 
 dependencies {
-    implementation("androidx.compose.foundation:foundation:1.6.0-alpha08")
     implementation(Dependencies.Data.ktorJson)
     implementation(Dependencies.JetpackCompose.ui)
-    implementation(Dependencies.JetpackCompose.composeNavigation)
     implementation(Dependencies.JetpackCompose.runtime)
     implementation(Dependencies.JetpackCompose.material)
     implementation(Dependencies.Android.lifecycle)
