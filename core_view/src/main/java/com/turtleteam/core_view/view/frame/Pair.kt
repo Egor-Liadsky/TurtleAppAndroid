@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -77,7 +78,9 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pair: Pair, scrollInProgre
         Column(
             modifier = Modifier
                 .width(55.dp)
-                .height(with(LocalDensity.current) { height.toDp() }),
+                .height(with(LocalDensity.current) { height.toDp() })
+                .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(15.dp))
+                .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(15.dp)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -165,8 +168,8 @@ fun BoxScope.Pair(pair: Pair, scrollInProgress: Boolean) {
     Row(
         Modifier
             .fillMaxSize()
-            .shadow(4.dp, LocalShapes.current.medium)
-            .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium),
+            .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(12.dp))
+            .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(12.dp)),
     ) {
         Column(modifier = Modifier.width(71.dp), horizontalAlignment = Alignment.End) {
             Text(

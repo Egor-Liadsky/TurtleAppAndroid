@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Ring(
     @SerialName("ring_name")
     val ringName: List<RingName>? = null,
-    val value: List<Value>? = null
+    val value: List<RingValue>? = null
 )
 
 @Serializable
@@ -17,7 +17,7 @@ data class RingName(
 )
 
 @Serializable
-data class Value(
+data class RingValue(
     val type: String? = null,
     val rings: List<RingInfo>? = null
 )

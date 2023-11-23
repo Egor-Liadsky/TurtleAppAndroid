@@ -1,6 +1,5 @@
 package com.turtleteam.core_view.view.sheet
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +21,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
-import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.utils.searchItem
 import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
@@ -47,7 +45,6 @@ fun GroupSheet(
     Column(
         Modifier
             .fillMaxSize()
-            .background(TurtleTheme.color.sheetBackground)
             .padding(horizontal = 16.dp),
     ) {
         CommonTextField(

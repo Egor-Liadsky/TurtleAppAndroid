@@ -2,6 +2,7 @@ package com.turtleteam.core_view.view.layout
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.PopupProperties
 import com.turtleteam.core_view.model.Schedule
 import com.turtleteam.core_view.theme.LocalColors
 import com.turtleteam.core_view.theme.LocalShapes
@@ -127,9 +131,11 @@ fun DatesPopup(
         shapes = MaterialTheme.shapes.copy(medium = LocalShapes.current.medium),
     ) {
         DropdownMenu(
-            modifier = Modifier.width(width),
+            modifier = Modifier
+                .width(width)
+                .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(12.dp)),
             expanded = expanded,
-            onDismissRequest = onDismissRequest,
+            onDismissRequest = onDismissRequest
         ) {
             CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
                 list.days.forEachIndexed { index, day ->
