@@ -67,7 +67,7 @@ fun MenuItem(menuInfo: MenuInfo) {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_next), contentDescription = "ic_next",
-                modifier = Modifier.size(width = 5.dp, height = 11.dp),
+                modifier = Modifier.size(11.dp),
                 tint = TurtleTheme.color.textColor
             )
         }

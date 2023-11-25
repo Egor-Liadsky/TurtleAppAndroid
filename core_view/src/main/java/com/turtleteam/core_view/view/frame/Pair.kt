@@ -78,9 +78,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pair: Pair, scrollInProgre
         Column(
             modifier = Modifier
                 .width(55.dp)
-                .height(with(LocalDensity.current) { height.toDp() })
-                .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(15.dp))
-                .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(15.dp)),
+                .height(with(LocalDensity.current) { height.toDp() }),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -110,8 +108,8 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pair: Pair, scrollInProgre
         Box(
             Modifier
                 .fillMaxWidth()
-                .shadow(4.dp, LocalShapes.current.medium)
-                .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium)
+                .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(15.dp))
+                .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(15.dp))
                 .padding(start = 12.dp)
                 .onGloballyPositioned {
                     height = it.size.height

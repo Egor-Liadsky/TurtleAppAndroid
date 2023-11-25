@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "com.turtleteam.turtleapp";
+option java_multiple_files = true;
+
+message PairInfoPreferences {
+  string doctrine = 1;
+  string teacher = 2;
+  string auditoria = 3;
+  string corpus = 4;
+  int32 number = 5;
+  string start = 6;
+  string end = 7;
+  string warn = 8;
+}
+
+message PairPreferences {
+  string time = 1;
+  repeated PairInfoPreferences pair_info = 2;
+  string iso_date_start = 3;
+  string iso_date_end = 4;
+}
+
+message DayPreferences {
+  repeated PairPreferences pairs = 1;
+  string iso_date_day = 2;
+  string day = 3;
+}
+
+message SchedulePreferences {
+  repeated DayPreferences days = 1;
+  string name = 2;
+}
