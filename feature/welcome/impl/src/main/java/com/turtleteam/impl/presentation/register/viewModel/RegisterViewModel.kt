@@ -7,7 +7,7 @@ import com.turtleteam.core_data.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.model.Institution
 import com.turtleteam.core_view.state.LoadingState
-import com.turtleteam.impl.presentation.navigation.WelcomeNavigator
+import com.turtleteam.impl.navigation.WelcomeNavigator
 import com.turtleteam.impl.presentation.register.state.RegisterState
 import com.turtleteam.storage.InstitutionDataStore
 import com.turtleteam.storage.Storage

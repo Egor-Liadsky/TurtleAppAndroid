@@ -1,7 +1,7 @@
 package com.turtleteam.impl.presentation.presentation.onBoarding.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.turtleteam.impl.presentation.navigation.WelcomeNavigator
+import com.turtleteam.impl.navigation.WelcomeNavigator
 
 class OnBoardingViewModel(private val navigator: WelcomeNavigator): ViewModel() {
 

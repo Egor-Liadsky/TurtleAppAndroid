@@ -1,8 +1,6 @@
 plugins {
-    id("com.android.application").version(PluginVersion.androidApp).apply(false)
-    id("org.jetbrains.kotlin.jvm").version(PluginVersion.kotlin).apply(false)
-    id("com.google.protobuf") version "0.9.1" apply false
-    id("com.android.library") version "8.0.0" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.10" apply false
-    kotlin("plugin.serialization").version("1.8.0").apply(false)
+    alias(libs.plugins.com.android.application) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.com.google.protobuf) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization) apply false
 }

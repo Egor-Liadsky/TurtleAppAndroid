@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.navigation
+package com.turtleteam.impl.navigation
 
 import androidx.navigation.NavController
 import com.turtleteam.api.navigation.GroupNavigation

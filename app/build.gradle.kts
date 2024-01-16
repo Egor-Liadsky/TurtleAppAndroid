@@ -1,16 +1,13 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id("turtleapp.application")
+    id("turtleapp.application.compose")
 }
 
 android {
     namespace = "com.turtleteam.turtleapp"
-    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.turtleteam.turtleapp"
-        minSdk = 26
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -19,23 +16,10 @@ android {
             useSupportLibrary = true
         }
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
     packagingOptions {
         resources {
@@ -46,10 +30,10 @@ android {
 
 dependencies {
 
-    implementation(project(Modules.core_navigation))
-    implementation(project(Modules.core_view))
-    implementation(project(Modules.core_data))
-    implementation(project(Modules.storage))
+    implementation(project(":core_navigation"))
+    implementation(project(":core_view"))
+    implementation(project(":core_data"))
+    implementation(project(":storage"))
 
     implementation(project(":feature:welcome:api"))
     implementation(project(":feature:welcome:impl"))
@@ -66,19 +50,11 @@ dependencies {
     implementation(project(":feature:settings:api"))
     implementation(project(":feature:settings:impl"))
 
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc")
-
-    implementation(Dependencies.Data.ktorClient)
-    implementation(Dependencies.JetpackCompose.runtime)
-    implementation(Dependencies.JetpackCompose.navigation)
-    implementation(Dependencies.JetpackCompose.activityCompose)
-    implementation(Dependencies.JetpackCompose.material)
-    implementation(Dependencies.DI.koin)
-    implementation(Dependencies.DI.koinAndroid)
-    implementation(Dependencies.Data.ktorJson)
-    implementation(Dependencies.Data.ktorCore)
-    implementation(Dependencies.Data.ktorLogging)
-    implementation(Dependencies.Data.ktorContentNegotiation)
-    implementation(Dependencies.Kotlin.kotlinxSerialization)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.logging)
+    implementation(libs.compose.material)
 }
 

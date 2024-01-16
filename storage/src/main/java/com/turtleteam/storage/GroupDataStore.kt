@@ -44,10 +44,10 @@ class GroupDataStoreImpl(private val context: Context): GroupDataStore {
             }
 
     override suspend fun saveGroupSchedule(schedule: Schedule) {
-        context.groupSchedulePreferences.updateData { preferences ->
-            preferences.toBuilder()
-                .setDays()
-        }
+//        context.groupSchedulePreferences.updateData { preferences ->
+//            preferences.toBuilder()
+//                .setDays()
+//        }
     }
 
     override suspend fun getGroupSchedule(): Schedule {

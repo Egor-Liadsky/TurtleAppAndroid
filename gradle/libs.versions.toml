@@ -1,0 +1,72 @@
+[versions]
+
+# Application
+compileSdk = "34"
+minSdk = "26"
+targetSdk = "34"
+composeCompiler = "1.5.8"
+
+# Compose
+activity-compose = "1.8.2"
+compose-material = "1.5.4"
+compose-bom = "2023.10.01"
+navigation-compose = "2.7.6"
+
+# DI
+koin = "3.5.0"
+
+# Ktor
+ktor = "2.2.2"
+
+# Storage
+datastorePreferences = "1.0.0"
+protobufJavalite = "3.21.7"
+
+# UI
+accompanistSystemuicontroller = "0.29.2-rc"
+
+org-jetbrains-kotlin-plugin-serialization = "1.9.22"
+agp = "8.2.1"
+org-jetbrains-kotlin-android = "1.9.22"
+com-google-protobuf = "0.9.1"
+core-ktx = "1.12.0"
+
+android-gradle-plugin = "8.2.1"
+kotlin-gradle-plugin = "1.8.21"
+
+[libraries]
+
+# Gradle Plugin
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+
+# Compose
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose-material" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+
+# DI
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+
+# Ktor
+ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor"}
+
+# Storage
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavalite" }
+
+# UI
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
+
+[plugins]
+com-android-application = { id = "com.android.application", version.ref = "agp" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-plugin-serialization" }
+com-google-protobuf = { id = "com.google.protobuf", version.ref = "com-google-protobuf" }
+
+[bundles]

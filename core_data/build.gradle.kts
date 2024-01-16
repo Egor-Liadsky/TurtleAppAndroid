@@ -1,15 +1,11 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("turtleapp.library")
 }
 
 android {
     namespace = "com.turtleteam.core_network"
-    compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -23,18 +19,12 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
-    implementation(project(Modules.storage))
-    implementation(project(Modules.core_view))
-    implementation(Dependencies.Data.ktorCore)
-    implementation(Dependencies.DI.koin)
+    implementation(project(":storage"))
+    implementation(project(":core_view")) //TODO core_data НЕ ДОЛЖНА ИМЕТЬ ДОСТУП К core_view!!!!
+
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.koin.androidx.compose)
 }

@@ -1,24 +1,13 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("turtleapp.library.feature")
 }
 
 android {
     namespace = "com.turtleteam.api"
-    compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
     }
     buildTypes {
         release {
@@ -29,17 +18,9 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
-    implementation(Dependencies.Data.ktorJson)
-    implementation(project(Modules.core_navigation))
-    implementation(project(Modules.core_view))
+    implementation(project(":core_navigation"))
+    implementation(project(":core_view"))
 }

@@ -1,16 +1,13 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("turtleapp.library.feature")
+    id("turtleapp.library.feature.compose")
     kotlin("plugin.serialization")
 }
 
 android {
     namespace = "com.turtleteam.core_view"
-    compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -24,23 +21,10 @@ android {
             )
         }
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures.compose = true
 }
 
 dependencies {
-    implementation(Dependencies.Data.ktorJson)
-    implementation(Dependencies.JetpackCompose.ui)
-    implementation(Dependencies.JetpackCompose.runtime)
-    implementation(Dependencies.JetpackCompose.material)
-    implementation(Dependencies.Android.lifecycle)
+    implementation(libs.ktor.serialization) //TODO надо убрать модели
+    implementation(libs.compose.material)
+//    implementation(Dependencies.Android.lifecycle)
 }

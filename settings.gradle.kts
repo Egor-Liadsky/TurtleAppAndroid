@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -12,10 +13,10 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "EventApp"
+rootProject.name = "TurtleSchedule"
 include(":app")
 include(":feature")
-include("core_navigation")
+include(":core_navigation")
 include(":core_view")
 include(":core_data")
 include(":storage")
