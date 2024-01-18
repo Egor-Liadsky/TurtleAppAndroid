@@ -68,5 +68,6 @@ com-android-application = { id = "com.android.application", version.ref = "agp" 
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-plugin-serialization" }
 com-google-protobuf = { id = "com.google.protobuf", version.ref = "com-google-protobuf" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 
 [bundles]

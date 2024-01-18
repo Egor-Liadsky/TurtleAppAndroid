@@ -39,13 +39,13 @@ fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBotto
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),
-            title = if (state.value.selectInstitution?.port == null) {
+            title = if (state.value.selectedInstitution?.port == null) {
                 "Выбрать"
             } else {
-                state.value.selectInstitution!!.title
+                state.value.selectedInstitution!!.title
                     ?: ""
             },
-            isSelected = state.value.selectInstitution?.port != null,
+            isSelected = state.value.selectedInstitution?.port != null,
             trailingContent = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_turtle_select),

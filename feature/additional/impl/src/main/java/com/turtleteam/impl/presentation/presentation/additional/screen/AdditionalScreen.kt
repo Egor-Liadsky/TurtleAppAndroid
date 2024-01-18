@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.view.button.NextButton
-import com.turtleteam.core_view.view.layout.ErrorShortLayout
 import com.turtleteam.core_view.view.progressBar.CommonProgressBar
 import com.turtleteam.core_view.view.topbar.CommonTopBar
 import com.turtleteam.impl.presentation.presentation.additional.screen.components.RingList
@@ -55,13 +54,12 @@ fun AdditionalScreen(modifier: Modifier = Modifier, viewModel: AdditionalViewMod
                         LoadingState.Success -> {
                             state.value.rings?.let {
                                 RingList(rings = state.value.rings!!) {
+
                                 }
                             }
                         }
 
-                        LoadingState.Empty -> {}
-
-                        is LoadingState.Error -> ErrorShortLayout(Modifier.padding(top = 16.dp))
+                        else -> {}
                     }
                 }
             }

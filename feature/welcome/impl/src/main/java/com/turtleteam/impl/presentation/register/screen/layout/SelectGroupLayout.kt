@@ -37,8 +37,8 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),
-            title = if (state.value.selectGroup == null) "Выбрать" else state.value.selectGroup!!,
-            isSelected = state.value.selectGroup != null,
+            title = if (state.value.selectedGroup == null) "Выбрать" else state.value.selectedGroup!!,
+            isSelected = state.value.selectedGroup != null,
             trailingContent = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_turtle_select),

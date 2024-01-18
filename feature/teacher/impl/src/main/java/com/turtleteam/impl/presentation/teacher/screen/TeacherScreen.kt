@@ -27,6 +27,7 @@ import com.turtleteam.core_view.view.layout.LoadingLayout
 import com.turtleteam.core_view.view.layout.ScheduleLayout
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
+import com.turtleteam.core_view.R
 import com.turtleteam.impl.presentation.teacher.viewModel.TeacherViewModel
 import kotlinx.coroutines.launch
 
@@ -67,6 +68,7 @@ fun TeacherScreen(modifier: Modifier = Modifier, viewModel: TeacherViewModel) {
                         loadingState = state.value.teachersLoadingState,
                         groups = state.value.teachers ?: listOf(),
                         selectedGroup = state.value.selectedTeacher ?: "",
+                        onRefresh = { viewModel.onRefreshTeachers() }
                     ) {
                         viewModel.onSelectTeacherClick(it)
                     }
@@ -96,10 +98,15 @@ fun TeacherScreen(modifier: Modifier = Modifier, viewModel: TeacherViewModel) {
                 }
 
                 LoadingState.Empty -> {
-                    EmptyLayout(title = "Выберите преподавателя")
+                    EmptyLayout(
+                        image = R.drawable.ic_select_group_empty,
+                        title = "Выберите\nпреподавателя"
+                    )
                 }
 
-                is LoadingState.Error -> ErrorLayout()
+                is LoadingState.Error -> ErrorLayout {
+                    viewModel.onRefreshSchedule()
+                }
             }
         }
     }

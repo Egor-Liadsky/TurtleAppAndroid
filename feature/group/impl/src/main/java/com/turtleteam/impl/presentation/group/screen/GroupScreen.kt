@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.layout.EmptyLayout
@@ -67,6 +68,7 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                         loadingState = state.value.groupsLoadingState,
                         groups = state.value.groups ?: listOf(),
                         selectedGroup = state.value.selectedGroup ?: "",
+                        onRefresh = { viewModel.onRefreshGroups() }
                     ) {
                         viewModel.onSelectGroupClick(it)
                     }
@@ -112,10 +114,15 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                 }
 
                 LoadingState.Empty -> {
-                    EmptyLayout(title = "Выберите группу")
+                    EmptyLayout(
+                        image = R.drawable.ic_select_group_empty,
+                        title = "Выберите группу"
+                    )
                 }
 
-                is LoadingState.Error -> ErrorLayout()
+                is LoadingState.Error -> ErrorLayout {
+                    viewModel.onRefreshSchedule()
+                }
             }
         }
     }

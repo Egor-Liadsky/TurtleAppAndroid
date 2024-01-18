@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.register.screen.component
+package com.turtleteam.impl.presentation.register.screen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.api.models.Institution
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
@@ -37,8 +38,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: RegisterViewModel) {
-    val state = registerViewModel.state.collectAsState()
+fun InstitutionSheet(
+    sheetState: ModalBottomSheetState,
+    loadingState: LoadingState,
+    institutions: List<Institution>,
+    selectedInstitution: Institution,
+    onRefresh: () -> Unit,
+    onSelectInstitutionClick: (Institution) -> Unit
+) {
     val scope = rememberCoroutineScope()
 
     Column(
@@ -67,7 +74,7 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
             color = Color(0xFFB9B9B9),
         )
 
-        when (state.value.institutionLoadingState) {
+        when (loadingState) {
             LoadingState.Loading -> {
                 Column(
                     Modifier
@@ -87,13 +94,13 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    items(items = state.value.institutions ?: listOf()) { institution ->
+                    items(items = institutions) { institution ->
                         SheetItem(
                             modifier = Modifier.padding(bottom = 5.dp),
                             title = institution.title ?: "",
-                            isSelected = state.value.selectInstitution == institution,
+                            isSelected = selectedInstitution == institution,
                         ) {
-                            registerViewModel.onSelectInstitutionClick(institution)
+                            onSelectInstitutionClick(institution)
                             scope.launch { sheetState.hide() }
                         }
                     }
@@ -106,7 +113,10 @@ fun InstitutionSheet(sheetState: ModalBottomSheetState, registerViewModel: Regis
                 }
             }
 
-            is LoadingState.Error -> ErrorLayout()
+            is LoadingState.Error -> ErrorLayout {
+                onRefresh()
+            }
+
             else -> {}
         }
     }

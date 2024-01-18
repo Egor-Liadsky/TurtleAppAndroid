@@ -29,7 +29,7 @@ fun SelectThemeLayout(viewModel: RegisterViewModel) {
         SelectButton(
             Modifier.padding(top = 10.dp),
             title = "Светлая",
-            isSelected = state.value.selectThemeIsDark == false,
+            isSelected = state.value.selectedThemeIsDark == false,
             trailingContent = {
                 Icon(
                     painter = painterResource(id = R.drawable.sun),
@@ -45,7 +45,7 @@ fun SelectThemeLayout(viewModel: RegisterViewModel) {
         SelectButton(
             Modifier.padding(top = 5.dp),
             title = "Темная",
-            isSelected = state.value.selectThemeIsDark == true,
+            isSelected = state.value.selectedThemeIsDark == true,
             trailingContent = {
                 Icon(
                     painter = painterResource(id = R.drawable.moon),

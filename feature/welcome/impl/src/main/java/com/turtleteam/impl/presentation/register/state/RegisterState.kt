@@ -9,9 +9,9 @@ data class RegisterState(
     val groups: List<String>? = null,
     val institutionLoadingState: LoadingState = LoadingState.Success,
     val groupsLoadingState: LoadingState = LoadingState.Success,
-    val selectInstitution: Institution? = null,
-    val selectThemeIsDark: Boolean? = null,
-    val selectGroup: String? = null,
+    val selectedInstitution: Institution? = null,
+    val selectedThemeIsDark: Boolean? = null,
+    val selectedGroup: String? = null,
     val port: String? = null,
     val textFieldValue: String = ""
 )

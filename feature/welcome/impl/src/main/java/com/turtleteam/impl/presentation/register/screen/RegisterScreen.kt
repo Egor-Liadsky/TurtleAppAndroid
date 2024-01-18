@@ -21,12 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.turtleteam.api.models.Institution
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.StageBar
-import com.turtleteam.impl.presentation.presentation.register.screen.component.InstitutionSheet
+import com.turtleteam.impl.presentation.register.screen.component.InstitutionSheet
 import com.turtleteam.impl.presentation.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectInstitutionLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectThemeLayout
@@ -68,8 +69,13 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                     when (state.value.stage) {
                         1 -> InstitutionSheet(
                             sheetState = sheetState,
-                            registerViewModel = viewModel,
-                        )
+                            loadingState = state.value.institutionLoadingState,
+                            institutions = state.value.institutions ?: listOf(),
+                            selectedInstitution = state.value.selectedInstitution ?: Institution(),
+                            onRefresh = { viewModel.onRefreshInstitutions() }
+                        ) {
+                            viewModel.onSelectInstitutionClick(it)
+                        }
 
                         2 -> {
                             GroupSheet(
@@ -78,7 +84,8 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                                 onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
                                 loadingState = state.value.groupsLoadingState,
                                 groups = state.value.groups ?: listOf(),
-                                selectedGroup = state.value.selectGroup ?: "",
+                                selectedGroup = state.value.selectedGroup ?: "",
+                                onRefresh = { viewModel.onRefreshGroups() },
                             ) {
                                 viewModel.onSelectGroupClick(it)
                             }
@@ -115,7 +122,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
             ) {
                 when (state.value.stage) {
                     1 -> {
-                        if (state.value.selectInstitution?.port != null) {
+                        if (state.value.selectedInstitution?.port != null) {
                             viewModel.onNextClick()
                         } else {
                             scope.launch { errorService.showError("Выберите ваше учебное заведение") }
@@ -123,7 +130,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                     }
 
                     2 -> {
-                        if (state.value.selectGroup != null) {
+                        if (state.value.selectedGroup != null) {
                             viewModel.onNextClick()
                         } else {
                             scope.launch { errorService.showError("Выберите группу") }

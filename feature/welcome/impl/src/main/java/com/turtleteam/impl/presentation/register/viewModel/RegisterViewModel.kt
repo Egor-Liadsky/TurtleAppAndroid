@@ -21,7 +21,6 @@ import org.koin.core.component.inject
 
 class RegisterViewModel(
     private val navigator: WelcomeNavigator,
-    private val errorService: ErrorService,
     private val storage: Storage,
 ) : ViewModel(), KoinComponent {
 
@@ -35,9 +34,9 @@ class RegisterViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-                    selectInstitution = institutionPreferences.getInstitution(),
-                    selectGroup = storage.getGroup(),
-                    selectThemeIsDark = storage.getTheme(),
+                    selectedInstitution = institutionPreferences.getInstitution(),
+                    selectedGroup = storage.getGroup(),
+                    selectedThemeIsDark = storage.getTheme(),
                 )
             }
         }
@@ -62,29 +61,47 @@ class RegisterViewModel(
     }
 
     fun onInstitutionClick() {
-        viewModelScope.launch(Dispatchers.IO) {
-            exceptionHandleable(
-                executionBlock = {
-                    if (state.value.institutions == null) {
-                        _state.update { it.copy(institutionLoadingState = LoadingState.Loading) }
-                        val institutions = welcomeRepository.getInstitutions()
-                        _state.update {
-                            it.copy(
-                                institutions = institutions,
-                                institutionLoadingState = LoadingState.Success,
-                            )
-                        }
-                    }
-                },
-                failureBlock = { throwable ->
-                    _state.update { it.copy(institutionLoadingState = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
-                },
-            )
-        }
+       getInstitutions()
     }
 
     fun onGroupClick() {
+        getGroups()
+    }
+
+    fun onSelectInstitutionClick(institution: Institution) {
+        viewModelScope.launch(Dispatchers.IO) {
+            institutionPreferences.saveInstitution(institution)
+            _state.update { it.copy(selectedInstitution = institution) }
+        }
+    }
+
+    fun onSelectGroupClick(group: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            storage.saveGroup(group)
+            _state.update { it.copy(selectedGroup = group) }
+        }
+    }
+
+    fun onSelectThemeClick(isDark: Boolean) {
+        viewModelScope.launch {
+            storage.setTheme(isDark)
+            _state.update { it.copy(selectedThemeIsDark = isDark) }
+        }
+    }
+
+    fun onTextFieldValueChanged(value: String) {
+        _state.update { it.copy(textFieldValue = value) }
+    }
+
+    fun onRefreshGroups() {
+        getGroups()
+    }
+
+    fun onRefreshInstitutions() {
+        getInstitutions()
+    }
+
+    private fun getGroups() {
         viewModelScope.launch(Dispatchers.IO) {
             exceptionHandleable(
                 executionBlock = {
@@ -101,34 +118,30 @@ class RegisterViewModel(
                 },
                 failureBlock = { throwable ->
                     _state.update { it.copy(groupsLoadingState = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
                 },
             )
         }
     }
 
-    fun onSelectInstitutionClick(institution: Institution) {
+    private fun getInstitutions() {
         viewModelScope.launch(Dispatchers.IO) {
-            institutionPreferences.saveInstitution(institution)
-            _state.update { it.copy(selectInstitution = institution) }
+            exceptionHandleable(
+                executionBlock = {
+                    if (state.value.institutions == null) {
+                        _state.update { it.copy(institutionLoadingState = LoadingState.Loading) }
+                        val institutions = welcomeRepository.getInstitutions()
+                        _state.update {
+                            it.copy(
+                                institutions = institutions,
+                                institutionLoadingState = LoadingState.Success,
+                            )
+                        }
+                    }
+                },
+                failureBlock = { throwable ->
+                    _state.update { it.copy(institutionLoadingState = LoadingState.Error(throwable.toString())) }
+                },
+            )
         }
-    }
-
-    fun onSelectGroupClick(group: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            storage.saveGroup(group)
-            _state.update { it.copy(selectGroup = group) }
-        }
-    }
-
-    fun onSelectThemeClick(isDark: Boolean) {
-        viewModelScope.launch {
-            storage.setTheme(isDark)
-            _state.update { it.copy(selectThemeIsDark = isDark) }
-        }
-    }
-
-    fun onTextFieldValueChanged(value: String) {
-        _state.update { it.copy(textFieldValue = value) }
     }
 }

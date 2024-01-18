@@ -37,6 +37,7 @@ fun GroupSheet(
     loadingState: LoadingState,
     groups: List<String>,
     selectedGroup: String,
+    onRefresh: () -> Unit,
     onSelectGroupClick: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -90,9 +91,14 @@ fun GroupSheet(
                 }
             }
 
-            LoadingState.Empty -> EmptyLayout(title = "Пусто")
+            LoadingState.Empty -> EmptyLayout(
+                image = R.drawable.ic_not_found,
+                title = "Пусто"
+            )
 
-            is LoadingState.Error -> ErrorLayout()
+            is LoadingState.Error -> ErrorLayout {
+                onRefresh()
+            }
         }
     }
 }

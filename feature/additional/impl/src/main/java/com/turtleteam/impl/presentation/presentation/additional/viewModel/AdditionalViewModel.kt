@@ -24,6 +24,10 @@ class AdditionalViewModel : ViewModel(), KoinComponent {
     private val errorService: ErrorService by inject()
 
     fun onRingsClick() {
+        getRings()
+    }
+
+    private fun getRings() {
         viewModelScope.launch(Dispatchers.IO) {
             exceptionHandleable(
                 executionBlock = {
@@ -42,8 +46,13 @@ class AdditionalViewModel : ViewModel(), KoinComponent {
                     }
                 },
                 failureBlock = { throwable ->
-                    _state.update { it.copy(ringsLoadingState = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
+                    _state.update {
+                        it.copy(
+                            ringsOpened = !it.ringsOpened,
+                            ringsLoadingState = LoadingState.Error(throwable.toString())
+                        )
+                    }
+                    errorService.showError("Проверьте соединение с интернетом")
                 }
             )
         }

@@ -32,6 +32,52 @@ class TeacherViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    fun onTeacherClick() {
+        getTeachers()
+    }
+
+    fun onSelectTeacherClick(teacher: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            storage.saveTeacher(teacher)
+            _state.update { it.copy(selectedTeacher = teacher) }
+            getSchedule(teacher)
+        }
+    }
+
+    fun onTextFieldValueChanged(value: String) {
+        _state.update { it.copy(textFieldValue = value) }
+    }
+
+    fun onRefreshSchedule() {
+        getSchedule(state.value.selectedTeacher)
+    }
+
+    fun onRefreshTeachers() {
+        getTeachers()
+    }
+
+    private fun getTeachers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            exceptionHandleable(
+                executionBlock = {
+                    if (state.value.teachers == null) {
+                        _state.update { it.copy(teachersLoadingState = LoadingState.Loading) }
+                        val teachers = teacherRepository.getTeachers().teacher
+                        _state.update {
+                            it.copy(
+                                teachers = teachers,
+                                teachersLoadingState = LoadingState.Success,
+                            )
+                        }
+                    }
+                },
+                failureBlock = { throwable ->
+                    _state.update { it.copy(teachersLoadingState = LoadingState.Error(throwable.toString())) }
+                },
+            )
+        }
+    }
+
     private fun getSchedule(teacher: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             if (teacher != null) {
@@ -55,40 +101,5 @@ class TeacherViewModel : ViewModel(), KoinComponent {
                 _state.update { it.copy(scheduleLoading = LoadingState.Empty) }
             }
         }
-    }
-
-    fun onTeacherClick() {
-        viewModelScope.launch(Dispatchers.IO) {
-            exceptionHandleable(
-                executionBlock = {
-                    if (state.value.teachers == null) {
-                        _state.update { it.copy(teachersLoadingState = LoadingState.Loading) }
-                        val teachers = teacherRepository.getTeachers().teacher
-                        _state.update {
-                            it.copy(
-                                teachers = teachers,
-                                teachersLoadingState = LoadingState.Success,
-                            )
-                        }
-                    }
-                },
-                failureBlock = { throwable ->
-                    _state.update { it.copy(teachersLoadingState = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
-                },
-            )
-        }
-    }
-
-    fun onSelectTeacherClick(teacher: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            storage.saveTeacher(teacher)
-            _state.update { it.copy(selectedTeacher = teacher) }
-            getSchedule(teacher)
-        }
-    }
-
-    fun onTextFieldValueChanged(value: String) {
-        _state.update { it.copy(textFieldValue = value) }
     }
 }

@@ -17,19 +17,66 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinComponent {
+class GroupViewModel : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(GroupState())
     val state = _state.asStateFlow()
 
     private val storage: Storage by inject()
     private val groupRepository: GroupRepository by inject()
-    private val errorService: ErrorService by inject()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(selectedGroup = storage.getGroup()) }
-            getSchedule(storage.getGroup())
+            getSchedule(state.value.selectedGroup)
+        }
+    }
+
+    fun onGroupClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getGroups()
+        }
+    }
+
+    fun onSelectGroupClick(group: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            storage.saveGroup(group)
+            _state.update { it.copy(selectedGroup = group) }
+            getSchedule(group)
+        }
+    }
+
+    fun onTextFieldValueChanged(value: String) {
+        _state.update { it.copy(textFieldValue = value) }
+    }
+
+    fun onRefreshSchedule() {
+        getSchedule(state.value.selectedGroup)
+    }
+
+    fun onRefreshGroups() {
+        getGroups()
+    }
+
+    private fun getGroups() {
+        viewModelScope.launch(Dispatchers.IO) {
+            exceptionHandleable(
+                executionBlock = {
+                    if (state.value.groups == null) {
+                        _state.update { it.copy(groupsLoadingState = LoadingState.Loading) }
+                        val groups = groupRepository.getGroups().group
+                        _state.update {
+                            it.copy(
+                                groups = groups,
+                                groupsLoadingState = LoadingState.Success,
+                            )
+                        }
+                    }
+                },
+                failureBlock = { throwable ->
+                    _state.update { it.copy(groupsLoadingState = LoadingState.Error(throwable.toString())) }
+                },
+            )
         }
     }
 
@@ -49,47 +96,11 @@ class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinC
                     },
                     failureBlock = { throwable ->
                         _state.update { it.copy(scheduleLoading = LoadingState.Error(throwable.toString())) }
-                        errorService.showError(throwable.toString())
                     },
                 )
             } else {
                 _state.update { it.copy(scheduleLoading = LoadingState.Empty) }
             }
         }
-    }
-
-    fun onGroupClick() {
-        viewModelScope.launch(Dispatchers.IO) {
-            exceptionHandleable(
-                executionBlock = {
-                    if (state.value.groups == null) {
-                        _state.update { it.copy(groupsLoadingState = LoadingState.Loading) }
-                        val groups = groupRepository.getGroups().group
-                        _state.update {
-                            it.copy(
-                                groups = groups,
-                                groupsLoadingState = LoadingState.Success,
-                            )
-                        }
-                    }
-                },
-                failureBlock = { throwable ->
-                    _state.update { it.copy(groupsLoadingState = LoadingState.Error(throwable.toString())) }
-                    errorService.showError(throwable.toString())
-                },
-            )
-        }
-    }
-
-    fun onSelectGroupClick(group: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            storage.saveGroup(group)
-            _state.update { it.copy(selectedGroup = group) }
-            getSchedule(group)
-        }
-    }
-
-    fun onTextFieldValueChanged(value: String) {
-        _state.update { it.copy(textFieldValue = value) }
     }
 }
