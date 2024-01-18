@@ -18,8 +18,12 @@ include(":app")
 include(":feature")
 include(":core_navigation")
 include(":core_view")
-include(":core_data")
 include(":storage")
+
+// Data
+//include(":core_data")
+include(":core_data:api")
+include(":core_data:impl")
 
 // Welcome
 include(":feature:welcome")
@@ -45,3 +49,5 @@ include(":feature:additional:impl")
 include(":feature:settings")
 include(":feature:settings:api")
 include(":feature:settings:impl")
+include(":core_data:api")
+include(":core_data:impl")

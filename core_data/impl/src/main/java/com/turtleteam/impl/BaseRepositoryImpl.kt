@@ -1,8 +1,9 @@
-package com.turtleteam.core_data
+package com.turtleteam.impl
 
-import com.turtleteam.core_data.error.AppError
-import com.turtleteam.core_data.error.Code
-import com.turtleteam.core_data.error.ServerException
+import com.turtleteam.api.BaseRepository
+import com.turtleteam.api.error.AppError
+import com.turtleteam.api.error.Code
+import com.turtleteam.api.error.ServerException
 import com.turtleteam.storage.InstitutionDataStore
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -17,16 +18,17 @@ import io.ktor.utils.io.errors.IOException
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class BaseRepository(private val httpClient: HttpClient) : KoinComponent {
+class BaseRepositoryImpl(private val httpClient: HttpClient) : KoinComponent,
+    BaseRepository {
 
     private val institutionDataStore: InstitutionDataStore by inject()
 
-    protected suspend fun executeCall(
+    override suspend fun executeCall(
         type: HttpMethod,
         path: String,
-        parameters: Map<String, String>? = null,
-        headers: Map<String, String>? = null,
-        body: String? = null,
+        parameters: Map<String, String>?,
+        headers: Map<String, String>?,
+        body: String?,
     ): String {
         val port = institutionDataStore.getInstitution()?.port
 

@@ -26,7 +26,7 @@ dependencies {
     implementation(project(":feature:additional:api"))
     implementation(project(":core_view"))
     implementation(project(":core_navigation"))
-    implementation(project(":core_data"))
+    implementation(project(":core_data:api"))
 
     implementation(libs.ktor.serialization)
     implementation(libs.ktor.client.okhttp)

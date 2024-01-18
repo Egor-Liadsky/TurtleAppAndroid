@@ -1,18 +1,16 @@
 package com.turtleteam.impl.presentation.data
 
+import com.turtleteam.api.BaseRepository
 import com.turtleteam.api.data.repository.AdditionalRepository
-import com.turtleteam.core_data.BaseRepository
-import com.turtleteam.core_view.model.Ring
-import io.ktor.client.HttpClient
+import com.turtleteam.api.models.Ring
 import io.ktor.http.HttpMethod
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class AdditionalRepositoryImpl(httpClient: HttpClient) : AdditionalRepository,
-    BaseRepository(httpClient) {
+class AdditionalRepositoryImpl(private val repository: BaseRepository) : AdditionalRepository{
 
     override suspend fun getRings(): Ring {
-        val response = executeCall(
+        val response = repository.executeCall(
             type = HttpMethod.Get,
             path = "ring",
             headers = mapOf("Content-Type" to "application/json"),

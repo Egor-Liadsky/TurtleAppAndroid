@@ -1,16 +1,14 @@
 package com.turtleteam.impl.navigation
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.WelcomeNavigation
 import com.turtleteam.impl.presentation.presentation.onBoarding.screen.OnBoardingScreen
-import com.turtleteam.impl.presentation.presentation.onBoarding.viewModel.OnBoardingViewModel
+import com.turtleteam.impl.presentation.onBoarding.viewModel.OnBoardingViewModel
 import com.turtleteam.impl.presentation.register.screen.WelcomeScreen
-import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
+import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf

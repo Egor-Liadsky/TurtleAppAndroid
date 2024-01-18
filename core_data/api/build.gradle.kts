@@ -1,15 +1,17 @@
 plugins {
-    id("turtleapp.library.feature")
-    id("turtleapp.library.feature.compose")
+    id("turtleapp.library")
+//    id("turtleapp.library.feature")
+    kotlin("plugin.serialization")
 }
 
 android {
-    namespace = "com.turtleteam.impl"
+    namespace = "com.example.api"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -22,14 +24,5 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":feature:teacher:api"))
-    implementation(project(":core_view"))
-    implementation(project(":core_navigation"))
-    implementation(project(":core_data:api"))
-    implementation(project(":storage"))
-
     implementation(libs.ktor.serialization)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.compose.material)
 }

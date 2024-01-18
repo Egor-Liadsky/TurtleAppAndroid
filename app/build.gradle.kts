@@ -32,7 +32,9 @@ dependencies {
 
     implementation(project(":core_navigation"))
     implementation(project(":core_view"))
-    implementation(project(":core_data"))
+//    implementation(project(":core_data"))
+    implementation(project(":core_data:api"))
+    implementation(project(":core_data:impl"))
     implementation(project(":storage"))
 
     implementation(project(":feature:welcome:api"))

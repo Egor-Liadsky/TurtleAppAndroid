@@ -28,7 +28,7 @@ dependencies {
     implementation(project(":feature:teacher:api"))
     implementation(project(":core_view"))
     implementation(project(":core_navigation"))
-    implementation(project(":core_data"))
+    implementation(project(":core_data:api"))
     implementation(project(":storage"))
 
     implementation(libs.ktor.serialization)

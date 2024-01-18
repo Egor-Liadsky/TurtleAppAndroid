@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core_view"))
+    implementation(project(":core_data:api"))
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.protobuf.javalite)

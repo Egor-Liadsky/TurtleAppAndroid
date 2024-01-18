@@ -23,6 +23,5 @@ android {
 
 dependencies {
     implementation(project(":core_navigation"))
-    implementation(project(":core_data"))
-    implementation(project(":core_view")) //TODO убрать
+    implementation(project(":core_data:api"))
 }

@@ -1,7 +1,6 @@
 plugins {
     id("turtleapp.library.feature")
     id("turtleapp.library.feature.compose")
-    kotlin("plugin.serialization")
 }
 
 android {
@@ -24,7 +23,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.ktor.serialization) //TODO надо убрать модели
+    implementation(project(":core_data:api"))
     implementation(libs.compose.material)
-//    implementation(Dependencies.Android.lifecycle)
 }

@@ -1,19 +1,17 @@
 package com.turtleteam.impl.data.repository
 
+import com.turtleteam.api.BaseRepository
 import com.turtleteam.api.data.repository.TeacherRepository
-import com.turtleteam.core_data.BaseRepository
-import com.turtleteam.core_view.model.GroupAndTeacher
-import com.turtleteam.core_view.model.Schedule
-import io.ktor.client.HttpClient
+import com.turtleteam.api.models.GroupAndTeacher
+import com.turtleteam.api.models.Schedule
 import io.ktor.http.HttpMethod
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class TeacherRepositoryImpl(httpClient: HttpClient) : TeacherRepository,
-    BaseRepository(httpClient) {
+class TeacherRepositoryImpl(private val repository: BaseRepository) : TeacherRepository {
 
     override suspend fun getSchedule(group: String): Schedule {
-        val response = executeCall(
+        val response = repository.executeCall(
             type = HttpMethod.Get,
             path = "schedule/$group",
             headers = mapOf("Content-Type" to "application/json"),
@@ -22,7 +20,7 @@ class TeacherRepositoryImpl(httpClient: HttpClient) : TeacherRepository,
     }
 
     override suspend fun getTeachers(): GroupAndTeacher {
-        val response = executeCall(
+        val response = repository.executeCall(
             type = HttpMethod.Get,
             path = "schedule/list",
             headers = mapOf("Content-Type" to "application/json"),

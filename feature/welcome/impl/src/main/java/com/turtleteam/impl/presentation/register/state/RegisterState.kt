@@ -1,6 +1,6 @@
 package com.turtleteam.impl.presentation.register.state
 
-import com.turtleteam.core_view.model.Institution
+import com.turtleteam.api.models.Institution
 import com.turtleteam.core_view.state.LoadingState
 
 data class RegisterState(

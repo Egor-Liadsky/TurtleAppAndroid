@@ -32,7 +32,7 @@ import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.sheet.SheetItem
-import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
+import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)

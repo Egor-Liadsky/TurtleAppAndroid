@@ -3,7 +3,7 @@ package com.turtleteam.impl.presentation.teacher.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.TeacherRepository
-import com.turtleteam.core_data.error.exceptionHandleable
+import com.turtleteam.api.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.presentation.teacher.state.TeacherState
@@ -26,7 +26,7 @@ class TeacherViewModel : ViewModel(), KoinComponent {
     private val errorService: ErrorService by inject()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) { //TODO попробовать запустить на Main потоке
             _state.update { it.copy(selectedTeacher = storage.getTeacher()) }
             getSchedule(storage.getTeacher())
         }

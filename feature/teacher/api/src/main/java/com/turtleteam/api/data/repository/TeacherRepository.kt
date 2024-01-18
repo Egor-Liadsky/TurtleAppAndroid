@@ -1,7 +1,8 @@
 package com.turtleteam.api.data.repository
 
-import com.turtleteam.core_view.model.GroupAndTeacher
-import com.turtleteam.core_view.model.Schedule
+import com.turtleteam.api.models.GroupAndTeacher
+import com.turtleteam.api.models.Schedule
+
 
 interface TeacherRepository {
 

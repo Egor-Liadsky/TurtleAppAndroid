@@ -4,10 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
-import com.turtleteam.core_view.model.Schedule
-import com.turtleteam.storage.data.InstitutionPreferencesSerializer
+import com.turtleteam.api.models.Schedule
 import com.turtleteam.storage.data.SchedulePreferencesSerializer
-import com.turtleteam.turtleapp.InstitutionPreferences
 import com.turtleteam.turtleapp.SchedulePreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -21,7 +19,7 @@ interface GroupDataStore {
     suspend fun getGroupSchedule(): Schedule
 }
 
-class GroupDataStoreImpl(private val context: Context): GroupDataStore {
+class GroupDataStoreImpl(private val context: Context) : GroupDataStore {
 
     companion object {
         private const val DATA_STORE_FILE_NAME = "group_schedule.pb"

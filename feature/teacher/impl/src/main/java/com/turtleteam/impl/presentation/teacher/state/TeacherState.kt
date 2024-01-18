@@ -1,6 +1,6 @@
 package com.turtleteam.impl.presentation.teacher.state
 
-import com.turtleteam.core_view.model.Schedule
+import com.turtleteam.api.models.Schedule
 import com.turtleteam.core_view.state.LoadingState
 
 data class TeacherState(

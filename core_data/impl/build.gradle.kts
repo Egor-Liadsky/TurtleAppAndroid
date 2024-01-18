@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.turtleteam.core_network"
+    namespace = "com.example.impl"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -15,15 +15,15 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }
 }
 
 dependencies {
+    implementation(project(":core_data:api"))
     implementation(project(":storage"))
-    implementation(project(":core_view")) //TODO core_data НЕ ДОЛЖНА ИМЕТЬ ДОСТУП К core_view!!!!
 
     implementation(libs.ktor.client.okhttp)
     implementation(libs.koin.androidx.compose)

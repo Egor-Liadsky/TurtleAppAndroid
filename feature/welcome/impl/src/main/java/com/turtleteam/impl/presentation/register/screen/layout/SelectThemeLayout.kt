@@ -13,7 +13,7 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.LocalColors
 import com.turtleteam.core_view.view.button.SelectButton
 import com.turtleteam.core_view.view.frame.ScheduleSelectFrame
-import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
+import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
 
 @Composable
 fun SelectThemeLayout(viewModel: RegisterViewModel) {

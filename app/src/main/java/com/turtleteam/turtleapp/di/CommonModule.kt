@@ -1,6 +1,8 @@
 package com.turtleteam.turtleapp.di
 
+import com.turtleteam.api.BaseRepository
 import com.turtleteam.core_navigation.error.ErrorService
+import com.turtleteam.impl.BaseRepositoryImpl
 import com.turtleteam.storage.InstitutionDataStore
 import com.turtleteam.storage.InstitutionDataStoreImpl
 import com.turtleteam.storage.Storage
@@ -39,4 +41,7 @@ val commonModule = module {
     // Storage
     single<Storage> { StorageImpl(get()) }
     single<InstitutionDataStore> { InstitutionDataStoreImpl(get()) }
+
+    // Repository
+    single<BaseRepository> { BaseRepositoryImpl(get()) }
 }

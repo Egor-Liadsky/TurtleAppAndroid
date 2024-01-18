@@ -1,4 +1,4 @@
-package com.turtleteam.core_data.error
+package com.turtleteam.api.error
 
 import java.lang.Error
 

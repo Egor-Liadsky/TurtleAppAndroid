@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
-import com.turtleteam.core_view.model.Institution
+import com.turtleteam.api.models.Institution
 import com.turtleteam.storage.data.InstitutionPreferencesSerializer
 import com.turtleteam.turtleapp.InstitutionPreferences
 import kotlinx.coroutines.flow.Flow

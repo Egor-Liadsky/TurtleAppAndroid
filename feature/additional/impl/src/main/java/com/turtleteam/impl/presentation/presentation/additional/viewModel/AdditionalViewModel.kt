@@ -3,7 +3,7 @@ package com.turtleteam.impl.presentation.presentation.additional.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.AdditionalRepository
-import com.turtleteam.core_data.error.exceptionHandleable
+import com.turtleteam.api.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.presentation.presentation.additional.state.AdditionalState

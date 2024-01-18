@@ -24,8 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.api.models.Day
 import com.turtleteam.core_view.R
-import com.turtleteam.core_view.model.Day
 import com.turtleteam.core_view.theme.LocalColors
 import com.turtleteam.core_view.utils.toCalendar
 import com.turtleteam.core_view.utils.toDayOfWeek

@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -41,11 +40,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.core_view.R
-import com.turtleteam.core_view.model.Pair
-import com.turtleteam.core_view.model.PairInfo
 import com.turtleteam.core_view.theme.LocalColors
-import com.turtleteam.core_view.theme.LocalShapes
 import com.turtleteam.core_view.utils.toDate
+import com.turtleteam.api.models.Pair
+import com.turtleteam.api.models.PairInfo
 
 @Composable
 fun PairItem(pair: Pair, scrollInProgress: Boolean) {

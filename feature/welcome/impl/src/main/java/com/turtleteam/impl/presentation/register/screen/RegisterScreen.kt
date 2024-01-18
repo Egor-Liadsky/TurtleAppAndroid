@@ -30,7 +30,7 @@ import com.turtleteam.impl.presentation.presentation.register.screen.component.I
 import com.turtleteam.impl.presentation.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectInstitutionLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectThemeLayout
-import com.turtleteam.impl.presentation.presentation.register.viewModel.RegisterViewModel
+import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 

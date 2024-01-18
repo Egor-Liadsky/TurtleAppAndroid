@@ -38,8 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.PopupProperties
-import com.turtleteam.core_view.model.Schedule
+import com.turtleteam.api.models.Schedule
 import com.turtleteam.core_view.theme.LocalColors
 import com.turtleteam.core_view.theme.LocalShapes
 import com.turtleteam.core_view.utils.toCalendar
@@ -102,7 +101,7 @@ fun ScheduleLayout(data: Schedule) {
                     )
                 }
             }
-            items(data.days[page].pairs) {
+            items(items = data.days[page].pairs) {
                 PairItem(pair = it, pagerState.isScrollInProgress)
             }
         }
