@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class GroupViewModel : ViewModel(), KoinComponent {
+class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(GroupState())
     val state = _state.asStateFlow()

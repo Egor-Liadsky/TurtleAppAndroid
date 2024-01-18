@@ -63,7 +63,7 @@ fun SheetItem(
             style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = fontQanelas,
-                color = if (isSelected) TurtleTheme.color.textColor else Color(0x417B6559),
+                color = TurtleTheme.color.textColor,
             ),
         )
     }

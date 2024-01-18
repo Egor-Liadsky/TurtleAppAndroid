@@ -83,7 +83,7 @@ val darkColors = Colors(
     selectScheduleArrowColor = Color(0xFF2DA06D),
     selectTextColor = Color(0xFF9E9C9F),
     sheetBackground = Color(0xFFF0F6E7),
-    institutionBackgroundColor = Color(0xFFF3F6EE),
+    institutionBackgroundColor = Color(0xFFcaeeb9),
 
     // Divider
     divider = Color(0xFF9E9C9F),

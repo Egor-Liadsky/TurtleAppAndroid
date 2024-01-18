@@ -14,7 +14,9 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.fontQanelas
 
 @Composable
@@ -33,9 +36,9 @@ fun CommonTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    @DrawableRes
-    trailingIcon: Int? = null,
+    @DrawableRes trailingIcon: Int? = null,
     value: String,
+    onClearValueClick: () -> Unit,
     onValueChange: (String) -> Unit,
 ) {
     BasicTextField(
@@ -77,12 +80,26 @@ fun CommonTextField(
                     innerTextField()
                 }
                 if (trailingIcon != null) {
-                    Icon(
-                        modifier = Modifier.size(24.dp),
-                        painter = painterResource(id = trailingIcon),
-                        contentDescription = "",
-                        tint = Color(0xFF9E9C9F),
-                    )
+                    if (value != "") {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = { onClearValueClick() }
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(24.dp),
+                                painter = painterResource(id = R.drawable.ic_close),
+                                contentDescription = "",
+                                tint = Color(0xFF9E9C9F),
+                            )
+                        }
+                    } else {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            painter = painterResource(id = trailingIcon),
+                            contentDescription = "",
+                            tint = Color(0xFF9E9C9F),
+                        )
+                    }
                 }
             }
         },

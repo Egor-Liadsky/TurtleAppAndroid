@@ -26,12 +26,7 @@ import com.turtleteam.api.models.Ring
 @Composable
 fun RingList(
     rings: Ring,
-    onBackPress: () -> Unit,
 ) {
-    BackHandler(true) {
-        onBackPress()
-    }
-
     val listState = rememberLazyListState(1)
     val flingBehavior = rememberSnapFlingBehavior(listState)
     val alpha = remember { Animatable(0F) }

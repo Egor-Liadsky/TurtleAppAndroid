@@ -53,9 +53,7 @@ fun AdditionalScreen(modifier: Modifier = Modifier, viewModel: AdditionalViewMod
 
                         LoadingState.Success -> {
                             state.value.rings?.let {
-                                RingList(rings = state.value.rings!!) {
-
-                                }
+                                RingList(rings = state.value.rings!!)
                             }
                         }
 

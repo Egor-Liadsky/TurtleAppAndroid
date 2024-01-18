@@ -28,6 +28,7 @@ import com.turtleteam.core_view.view.layout.ScheduleLayout
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
 import com.turtleteam.core_view.R
+import com.turtleteam.core_view.view.sheet.SheetWrapper
 import com.turtleteam.impl.presentation.teacher.viewModel.TeacherViewModel
 import kotlinx.coroutines.launch
 
@@ -47,34 +48,21 @@ fun TeacherScreen(modifier: Modifier = Modifier, viewModel: TeacherViewModel) {
         sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 9.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Divider(
-                    Modifier
-                        .width(22.dp)
-                        .height(3.dp)
-                        .clip(RoundedCornerShape(3.dp)),
-                    color = TurtleTheme.color.divider,
-                )
-                Column(Modifier.padding(top = 16.dp)) {
-                    GroupSheet(
-                        sheetState = sheetState,
-                        textFieldValue = state.value.textFieldValue,
-                        onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
-                        loadingState = state.value.teachersLoadingState,
-                        groups = state.value.teachers ?: listOf(),
-                        selectedGroup = state.value.selectedTeacher ?: "",
-                        onRefresh = { viewModel.onRefreshTeachers() }
-                    ) {
-                        viewModel.onSelectTeacherClick(it)
-                    }
+            SheetWrapper {
+                GroupSheet(
+                    sheetState = sheetState,
+                    textFieldValue = state.value.textFieldValue,
+                    onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
+                    loadingState = state.value.teachersLoadingState,
+                    groups = state.value.teachers ?: listOf(),
+                    selectedGroup = state.value.selectedTeacher ?: "",
+                    onRefresh = { viewModel.onRefreshTeachers() },
+                    onClearValueClick = { viewModel.onTextFieldValueChanged("") }
+                ) {
+                    viewModel.onSelectTeacherClick(it)
                 }
             }
-        },
+        }
     ) {
         Column(
             Modifier

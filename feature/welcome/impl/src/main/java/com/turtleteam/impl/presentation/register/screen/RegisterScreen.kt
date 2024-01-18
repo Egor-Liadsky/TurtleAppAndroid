@@ -86,6 +86,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                                 groups = state.value.groups ?: listOf(),
                                 selectedGroup = state.value.selectedGroup ?: "",
                                 onRefresh = { viewModel.onRefreshGroups() },
+                                onClearValueClick = { viewModel.onTextFieldValueChanged("") }
                             ) {
                                 viewModel.onSelectGroupClick(it)
                             }

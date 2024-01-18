@@ -1,6 +1,7 @@
 package com.turtleteam.core_view.view.sheet
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.utils.searchItem
+import com.turtleteam.core_view.view.background.TurtlesBackground
 import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.layout.LoadingLayout
@@ -38,18 +40,17 @@ fun GroupSheet(
     groups: List<String>,
     selectedGroup: String,
     onRefresh: () -> Unit,
+    onClearValueClick: () -> Unit,
     onSelectGroupClick: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
 
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-    ) {
+    Column(Modifier.fillMaxSize()) {
         CommonTextField(
-            Modifier.padding(bottom = 16.dp),
+            Modifier
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 16.dp),
             placeholder = "Поиск",
             trailingIcon = R.drawable.ic_search,
             keyboardOptions = KeyboardOptions(
@@ -61,43 +62,56 @@ fun GroupSheet(
             ),
             value = textFieldValue,
             onValueChange = { onTextFieldValueChanged(it) },
+            onClearValueClick = { onClearValueClick() }
         )
 
-        when (loadingState) {
-            LoadingState.Loading -> LoadingLayout()
+        val groupsFiltered = groups.searchItem(textFieldValue)
 
-            LoadingState.Success -> {
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(148.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    items(items = groups.searchItem(textFieldValue)) { group ->
-                        SheetItem(
-                            modifier = Modifier.padding(bottom = 5.dp),
-                            title = group,
-                            isSelected = selectedGroup == group,
-                        ) {
-                            onSelectGroupClick(group)
-                            scope.launch { sheetState.hide() }
-                            focusManager.clearFocus()
+        Box {
+            TurtlesBackground()
+            when (loadingState) {
+                LoadingState.Loading -> LoadingLayout()
+
+                LoadingState.Success -> {
+                    if (groupsFiltered.isEmpty()) {
+                        EmptyLayout(
+                            image = R.drawable.ic_not_found,
+                            title = "Ничего не найдено"
+                        )
+                    }
+                    LazyVerticalGrid(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        columns = GridCells.Adaptive(148.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        items(items = groupsFiltered) { group ->
+                            SheetItem(
+                                modifier = Modifier.padding(bottom = 5.dp),
+                                title = group,
+                                isSelected = selectedGroup == group,
+                            ) {
+                                onSelectGroupClick(group)
+                                scope.launch { sheetState.hide() }
+                                focusManager.clearFocus()
+                            }
+                        }
+                        item {
+                            Spacer(Modifier)
+                        }
+                        item {
+                            Spacer(modifier = Modifier.padding(bottom = 28.dp))
                         }
                     }
-                    item {
-                        Spacer(Modifier)
-                    }
-                    item {
-                        Spacer(modifier = Modifier.padding(bottom = 28.dp))
-                    }
                 }
-            }
 
-            LoadingState.Empty -> EmptyLayout(
-                image = R.drawable.ic_not_found,
-                title = "Пусто"
-            )
+                LoadingState.Empty -> EmptyLayout(
+                    image = R.drawable.ic_not_found,
+                    title = "Пусто"
+                )
 
-            is LoadingState.Error -> ErrorLayout {
-                onRefresh()
+                is LoadingState.Error -> ErrorLayout {
+                    onRefresh()
+                }
             }
         }
     }
