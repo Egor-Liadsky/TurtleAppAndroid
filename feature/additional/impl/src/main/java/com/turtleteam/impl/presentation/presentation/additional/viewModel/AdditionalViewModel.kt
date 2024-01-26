@@ -17,14 +17,13 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class AdditionalViewModel(
-    private val configService: ConfigService
+    private val configService: ConfigService,
+    private val additionalRepository: AdditionalRepository,
+    private val errorService: ErrorService
 ) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(AdditionalState())
     val state = _state.asStateFlow()
-
-    private val additionalRepository: AdditionalRepository by inject()
-    private val errorService: ErrorService by inject()
 
     fun onRingsClick() {
         getRings()
@@ -33,6 +32,12 @@ class AdditionalViewModel(
     fun getPlanshetkaUrl() {
         val planshetkaUrl = configService.getPlanshetkaUrl()
         _state.update { it.copy(planshetkaUrl = planshetkaUrl) }
+    }
+
+    fun onChangesClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            errorService.showError("В разработке")
+        }
     }
 
     private fun getRings() {

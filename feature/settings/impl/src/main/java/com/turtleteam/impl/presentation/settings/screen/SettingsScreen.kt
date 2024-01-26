@@ -98,7 +98,9 @@ fun SettingsScreen(
                         scope.launch { sheetState.show() }
                         viewModel.onChangeThemeClick()
                     }),
-                    MenuInfo(title = "Уведомления", onClick = { }),
+                    MenuInfo(title = "Уведомления", onClick = {
+                        viewModel.onNotificationsClick()
+                    }),
                     MenuInfo(title = "Тема приложения", onClick = {
                         viewModel.onSelectButtonClick(settingsButton = SettingsButton.CHANGE_THEME)
                         scope.launch { sheetState.show() }

@@ -73,6 +73,7 @@ fun AdditionalScreen(modifier: Modifier = Modifier, viewModel: AdditionalViewMod
 
             item {
                 NextButton(Modifier.padding(horizontal = 16.dp), title = "Замены") {
+                    viewModel.onChangesClick()
                 }
             }
 

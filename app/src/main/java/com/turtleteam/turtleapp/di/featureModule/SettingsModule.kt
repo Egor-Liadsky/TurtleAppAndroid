@@ -15,7 +15,7 @@ val settingsModule = module {
     single<SettingsNavigation> { SettingsNavigationImpl() }
     single { SettingsNavigator(get()) }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
-    viewModel { SettingsViewModel(get(), get(), get(), get()) }
+    viewModel { SettingsViewModel(get(), get(), get(), get(), get()) }
     viewModel { AboutAppViewModel(get(), get()) }
     viewModel { FeedbackViewModel(get(), get()) }
 }

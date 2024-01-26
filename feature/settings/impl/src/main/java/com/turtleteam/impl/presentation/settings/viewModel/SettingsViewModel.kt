@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.SettingsRepository
 import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.api.models.Institution
+import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.navigation.SettingsNavigator
 import com.turtleteam.impl.presentation.settings.state.SettingsButton
@@ -21,7 +22,8 @@ class SettingsViewModel(
     private val storage: Storage,
     private val institutionDataStore: InstitutionDataStore,
     private val repository: SettingsRepository,
-    private val navigator: SettingsNavigator
+    private val navigator: SettingsNavigator,
+    private val errorService: ErrorService
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingsState())
@@ -73,6 +75,12 @@ class SettingsViewModel(
 
     fun onChangeThemeClick() {
         getInstitutions()
+    }
+
+    fun onNotificationsClick() {
+        viewModelScope.launch(Dispatchers.IO) {
+            errorService.showError("В разработке")
+        }
     }
 
     private fun getInstitutions() {

@@ -9,7 +9,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val additionalModule = module {
-    viewModel { AdditionalViewModel(get()) }
+    viewModel { AdditionalViewModel(get(), get(), get()) }
     single<AdditionalRepository> { AdditionalRepositoryImpl(get()) }
     single<AdditionalNavigation> { AdditionalNavigationImpl() }
 }
