@@ -81,7 +81,6 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
             title = "ДАЛЕЕ",
             textColor = TurtleTheme.color.commonButtonTextColor,
             background = TurtleTheme.color.commonButtonBackground,
-            indicationColor = TurtleTheme.color.commonButtonTextColor,
         ) {
             if (pagerState.currentPage == onBoardingList.lastIndex) {
                 viewModel.navigateToWelcome()

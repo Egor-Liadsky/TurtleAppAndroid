@@ -1,6 +1,8 @@
 [versions]
 
 # Application
+versionCode = "1"
+versionName = "1.0"
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
@@ -25,10 +27,16 @@ protobufJavalite = "3.21.7"
 # UI
 accompanistSystemuicontroller = "0.29.2-rc"
 
+# Firebase
+firebase = "32.7.1"
+
 org-jetbrains-kotlin-plugin-serialization = "1.9.22"
 agp = "8.2.1"
 org-jetbrains-kotlin-android = "1.9.22"
 com-google-protobuf = "0.9.1"
+com-google-services = "4.4.0"
+com-google-firebase-crashlytics = "2.9.9"
+com-codingfeline-buildkonfig = "0.15.1"
 core-ktx = "1.12.0"
 
 android-gradle-plugin = "8.2.1"
@@ -63,11 +71,19 @@ protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.
 # UI
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 
+# Firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-config = { group = "com.google.firebase", name = "firebase-config" }
+
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-plugin-serialization" }
 com-google-protobuf = { id = "com.google.protobuf", version.ref = "com-google-protobuf" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+com-google-services = { id = "com.google.gms.google-services", version.ref = "com-google-services" }
+com-google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "com-google-firebase-crashlytics" }
 
 [bundles]

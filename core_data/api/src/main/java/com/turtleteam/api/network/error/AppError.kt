@@ -1,4 +1,4 @@
-package com.turtleteam.api.error
+package com.turtleteam.api.network.error
 
 import java.lang.Error
 

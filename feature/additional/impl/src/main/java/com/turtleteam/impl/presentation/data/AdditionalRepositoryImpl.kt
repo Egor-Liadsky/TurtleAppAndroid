@@ -1,6 +1,6 @@
 package com.turtleteam.impl.presentation.data
 
-import com.turtleteam.api.BaseRepository
+import com.turtleteam.api.network.BaseRepository
 import com.turtleteam.api.data.repository.AdditionalRepository
 import com.turtleteam.api.models.Ring
 import io.ktor.http.HttpMethod

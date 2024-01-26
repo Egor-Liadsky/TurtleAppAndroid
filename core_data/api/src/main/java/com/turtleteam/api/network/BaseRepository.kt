@@ -1,4 +1,4 @@
-package com.turtleteam.api
+package com.turtleteam.api.network
 
 import io.ktor.http.HttpMethod
 

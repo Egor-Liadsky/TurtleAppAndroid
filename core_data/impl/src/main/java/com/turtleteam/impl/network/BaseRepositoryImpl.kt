@@ -1,9 +1,9 @@
-package com.turtleteam.impl
+package com.turtleteam.impl.network
 
-import com.turtleteam.api.BaseRepository
-import com.turtleteam.api.error.AppError
-import com.turtleteam.api.error.Code
-import com.turtleteam.api.error.ServerException
+import com.turtleteam.api.network.BaseRepository
+import com.turtleteam.api.network.error.AppError
+import com.turtleteam.api.network.error.Code
+import com.turtleteam.api.network.error.ServerException
 import com.turtleteam.storage.InstitutionDataStore
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

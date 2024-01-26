@@ -11,7 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import com.turtleteam.core_navigation.error.register
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
@@ -22,6 +26,7 @@ import com.turtleteam.core_view.view.layout.ScheduleLayout
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.sheet.SheetWrapper
 import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
+import com.turtleteam.impl.navigation.groupGraph
 import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
 
@@ -36,12 +41,11 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
     )
 
     ModalBottomSheetLayout(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().then(modifier),
         sheetState = sheetState,
-        sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
-            SheetWrapper {
+            SheetWrapper(background = Color(0xFFfcfdd3)) {
                 GroupSheet(
                     sheetState = sheetState,
                     textFieldValue = state.value.textFieldValue,
@@ -60,7 +64,7 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
         Column(
             Modifier
                 .fillMaxSize()
-                .then(modifier),
+                ,
         ) {
             SelectGroupTopBar(
                 selectedGroup = state.value.selectedGroup ?: "Выбрать",

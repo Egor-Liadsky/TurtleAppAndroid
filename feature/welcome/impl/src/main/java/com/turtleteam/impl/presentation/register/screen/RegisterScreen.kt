@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -19,15 +16,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.api.models.Institution
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.CommonButton
 import com.turtleteam.core_view.view.sheet.GroupSheet
+import com.turtleteam.core_view.view.sheet.SheetWrapper
 import com.turtleteam.core_view.view.topbar.StageBar
-import com.turtleteam.impl.presentation.register.screen.component.InstitutionSheet
+import com.turtleteam.impl.presentation.register.screen.sheets.InstitutionSheet
 import com.turtleteam.impl.presentation.register.screen.layout.SelectGroupLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectInstitutionLayout
 import com.turtleteam.impl.presentation.register.screen.layout.SelectThemeLayout
@@ -52,45 +50,32 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
         sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 9.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Divider(
-                    Modifier
-                        .width(22.dp)
-                        .height(3.dp)
-                        .clip(RoundedCornerShape(3.dp)),
-                    color = TurtleTheme.color.divider,
-                )
-                Column(Modifier.padding(top = 16.dp)) {
-                    when (state.value.stage) {
-                        1 -> InstitutionSheet(
-                            sheetState = sheetState,
-                            loadingState = state.value.institutionLoadingState,
-                            institutions = state.value.institutions ?: listOf(),
-                            selectedInstitution = state.value.selectedInstitution ?: Institution(),
-                            onRefresh = { viewModel.onRefreshInstitutions() }
-                        ) {
-                            viewModel.onSelectInstitutionClick(it)
-                        }
 
-                        2 -> {
-                            GroupSheet(
-                                sheetState = sheetState,
-                                textFieldValue = state.value.textFieldValue,
-                                onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
-                                loadingState = state.value.groupsLoadingState,
-                                groups = state.value.groups ?: listOf(),
-                                selectedGroup = state.value.selectedGroup ?: "",
-                                onRefresh = { viewModel.onRefreshGroups() },
-                                onClearValueClick = { viewModel.onTextFieldValueChanged("") }
-                            ) {
-                                viewModel.onSelectGroupClick(it)
-                            }
-                        }
+            when (state.value.stage) {
+                1 -> SheetWrapper(title = "Ваше учебное заведение") {
+                    InstitutionSheet(
+                        sheetState = sheetState,
+                        loadingState = state.value.institutionLoadingState,
+                        institutions = state.value.institutions ?: listOf(),
+                        selectedInstitution = state.value.selectedInstitution ?: Institution(),
+                        onRefresh = { viewModel.onRefreshInstitutions() }
+                    ) {
+                        viewModel.onSelectInstitutionClick(it)
+                    }
+                }
+
+                2 -> SheetWrapper(background = Color(0xFFfcfdd3)) {
+                    GroupSheet(
+                        sheetState = sheetState,
+                        textFieldValue = state.value.textFieldValue,
+                        onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
+                        loadingState = state.value.groupsLoadingState,
+                        groups = state.value.groups ?: listOf(),
+                        selectedGroup = state.value.selectedGroup ?: "",
+                        onRefresh = { viewModel.onRefreshGroups() },
+                        onClearValueClick = { viewModel.onTextFieldValueChanged("") }
+                    ) {
+                        viewModel.onSelectGroupClick(it)
                     }
                 }
             }
@@ -119,7 +104,6 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                 title = "ДАЛЕЕ",
                 textColor = TurtleTheme.color.commonButtonTextColor,
                 background = TurtleTheme.color.commonButtonBackground,
-                indicationColor = TurtleTheme.color.commonButtonTextColor,
             ) {
                 when (state.value.stage) {
                     1 -> {

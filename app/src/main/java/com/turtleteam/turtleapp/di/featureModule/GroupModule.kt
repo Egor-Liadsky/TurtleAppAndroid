@@ -12,9 +12,7 @@ import org.koin.dsl.module
 val groupModule = module {
     single<GroupNavigation> { GroupNavigationImpl() }
     single<GroupRepository> { GroupRepositoryImpl(get()) }
-    factory { navController ->
-        GroupNavigator(get(), navController.get())
-    }
+    single { navController -> GroupNavigator(navController.get()) }
     viewModel { params ->
         GroupViewModel(params.get())
     }

@@ -3,9 +3,8 @@ package com.turtleteam.impl.presentation.register.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.WelcomeRepository
-import com.turtleteam.api.error.exceptionHandleable
+import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.api.models.Institution
-import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.navigation.WelcomeNavigator
 import com.turtleteam.impl.presentation.register.state.RegisterState
@@ -28,13 +27,13 @@ class RegisterViewModel(
     val state = _state.asStateFlow()
 
     private val welcomeRepository: WelcomeRepository by inject()
-    private val institutionPreferences: InstitutionDataStore by inject()
+    private val institutionDataStore: InstitutionDataStore by inject()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-                    selectedInstitution = institutionPreferences.getInstitution(),
+                    selectedInstitution = institutionDataStore.getInstitution(),
                     selectedGroup = storage.getGroup(),
                     selectedThemeIsDark = storage.getTheme(),
                 )
@@ -70,7 +69,7 @@ class RegisterViewModel(
 
     fun onSelectInstitutionClick(institution: Institution) {
         viewModelScope.launch(Dispatchers.IO) {
-            institutionPreferences.saveInstitution(institution)
+            institutionDataStore.saveInstitution(institution)
             _state.update { it.copy(selectedInstitution = institution) }
         }
     }

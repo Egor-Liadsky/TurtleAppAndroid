@@ -36,7 +36,6 @@ fun BottomNavigationBar(
 
     BottomNavigation(
         modifier = Modifier
-            .zIndex(0.9f)
             .fillMaxWidth()
             .background(TurtleTheme.color.bottomNavBarGradient),
         backgroundColor = Color.Transparent,

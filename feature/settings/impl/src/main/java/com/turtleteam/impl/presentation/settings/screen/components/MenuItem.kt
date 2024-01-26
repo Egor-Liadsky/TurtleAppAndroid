@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.settings.screen.components
+package com.turtleteam.impl.presentation.settings.screen.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,7 @@ fun MenuItem(menuInfo: MenuInfo) {
         elevation = ButtonDefaults.elevation(defaultElevation = 0.dp, pressedElevation = 0.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
         contentPadding = PaddingValues(0.dp),
-        onClick = { menuInfo.onClick },
+        onClick = { menuInfo.onClick() },
     ) {
         Row(
             modifier = Modifier.padding(start = 16.dp, top = 10.dp, bottom = 10.dp),

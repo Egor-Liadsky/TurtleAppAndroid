@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.presentation.settings.screen.components
+package com.turtleteam.impl.presentation.settings.screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

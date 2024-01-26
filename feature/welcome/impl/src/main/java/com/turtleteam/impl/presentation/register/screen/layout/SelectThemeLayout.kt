@@ -30,14 +30,6 @@ fun SelectThemeLayout(viewModel: RegisterViewModel) {
             Modifier.padding(top = 10.dp),
             title = "Светлая",
             isSelected = state.value.selectedThemeIsDark == false,
-            trailingContent = {
-                Icon(
-                    painter = painterResource(id = R.drawable.sun),
-                    contentDescription = null,
-                    tint = LocalColors.current.buttonSelectTurtle,
-                    modifier = Modifier.size(40.dp).padding(end = 16.dp),
-                )
-            },
         ) {
             viewModel.onSelectThemeClick(isDark = false)
         }
@@ -46,14 +38,6 @@ fun SelectThemeLayout(viewModel: RegisterViewModel) {
             Modifier.padding(top = 5.dp),
             title = "Темная",
             isSelected = state.value.selectedThemeIsDark == true,
-            trailingContent = {
-                Icon(
-                    painter = painterResource(id = R.drawable.moon),
-                    contentDescription = null,
-                    tint = LocalColors.current.buttonSelectTurtle,
-                    modifier = Modifier.size(40.dp).padding(end = 16.dp),
-                )
-            },
         ) {
             viewModel.onSelectThemeClick(isDark = true)
         }

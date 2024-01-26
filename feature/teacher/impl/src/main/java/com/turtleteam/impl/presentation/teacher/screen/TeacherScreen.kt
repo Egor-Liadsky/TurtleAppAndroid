@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
@@ -45,10 +46,9 @@ fun TeacherScreen(modifier: Modifier = Modifier, viewModel: TeacherViewModel) {
     ModalBottomSheetLayout(
         modifier = Modifier.fillMaxSize(),
         sheetState = sheetState,
-        sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
-            SheetWrapper {
+            SheetWrapper(background = Color(0xFFfcfdd3)) {
                 GroupSheet(
                     sheetState = sheetState,
                     textFieldValue = state.value.textFieldValue,

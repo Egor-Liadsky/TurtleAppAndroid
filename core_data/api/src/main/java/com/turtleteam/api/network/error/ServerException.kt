@@ -1,4 +1,4 @@
-package com.turtleteam.api.error
+package com.turtleteam.api.network.error
 
 data class ServerException(
     val errorCode: Int,

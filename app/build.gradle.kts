@@ -1,6 +1,8 @@
 plugins {
     id("turtleapp.application")
     id("turtleapp.application.compose")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -8,8 +10,6 @@ android {
 
     defaultConfig {
         applicationId = "com.turtleteam.turtleapp"
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -32,7 +32,6 @@ dependencies {
 
     implementation(project(":core_navigation"))
     implementation(project(":core_view"))
-//    implementation(project(":core_data"))
     implementation(project(":core_data:api"))
     implementation(project(":core_data:impl"))
     implementation(project(":storage"))
@@ -52,6 +51,9 @@ dependencies {
     implementation(project(":feature:settings:api"))
     implementation(project(":feature:settings:impl"))
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.koin.androidx.compose)
     implementation(libs.ktor.client.okhttp)

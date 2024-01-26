@@ -1,5 +1,6 @@
 package com.turtleteam.turtleapp.navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -11,7 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -20,6 +22,7 @@ import com.turtleteam.api.navigation.GroupNavigation
 import com.turtleteam.api.navigation.SettingsNavigation
 import com.turtleteam.api.navigation.TeacherNavigation
 import com.turtleteam.api.navigation.WelcomeNavigation
+import com.turtleteam.core_navigation.NavigationApi
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_navigation.error.register
 import com.turtleteam.core_view.R
@@ -73,49 +76,59 @@ fun MainNavigationScreen(
 
     Scaffold(
         scaffoldState = scaffoldState,
-        bottomBar = {
-            if (currentRoute != welcomeFeature.baseRoute) {
-                BottomNavigationBar(
-                    routes = bottomNavigationItems,
-                    currentRoute = currentRoute,
-                    onClick = {
-                        navController.navigate(it) {
-                            popUpTo(navController.graph.id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                )
-            }
-        },
         snackbarHost = { snackbarHostState ->
-            SnackbarHost(snackbarHostState, Modifier.zIndex(2f)) {
+            SnackbarHost(snackbarHostState) {
                 Snackbar(
-                    modifier = Modifier.zIndex(2f),
                     snackbarData = it,
                     backgroundColor = TurtleTheme.color.textColor,
                     actionColor = TurtleTheme.color.selectTextColor
                 )
             }
         },
+        bottomBar = {
+            if (navController.currentDestination != null) {
+                if (navController.currentDestination?.route == "group" ||
+                    navController.currentDestination?.route == "settings/menuRoute" ||
+                    navController.currentDestination?.route == "teacher" ||
+                    navController.currentDestination?.route == "additional"
+                ) {
+                    BottomNavigationBar(
+                        routes = bottomNavigationItems,
+                        currentRoute = currentRoute,
+                        onClick = {
+                            navController.navigate(it) {
+                                popUpTo(navController.graph.id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                    )
+                }
+            }
+        }
     ) { paddingValues ->
+
         val bottomNavigationViewModifier =
             Modifier.padding(bottom = paddingValues.calculateBottomPadding())
-        TurtlesBackground()
-        NavHost(
-            modifier = Modifier
-                .fillMaxSize()
-                .zIndex(1f),
-            navController = navController,
-            startDestination = if (isWelcome) welcomeFeature.baseRoute else groupFeature.baseRoute,
-        ) {
-            register(groupFeature, navController, bottomNavigationViewModifier)
-            register(teacherFeature, navController, bottomNavigationViewModifier)
-            register(additionalFeature, navController, bottomNavigationViewModifier)
-            register(settingsFeature, navController, bottomNavigationViewModifier)
-            register(welcomeFeature, navController)
+
+        Box {
+            TurtlesBackground()
+
+            NavHost(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                navController = navController,
+                startDestination = if (isWelcome) welcomeFeature.baseRoute else groupFeature.baseRoute,
+            ) {
+                register(groupFeature, navController)
+                register(teacherFeature, navController)
+                register(additionalFeature, navController)
+                register(settingsFeature, navController)
+                register(welcomeFeature, navController)
+            }
         }
     }
 }

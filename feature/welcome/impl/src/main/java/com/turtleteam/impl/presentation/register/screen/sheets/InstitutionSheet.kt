@@ -1,4 +1,4 @@
-package com.turtleteam.impl.presentation.register.screen.component
+package com.turtleteam.impl.presentation.register.screen.sheets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +32,6 @@ import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.sheet.SheetItem
-import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -52,34 +50,14 @@ fun InstitutionSheet(
         Modifier
             .fillMaxWidth()
             .background(TurtleTheme.color.sheetBackground)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp).padding(bottom = 20.dp),
     ) {
-        Text(
-            text = "Ваше учебное заведение",
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontFamily = fontQanelas,
-                color = TurtleTheme.color.textColor,
-                textAlign = TextAlign.Center,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Divider(
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp, bottom = 20.dp)
-                .clip(
-                    RoundedCornerShape(3.dp),
-                ),
-            color = Color(0xFFB9B9B9),
-        )
-
         when (loadingState) {
             LoadingState.Loading -> {
                 Column(
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 28.dp),
+                        .padding(top = 20.dp, bottom = 25.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     CircularProgressIndicator(
@@ -104,12 +82,12 @@ fun InstitutionSheet(
                             scope.launch { sheetState.hide() }
                         }
                     }
-                    item {
-                        Spacer(Modifier)
-                    }
-                    item {
-                        Spacer(modifier = Modifier.padding(bottom = 28.dp))
-                    }
+//                    item {
+//                        Spacer(Modifier)
+//                    }
+//                    item {
+//                        Spacer(modifier = Modifier.padding(bottom = 28.dp))
+//                    }
                 }
             }
 

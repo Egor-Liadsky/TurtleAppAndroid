@@ -3,7 +3,7 @@ package com.turtleteam.impl.presentation.teacher.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.TeacherRepository
-import com.turtleteam.api.error.exceptionHandleable
+import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.presentation.teacher.state.TeacherState

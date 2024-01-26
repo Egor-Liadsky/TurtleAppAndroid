@@ -4,11 +4,10 @@ import androidx.navigation.NavController
 import com.turtleteam.api.navigation.WelcomeNavigation
 
 class GroupNavigator(
-    welcomeNavigation: WelcomeNavigation,
     private val navController: NavController
-    ) {
+) {
 
-    private val welcomeRoute = welcomeNavigation.baseRoute
+    private val welcomeRoute = groupGraph
 
     fun navigateToWelcome() {
         navController.navigate(welcomeRoute) {

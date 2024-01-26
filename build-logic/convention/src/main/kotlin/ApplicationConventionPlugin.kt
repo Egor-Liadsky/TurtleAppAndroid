@@ -16,7 +16,11 @@ class ApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureAndroid(this)
-                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
+                defaultConfig {
+                    targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
+                    versionCode = libs.findVersion("versionCode").get().toString().toInt()
+                    versionName = libs.findVersion("versionName").get().toString()
+                }
             }
         }
     }

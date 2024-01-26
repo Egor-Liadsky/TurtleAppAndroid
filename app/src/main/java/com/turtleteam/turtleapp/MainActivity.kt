@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.BuildConfig
 import com.turtleteam.core_view.theme.TurtleAppTheme
 import com.turtleteam.storage.Storage
 import com.turtleteam.turtleapp.navigation.MainNavigationScreen

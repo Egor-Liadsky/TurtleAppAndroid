@@ -11,9 +11,11 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
+internal const val groupGraph = "group"
+
 class GroupNavigationImpl : GroupNavigation {
 
-    override val baseRoute: String = "group"
+    override val baseRoute: String = groupGraph
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,

@@ -1,6 +1,6 @@
 package com.turtleteam.impl.data.repository
 
-import com.turtleteam.api.BaseRepository
+import com.turtleteam.api.network.BaseRepository
 import com.turtleteam.api.data.repository.GroupRepository
 import com.turtleteam.api.models.GroupAndTeacher
 import com.turtleteam.api.models.Schedule

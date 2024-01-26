@@ -1,14 +1,12 @@
 package com.turtleteam.impl.data.repository
 
-import com.turtleteam.api.BaseRepository
+import com.turtleteam.api.network.BaseRepository
 import com.turtleteam.api.data.repository.WelcomeRepository
 import com.turtleteam.api.models.GroupAndTeacher
 import com.turtleteam.api.models.Institution
 import io.ktor.http.HttpMethod
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class WelcomeRepositoryImpl(private val repository: BaseRepository) : WelcomeRepository {
 

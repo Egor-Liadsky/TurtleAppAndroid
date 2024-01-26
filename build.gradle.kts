@@ -3,4 +3,6 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android) apply false
     alias(libs.plugins.com.google.protobuf) apply false
     alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization) apply false
+    alias(libs.plugins.com.google.services) apply false
+    alias(libs.plugins.com.google.firebase.crashlytics) apply false
 }
