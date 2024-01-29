@@ -73,7 +73,7 @@ class SettingsViewModel(
         getInstitutions()
     }
 
-    fun onChangeThemeClick() {
+    fun onChangeInstitutionClick() {
         getInstitutions()
     }
 

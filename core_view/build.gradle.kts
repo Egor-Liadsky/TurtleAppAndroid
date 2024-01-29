@@ -24,5 +24,11 @@ android {
 
 dependencies {
     implementation(project(":core_data:api"))
+    implementation(project(":core_navigation"))
+    implementation(project(":feature:welcome:api"))
+    implementation(project(":feature:group:api"))
+    implementation(project(":feature:teacher:api"))
+    implementation(project(":feature:additional:api"))
+    implementation(project(":feature:settings:api"))
     implementation(libs.compose.material)
 }

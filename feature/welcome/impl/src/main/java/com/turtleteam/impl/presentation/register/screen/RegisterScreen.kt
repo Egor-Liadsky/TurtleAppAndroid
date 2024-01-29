@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,15 +40,16 @@ import org.koin.compose.koinInject
 fun WelcomeScreen(viewModel: RegisterViewModel) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true,
-    )
+//    val sheetState = rememberModalBottomSheetState(
+//        initialValue = ModalBottomSheetValue.Hidden,
+//        skipHalfExpanded = true,
+//    )
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val errorService: ErrorService = koinInject()
 
-    ModalBottomSheetLayout(
+    BottomSheetScaffold(
         modifier = Modifier.fillMaxSize(),
-        sheetState = sheetState,
+        scaffoldState = bottomSheetScaffoldState,
         sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
@@ -54,7 +57,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
             when (state.value.stage) {
                 1 -> SheetWrapper(title = "Ваше учебное заведение") {
                     InstitutionSheet(
-                        sheetState = sheetState,
+                        sheetState = bottomSheetScaffoldState.bottomSheetState,
                         loadingState = state.value.institutionLoadingState,
                         institutions = state.value.institutions ?: listOf(),
                         selectedInstitution = state.value.selectedInstitution ?: Institution(),
@@ -66,7 +69,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
 
                 2 -> SheetWrapper(background = Color(0xFFfcfdd3)) {
                     GroupSheet(
-                        sheetState = sheetState,
+                        sheetState = bottomSheetScaffoldState.bottomSheetState,
                         textFieldValue = state.value.textFieldValue,
                         onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
                         loadingState = state.value.groupsLoadingState,
@@ -91,8 +94,8 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 when (state.value.stage) {
-                    1 -> SelectInstitutionLayout(viewModel = viewModel, sheetState)
-                    2 -> SelectGroupLayout(viewModel = viewModel, sheetState)
+                    1 -> SelectInstitutionLayout(viewModel = viewModel, bottomSheetScaffoldState.bottomSheetState)
+                    2 -> SelectGroupLayout(viewModel = viewModel, bottomSheetScaffoldState.bottomSheetState)
                     3 -> SelectThemeLayout(viewModel = viewModel)
                 }
             }

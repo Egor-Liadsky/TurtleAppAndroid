@@ -2,6 +2,7 @@ package com.turtleteam.impl.presentation.register.screen.layout
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetState
@@ -20,13 +21,13 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheetState) {
+fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: BottomSheetState) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
     BackHandler {
-        if (sheetState.isVisible) {
-            scope.launch { sheetState.show() }
+        if (sheetState.isExpanded) {
+            scope.launch { sheetState.collapse() }
         } else {
             viewModel.onBackAction()
         }
@@ -48,7 +49,7 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
             },
         ) {
             viewModel.onGroupClick()
-            scope.launch { sheetState.show() }
+            scope.launch { sheetState.expand() }
         }
     }
 }

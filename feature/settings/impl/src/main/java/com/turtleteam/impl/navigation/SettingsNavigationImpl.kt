@@ -1,8 +1,8 @@
 package com.turtleteam.impl.navigation
 
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.turtleteam.api.navigation.SettingsNavigation
@@ -27,7 +27,7 @@ class SettingsNavigationImpl : SettingsNavigation {
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
-        navController: NavController,
+        navController: NavHostController,
         modifier: Modifier
     ) {
         navGraphBuilder.navigation(startDestination = menuRoute, route = baseRoute) {
@@ -36,7 +36,7 @@ class SettingsNavigationImpl : SettingsNavigation {
                     koinInject<SettingsNavigator>(parameters = { parametersOf(navController) })
                 val viewModel =
                     koinViewModel<SettingsViewModel>(parameters = { parametersOf(navigator) })
-                SettingsScreen(modifier, viewModel)
+                SettingsScreen(modifier, viewModel, navController)
             }
 
             composable(route = aboutAppRoute) {

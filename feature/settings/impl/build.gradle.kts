@@ -24,6 +24,9 @@ android {
 dependencies {
 
     implementation(project(":feature:settings:api"))
+    implementation(project(":feature:group:api"))
+    implementation(project(":feature:teacher:api"))
+    implementation(project(":feature:additional:api"))
     implementation(project(":core_view"))
     implementation(project(":core_data:api"))
     implementation(project(":core_navigation"))

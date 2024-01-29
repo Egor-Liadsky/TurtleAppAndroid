@@ -3,6 +3,7 @@ package com.turtleteam.impl.presentation.register.screen.layout
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetState
@@ -22,13 +23,13 @@ import kotlinx.coroutines.launch
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheetState) {
+fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: BottomSheetState) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
     BackHandler {
-        if (sheetState.isVisible) {
-            scope.launch { sheetState.hide() }
+        if (sheetState.isExpanded) {
+            scope.launch { sheetState.collapse() }
         } else {
             viewModel.onBackAction()
         }
@@ -55,7 +56,7 @@ fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBotto
             },
         ) {
             viewModel.onInstitutionClick()
-            scope.launch { sheetState.show() }
+            scope.launch { sheetState.expand() }
         }
     }
 }

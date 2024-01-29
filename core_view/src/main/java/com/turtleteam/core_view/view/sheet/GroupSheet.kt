@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -33,7 +34,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupSheet(
-    sheetState: ModalBottomSheetState,
+    sheetState: BottomSheetState,
     textFieldValue: String,
     onTextFieldValueChanged: (String) -> Unit,
     loadingState: LoadingState,
@@ -91,7 +92,7 @@ fun GroupSheet(
                                 isSelected = selectedGroup == group,
                             ) {
                                 onSelectGroupClick(group)
-                                scope.launch { sheetState.hide() }
+                                scope.launch { sheetState.collapse() }
                                 focusManager.clearFocus()
                             }
                         }

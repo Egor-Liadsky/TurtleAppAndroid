@@ -1,8 +1,8 @@
 package com.turtleteam.impl.navigation
 
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.WelcomeNavigation
 import com.turtleteam.impl.presentation.presentation.onBoarding.screen.OnBoardingScreen
@@ -19,7 +19,7 @@ class WelcomeNavigationImpl : WelcomeNavigation {
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
-        navController: NavController,
+        navController: NavHostController,
         modifier: Modifier,
     ) {
         navGraphBuilder.composable(

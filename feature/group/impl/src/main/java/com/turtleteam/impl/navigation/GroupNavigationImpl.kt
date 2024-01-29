@@ -1,8 +1,8 @@
 package com.turtleteam.impl.navigation
 
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.turtleteam.api.navigation.GroupNavigation
 import com.turtleteam.impl.presentation.group.screen.GroupScreen
@@ -19,13 +19,13 @@ class GroupNavigationImpl : GroupNavigation {
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
-        navController: NavController,
+        navController: NavHostController,
         modifier: Modifier,
     ) {
         navGraphBuilder.composable(route = baseRoute) {
             val navigator = koinInject<GroupNavigator>(parameters = { parametersOf(navController) })
             val viewModel = koinViewModel<GroupViewModel>(parameters = { parametersOf(navigator) })
-            GroupScreen(modifier, viewModel)
+            GroupScreen(modifier, viewModel, navController)
         }
     }
 }

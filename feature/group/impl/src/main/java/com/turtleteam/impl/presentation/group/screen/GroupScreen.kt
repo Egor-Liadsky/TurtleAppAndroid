@@ -1,53 +1,75 @@
 package com.turtleteam.impl.presentation.group.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetState
+import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.DrawerState
+import androidx.compose.material.DrawerValue
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberBottomSheetState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.turtleteam.api.navigation.AdditionalNavigation
+import com.turtleteam.api.navigation.SettingsNavigation
+import com.turtleteam.api.navigation.TeacherNavigation
 import com.turtleteam.core_navigation.error.register
-import com.turtleteam.core_view.R
-import com.turtleteam.core_view.state.LoadingState
-import com.turtleteam.core_view.theme.TurtleTheme
-import com.turtleteam.core_view.view.layout.EmptyLayout
-import com.turtleteam.core_view.view.layout.ErrorLayout
-import com.turtleteam.core_view.view.layout.LoadingLayout
-import com.turtleteam.core_view.view.layout.ScheduleLayout
+import com.turtleteam.core_view.view.layout.BottomSheetScaffoldWrapper
+import com.turtleteam.core_view.view.layout.ScaffoldWrapper
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.sheet.SheetWrapper
-import com.turtleteam.core_view.view.topbar.SelectGroupTopBar
 import com.turtleteam.impl.navigation.groupGraph
+import com.turtleteam.impl.presentation.group.screen.layout.GroupLayout
 import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
+fun GroupScreen(
+    modifier: Modifier = Modifier,
+    viewModel: GroupViewModel,
+    navController: NavHostController
+) {
     val state = viewModel.state.collectAsState()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val navControllerGroup = rememberNavController()
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true,
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
 
-    ModalBottomSheetLayout(
-        modifier = Modifier.fillMaxSize().then(modifier),
-        sheetState = sheetState,
-        sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+    val teacherFeature: TeacherNavigation = koinInject()
+    val additionalFeature: AdditionalNavigation = koinInject()
+    val settingsFeature: SettingsNavigation = koinInject()
+
+    BackHandler {
+        if (bottomSheetScaffoldState.bottomSheetState.isExpanded) {
+            scope.launch { bottomSheetScaffoldState.bottomSheetState.collapse() }
+        }
+    }
+
+    BottomSheetScaffoldWrapper(
+        scaffoldState = scaffoldState,
+        bottomSheetScaffoldState = bottomSheetScaffoldState,
+        navController = navController,
         sheetContent = {
             SheetWrapper(background = Color(0xFFfcfdd3)) {
                 GroupSheet(
-                    sheetState = sheetState,
+                    sheetState = bottomSheetScaffoldState.bottomSheetState,
                     textFieldValue = state.value.textFieldValue,
                     onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
                     loadingState = state.value.groupsLoadingState,
@@ -59,39 +81,24 @@ fun GroupScreen(modifier: Modifier = Modifier, viewModel: GroupViewModel) {
                     viewModel.onSelectGroupClick(it)
                 }
             }
-        },
-    ) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                ,
-        ) {
-            SelectGroupTopBar(
-                selectedGroup = state.value.selectedGroup ?: "Выбрать",
+        }
+    ) { paddingValues ->
+        Box {
+            NavHost(
+                navController = navControllerGroup,
+                startDestination = groupGraph,
+                modifier = modifier.padding(paddingValues)
             ) {
-                scope.launch { sheetState.show() }
-                viewModel.onGroupClick()
-            }
-
-            when (state.value.scheduleLoading) {
-                LoadingState.Loading -> LoadingLayout()
-
-                LoadingState.Success -> {
-                    state.value.schedule?.let {
-                        ScheduleLayout(data = it)
-                    }
-                }
-
-                LoadingState.Empty -> {
-                    EmptyLayout(
-                        image = R.drawable.ic_select_group_empty,
-                        title = "Выберите группу"
+                composable(route = groupGraph) {
+                    GroupLayout(
+                        modifier = Modifier,
+                        viewModel = viewModel,
+                        sheetState = bottomSheetScaffoldState.bottomSheetState
                     )
                 }
-
-                is LoadingState.Error -> ErrorLayout {
-                    viewModel.onRefreshSchedule()
-                }
+                register(teacherFeature, navController)
+                register(additionalFeature, navController)
+                register(settingsFeature, navController)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.turtleteam.turtleapp.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -49,30 +50,13 @@ fun MainNavigationScreen(
     val additionalFeature: AdditionalNavigation = koinInject()
     val settingsFeature: SettingsNavigation = koinInject()
 
+    Log.e("TAGTAG", "MainNavigationScreen: $currentRoute", )
+
     LaunchedEffect(key1 = Unit) {
         errorService.state.collectLatest {
             scaffoldState.snackbarHostState.showSnackbar(it, actionLabel = "Закрыть")
         }
     }
-
-    val bottomNavigationItems = listOf(
-        NavigationItem(
-            route = groupFeature.baseRoute,
-            icon = R.drawable.ic_calendar,
-        ),
-        NavigationItem(
-            route = teacherFeature.baseRoute,
-            icon = R.drawable.ic_teacher,
-        ),
-        NavigationItem(
-            route = additionalFeature.baseRoute,
-            icon = R.drawable.ic_menu,
-        ),
-        NavigationItem(
-            route = settingsFeature.baseRoute,
-            icon = R.drawable.ic_settings,
-        ),
-    )
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -85,29 +69,6 @@ fun MainNavigationScreen(
                 )
             }
         },
-        bottomBar = {
-            if (navController.currentDestination != null) {
-                if (navController.currentDestination?.route == "group" ||
-                    navController.currentDestination?.route == "settings/menuRoute" ||
-                    navController.currentDestination?.route == "teacher" ||
-                    navController.currentDestination?.route == "additional"
-                ) {
-                    BottomNavigationBar(
-                        routes = bottomNavigationItems,
-                        currentRoute = currentRoute,
-                        onClick = {
-                            navController.navigate(it) {
-                                popUpTo(navController.graph.id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                    )
-                }
-            }
-        }
     ) { paddingValues ->
 
         val bottomNavigationViewModifier =
@@ -123,7 +84,7 @@ fun MainNavigationScreen(
                 navController = navController,
                 startDestination = if (isWelcome) welcomeFeature.baseRoute else groupFeature.baseRoute,
             ) {
-                register(groupFeature, navController)
+                register(groupFeature, navController, bottomNavigationViewModifier)
                 register(teacherFeature, navController)
                 register(additionalFeature, navController)
                 register(settingsFeature, navController)

@@ -1,58 +1,54 @@
 package com.turtleteam.impl.presentation.settings.screen
 
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.turtleteam.api.models.Institution
-import com.turtleteam.core_view.theme.TurtleTheme
+import com.turtleteam.api.navigation.SettingsNavigation
+import com.turtleteam.core_navigation.error.register
+import com.turtleteam.core_view.view.layout.BottomSheetScaffoldWrapper
+import com.turtleteam.core_view.view.layout.ScaffoldWrapper
+import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.sheet.SheetWrapper
-import com.turtleteam.core_view.view.topbar.CommonTopBar
-import com.turtleteam.impl.presentation.settings.screen.components.CategoryItem
-import com.turtleteam.impl.presentation.settings.screen.components.MenuInfo
+import com.turtleteam.impl.navigation.menuRoute
+import com.turtleteam.impl.presentation.settings.screen.layout.SettingsLayout
 import com.turtleteam.impl.presentation.settings.screen.sheets.ChangeInstitutionSheet
 import com.turtleteam.impl.presentation.settings.screen.sheets.ThemeSheet
 import com.turtleteam.impl.presentation.settings.state.SettingsButton
 import com.turtleteam.impl.presentation.settings.viewModel.SettingsViewModel
-import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel,
+    navController: NavHostController
 ) {
     val state = viewModel.state.collectAsState()
-    val scope = rememberCoroutineScope()
-    val sheetState =
-        rememberModalBottomSheetState(
-            initialValue = ModalBottomSheetValue.Hidden,
-            skipHalfExpanded = true,
-        )
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val navControllerSettings = rememberNavController()
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
 
-    BackHandler {
-        if (sheetState.isVisible) {
-            scope.launch { sheetState.hide() }
-        }
-    }
+    val settingsFeature: SettingsNavigation = koinInject()
 
-    ModalBottomSheetLayout(
-        modifier = Modifier.fillMaxSize(),
-        sheetState = sheetState,
-        sheetBackgroundColor = TurtleTheme.color.sheetBackground,
-        sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+    BottomSheetScaffoldWrapper(
+        scaffoldState = scaffoldState,
+        bottomSheetScaffoldState = bottomSheetScaffoldState,
+        navController = navController,
         sheetContent = {
             when (state.value.selectedSettingsButton) {
                 SettingsButton.CHANGE_INSTITUTION -> {
@@ -82,47 +78,17 @@ fun SettingsScreen(
                 SettingsButton.CHANGE_LANGUAGE -> {}
                 else -> {}
             }
-        },
-    ) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .then(modifier),
+        }
+    ) { paddingValues ->
+        NavHost(
+            navController = navControllerSettings,
+            startDestination = menuRoute,
+            modifier = Modifier.padding(paddingValues)
         ) {
-            CommonTopBar(title = "Turtle Schedule")
-
-            val settingsList =
-                listOf(
-                    MenuInfo(title = "Изменить учебное заведение", onClick = {
-                        viewModel.onSelectButtonClick(settingsButton = SettingsButton.CHANGE_INSTITUTION)
-                        scope.launch { sheetState.show() }
-                        viewModel.onChangeThemeClick()
-                    }),
-                    MenuInfo(title = "Уведомления", onClick = {
-                        viewModel.onNotificationsClick()
-                    }),
-                    MenuInfo(title = "Тема приложения", onClick = {
-                        viewModel.onSelectButtonClick(settingsButton = SettingsButton.CHANGE_THEME)
-                        scope.launch { sheetState.show() }
-                    }),
-//                    MenuInfo(title = "Язык", onClick = { }),
-                )
-
-            val additionalInfo =
-                listOf(
-                    MenuInfo(title = "Обратная связь", onClick = { viewModel.onFeedbackClick() }),
-                    MenuInfo(title = "О приложении", onClick = { viewModel.onAboutAppClick() }),
-                )
-
-            LazyColumn(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                item {
-                    CategoryItem(title = "Настройки", list = settingsList)
-                }
-
-                item {
-                    CategoryItem(title = "Дополнительно", list = additionalInfo)
-                }
+            composable(route = menuRoute) {
+                SettingsLayout(modifier = modifier, viewModel = viewModel, bottomSheetScaffoldState.bottomSheetState)
             }
+            register(settingsFeature, navController)
         }
     }
 }

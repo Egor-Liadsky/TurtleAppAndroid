@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomSheetState
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
@@ -37,7 +38,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun InstitutionSheet(
-    sheetState: ModalBottomSheetState,
+    sheetState: BottomSheetState,
     loadingState: LoadingState,
     institutions: List<Institution>,
     selectedInstitution: Institution,
@@ -79,7 +80,7 @@ fun InstitutionSheet(
                             isSelected = selectedInstitution == institution,
                         ) {
                             onSelectInstitutionClick(institution)
-                            scope.launch { sheetState.hide() }
+                            scope.launch { sheetState.collapse() }
                         }
                     }
 //                    item {
