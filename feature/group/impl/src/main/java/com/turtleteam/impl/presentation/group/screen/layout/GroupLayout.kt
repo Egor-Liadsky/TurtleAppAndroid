@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GroupLayout(modifier: Modifier, viewModel: GroupViewModel, sheetState: BottomSheetState) {
+fun GroupLayout(modifier: Modifier, viewModel: GroupViewModel, sheetState: ModalBottomSheetState) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -39,7 +40,7 @@ fun GroupLayout(modifier: Modifier, viewModel: GroupViewModel, sheetState: Botto
         SelectGroupTopBar(
             selectedGroup = state.value.selectedGroup ?: "Выбрать",
         ) {
-            scope.launch { sheetState.expand() }
+            scope.launch { sheetState.show() }
             viewModel.onGroupClick()
         }
 

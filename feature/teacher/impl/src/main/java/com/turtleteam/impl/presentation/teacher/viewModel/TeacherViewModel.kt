@@ -6,6 +6,7 @@ import com.turtleteam.api.data.repository.TeacherRepository
 import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
 import com.turtleteam.core_view.state.LoadingState
+import com.turtleteam.impl.navigation.TeacherNavigator
 import com.turtleteam.impl.presentation.teacher.state.TeacherState
 import com.turtleteam.storage.Storage
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class TeacherViewModel : ViewModel(), KoinComponent {
+class TeacherViewModel(private val navigator: TeacherNavigator) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(TeacherState())
     val state = _state.asStateFlow()
@@ -30,6 +31,10 @@ class TeacherViewModel : ViewModel(), KoinComponent {
             _state.update { it.copy(selectedTeacher = storage.getTeacher()) }
             getSchedule(storage.getTeacher())
         }
+    }
+
+    fun onBackButtonClick() {
+        navigator.onBackButtonClick()
     }
 
     fun onTeacherClick() {

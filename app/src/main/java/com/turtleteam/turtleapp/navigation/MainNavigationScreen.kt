@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarData
+import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -50,7 +52,7 @@ fun MainNavigationScreen(
     val additionalFeature: AdditionalNavigation = koinInject()
     val settingsFeature: SettingsNavigation = koinInject()
 
-    Log.e("TAGTAG", "MainNavigationScreen: $currentRoute", )
+    Log.e("TAGTAG", "MainNavigationScreen: $currentRoute")
 
     LaunchedEffect(key1 = Unit) {
         errorService.state.collectLatest {

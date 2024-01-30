@@ -3,15 +3,14 @@ package com.turtleteam.core_view.view.layout
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
-import androidx.compose.material.BottomSheetScaffoldDefaults
 import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -30,9 +29,9 @@ import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheetScaffoldWrapper(
+fun ModalBottomSheetLayoutWrapper(
     scaffoldState: ScaffoldState,
-    bottomSheetScaffoldState: BottomSheetScaffoldState,
+    modalBottomSheetState: ModalBottomSheetState,
     navController: NavHostController,
     sheetContent: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit
@@ -64,14 +63,12 @@ fun BottomSheetScaffoldWrapper(
         ),
     )
 
-    BottomSheetScaffold(
-        scaffoldState = bottomSheetScaffoldState,
-        sheetPeekHeight = 48.dp,
+    ModalBottomSheetLayout(
+        sheetState = modalBottomSheetState,
         sheetContent = { sheetContent() },
-        sheetShape = RoundedCornerShape(12.dp),
-        ) {
+        sheetShape = RoundedCornerShape(12.dp)
+    ) {
         Scaffold(
-            modifier = Modifier.padding(it),
             scaffoldState = scaffoldState,
             bottomBar = {
                 BottomNavigationBar(
@@ -92,7 +89,6 @@ fun BottomSheetScaffoldWrapper(
             Box(
                 Modifier
                     .fillMaxSize()
-                    .padding(it)
             ) {
                 TurtlesBackground()
 

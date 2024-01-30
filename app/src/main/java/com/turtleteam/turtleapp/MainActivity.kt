@@ -55,6 +55,8 @@ class MainActivity : ComponentActivity() {
             TurtleAppTheme(darkTheme = isDarkTheme.value) {
                 MainNavigationScreen(navController = navController, isWelcome.value)
             }
+
+
         }
     }
 }

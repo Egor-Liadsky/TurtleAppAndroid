@@ -2,8 +2,8 @@ package com.turtleteam.impl.presentation.teacher.screen.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 fun TeacherLayout(
     modifier: Modifier,
     viewModel: TeacherViewModel,
-    bottomSheetState: BottomSheetState
+    bottomSheetState: ModalBottomSheetState
 ) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
@@ -36,7 +36,7 @@ fun TeacherLayout(
         SelectGroupTopBar(
             selectedGroup = state.value.selectedTeacher ?: "Выбрать",
         ) {
-            scope.launch { bottomSheetState.expand() }
+            scope.launch { bottomSheetState.show() }
             viewModel.onTeacherClick()
         }
 

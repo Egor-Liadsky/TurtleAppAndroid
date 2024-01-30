@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.api.data.repository.GroupRepository
 import com.turtleteam.api.network.error.exceptionHandleable
+import com.turtleteam.core_navigation.BaseNavigator
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.impl.navigation.GroupNavigator
 import com.turtleteam.impl.presentation.group.state.GroupState
@@ -29,6 +30,10 @@ class GroupViewModel(private val navigator: GroupNavigator) : ViewModel(), KoinC
             _state.update { it.copy(selectedGroup = storage.getGroup()) }
             getSchedule(state.value.selectedGroup)
         }
+    }
+
+    fun onBackButtonClick() {
+        navigator.onBackButtonClick()
     }
 
     fun onGroupClick() {

@@ -7,7 +7,7 @@ abstract class BaseNavigator(private val navController: NavController) {
 
     @SuppressLint("RestrictedApi")
     fun onBackButtonClick() {
-        navController.currentBackStack.value.let {
+        navController.currentBackStack.value.let { //TODO посмотреть что не так
             if (it.size > 3) {
                 navController.popBackStack()
             }

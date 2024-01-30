@@ -41,6 +41,10 @@ class SettingsViewModel(
         }
     }
 
+    fun onBackButtonClick() {
+        navigator.onBackButtonClick()
+    }
+
     fun onSelectThemeClick(isDark: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             storage.setTheme(isDark)

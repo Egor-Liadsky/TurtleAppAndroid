@@ -3,34 +3,23 @@ package com.turtleteam.impl.presentation.register.screen.sheets
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetState
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.turtleteam.api.models.Institution
 import com.turtleteam.core_view.state.LoadingState
 import com.turtleteam.core_view.theme.TurtleTheme
-import com.turtleteam.core_view.theme.fontQanelas
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.sheet.SheetItem
 import kotlinx.coroutines.launch
@@ -38,7 +27,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun InstitutionSheet(
-    sheetState: BottomSheetState,
+    sheetState: ModalBottomSheetState,
     loadingState: LoadingState,
     institutions: List<Institution>,
     selectedInstitution: Institution,
@@ -51,7 +40,8 @@ fun InstitutionSheet(
         Modifier
             .fillMaxWidth()
             .background(TurtleTheme.color.sheetBackground)
-            .padding(horizontal = 16.dp).padding(bottom = 20.dp),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 20.dp),
     ) {
         when (loadingState) {
             LoadingState.Loading -> {
@@ -80,7 +70,7 @@ fun InstitutionSheet(
                             isSelected = selectedInstitution == institution,
                         ) {
                             onSelectInstitutionClick(institution)
-                            scope.launch { sheetState.collapse() }
+                            scope.launch { sheetState.hide() }
                         }
                     }
 //                    item {

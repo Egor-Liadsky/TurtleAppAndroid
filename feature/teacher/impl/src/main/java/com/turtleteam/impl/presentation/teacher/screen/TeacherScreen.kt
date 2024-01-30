@@ -1,31 +1,32 @@
 package com.turtleteam.impl.presentation.teacher.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.turtleteam.api.navigation.AdditionalNavigation
 import com.turtleteam.api.navigation.GroupNavigation
 import com.turtleteam.api.navigation.SettingsNavigation
 import com.turtleteam.core_navigation.error.register
-import com.turtleteam.core_view.view.layout.BottomSheetScaffoldWrapper
-import com.turtleteam.core_view.view.layout.ScaffoldWrapper
+import com.turtleteam.core_view.view.layout.ModalBottomSheetLayoutWrapper
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.sheet.SheetWrapper
 import com.turtleteam.impl.navigation.teacherGraph
 import com.turtleteam.impl.presentation.teacher.screen.layout.TeacherLayout
 import com.turtleteam.impl.presentation.teacher.viewModel.TeacherViewModel
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -36,23 +37,30 @@ fun TeacherScreen(
     navController: NavHostController
 ) {
     val state = viewModel.state.collectAsState()
-
+    val scope = rememberCoroutineScope()
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val navControllerTeacher = rememberNavController()
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    )
+
+    BackHandler(enabled = modalBottomSheetState.isVisible) {
+        scope.launch { modalBottomSheetState.hide() }
+    }
 
     val groupFeature: GroupNavigation = koinInject()
     val additionalFeature: AdditionalNavigation = koinInject()
     val settingsFeature: SettingsNavigation = koinInject()
 
-    BottomSheetScaffoldWrapper(
+    ModalBottomSheetLayoutWrapper(
         scaffoldState = scaffoldState,
-        bottomSheetScaffoldState = bottomSheetScaffoldState,
+        modalBottomSheetState = modalBottomSheetState,
         navController = navController,
         sheetContent = {
             SheetWrapper(background = Color(0xFFfcfdd3)) {
                 GroupSheet(
-                    sheetState = bottomSheetScaffoldState.bottomSheetState,
+                    sheetState = modalBottomSheetState,
                     textFieldValue = state.value.textFieldValue,
                     onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
                     loadingState = state.value.teachersLoadingState,
@@ -75,7 +83,7 @@ fun TeacherScreen(
                 TeacherLayout(
                     modifier = modifier,
                     viewModel = viewModel,
-                    bottomSheetScaffoldState.bottomSheetState
+                    modalBottomSheetState
                 )
             }
             register(groupFeature, navController)

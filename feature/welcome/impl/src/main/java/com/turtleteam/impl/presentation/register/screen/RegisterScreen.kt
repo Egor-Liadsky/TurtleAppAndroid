@@ -44,12 +44,15 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
 //        initialValue = ModalBottomSheetValue.Hidden,
 //        skipHalfExpanded = true,
 //    )
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    )
     val errorService: ErrorService = koinInject()
 
-    BottomSheetScaffold(
+    ModalBottomSheetLayout(
         modifier = Modifier.fillMaxSize(),
-        scaffoldState = bottomSheetScaffoldState,
+        sheetState = modalBottomSheetState,
         sheetBackgroundColor = TurtleTheme.color.sheetBackground,
         sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
@@ -57,7 +60,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
             when (state.value.stage) {
                 1 -> SheetWrapper(title = "Ваше учебное заведение") {
                     InstitutionSheet(
-                        sheetState = bottomSheetScaffoldState.bottomSheetState,
+                        sheetState = modalBottomSheetState,
                         loadingState = state.value.institutionLoadingState,
                         institutions = state.value.institutions ?: listOf(),
                         selectedInstitution = state.value.selectedInstitution ?: Institution(),
@@ -69,7 +72,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
 
                 2 -> SheetWrapper(background = Color(0xFFfcfdd3)) {
                     GroupSheet(
-                        sheetState = bottomSheetScaffoldState.bottomSheetState,
+                        sheetState = modalBottomSheetState,
                         textFieldValue = state.value.textFieldValue,
                         onTextFieldValueChanged = { viewModel.onTextFieldValueChanged(it) },
                         loadingState = state.value.groupsLoadingState,
@@ -94,8 +97,16 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 when (state.value.stage) {
-                    1 -> SelectInstitutionLayout(viewModel = viewModel, bottomSheetScaffoldState.bottomSheetState)
-                    2 -> SelectGroupLayout(viewModel = viewModel, bottomSheetScaffoldState.bottomSheetState)
+                    1 -> SelectInstitutionLayout(
+                        viewModel = viewModel,
+                        modalBottomSheetState
+                    )
+
+                    2 -> SelectGroupLayout(
+                        viewModel = viewModel,
+                        modalBottomSheetState
+                    )
+
                     3 -> SelectThemeLayout(viewModel = viewModel)
                 }
             }

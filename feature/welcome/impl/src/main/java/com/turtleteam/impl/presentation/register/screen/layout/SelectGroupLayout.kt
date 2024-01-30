@@ -21,13 +21,13 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: BottomSheetState) {
+fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheetState) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
     BackHandler {
-        if (sheetState.isExpanded) {
-            scope.launch { sheetState.collapse() }
+        if (sheetState.isVisible) {
+            scope.launch { sheetState.hide() }
         } else {
             viewModel.onBackAction()
         }
@@ -49,7 +49,7 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: BottomSheetState
             },
         ) {
             viewModel.onGroupClick()
-            scope.launch { sheetState.expand() }
+            scope.launch { sheetState.show() }
         }
     }
 }
