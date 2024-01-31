@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":core_data:api"))
     implementation(project(":core_data:impl"))
     implementation(project(":storage"))
+    implementation(project(":analytics"))
 
     implementation(project(":feature:welcome:api"))
     implementation(project(":feature:welcome:impl"))

@@ -2,6 +2,9 @@ package com.turtleteam.impl.presentation.teacher.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lyadsky.analytics.AnalyticsService
+import com.lyadsky.analytics.models.LogEvent
+import com.lyadsky.analytics.models.LogEventParam
 import com.turtleteam.api.data.repository.TeacherRepository
 import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.core_navigation.error.ErrorService
@@ -17,7 +20,10 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class TeacherViewModel(private val navigator: TeacherNavigator) : ViewModel(), KoinComponent {
+class TeacherViewModel(
+    private val navigator: TeacherNavigator,
+    private val analyticsService: AnalyticsService
+) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(TeacherState())
     val state = _state.asStateFlow()
@@ -30,6 +36,13 @@ class TeacherViewModel(private val navigator: TeacherNavigator) : ViewModel(), K
         viewModelScope.launch(Dispatchers.IO) { //TODO попробовать запустить на Main потоке
             _state.update { it.copy(selectedTeacher = storage.getTeacher()) }
             getSchedule(storage.getTeacher())
+            analyticsService.sendEvent(
+                event = LogEvent.OPEN_SCREEN,
+                params = mapOf(
+                    LogEventParam.SCREEN_NAME to "Teacher screen",
+                    LogEventParam.SELECTED_GROUP to (state.value.selectedTeacher ?: "Не выбрано")
+                )
+            )
         }
     }
 

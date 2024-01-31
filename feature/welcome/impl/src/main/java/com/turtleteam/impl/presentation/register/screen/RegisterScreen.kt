@@ -87,7 +87,12 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
             }
         },
     ) {
-        Column(Modifier.padding(top = 20.dp)) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             StageBar(number = state.value.stage, count = 3)
         }
         Box {

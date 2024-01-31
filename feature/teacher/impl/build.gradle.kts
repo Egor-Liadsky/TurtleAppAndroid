@@ -28,6 +28,7 @@ dependencies {
     implementation(project(":feature:additional:api"))
     implementation(project(":feature:settings:api"))
     implementation(project(":core_view"))
+    implementation(project(":analytics"))
     implementation(project(":core_navigation"))
     implementation(project(":core_data:api"))
     implementation(project(":storage"))

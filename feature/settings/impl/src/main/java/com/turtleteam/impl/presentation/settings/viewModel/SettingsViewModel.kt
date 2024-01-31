@@ -2,6 +2,9 @@ package com.turtleteam.impl.presentation.settings.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lyadsky.analytics.AnalyticsService
+import com.lyadsky.analytics.models.LogEvent
+import com.lyadsky.analytics.models.LogEventParam
 import com.turtleteam.api.data.repository.SettingsRepository
 import com.turtleteam.api.network.error.exceptionHandleable
 import com.turtleteam.api.models.Institution
@@ -23,7 +26,8 @@ class SettingsViewModel(
     private val institutionDataStore: InstitutionDataStore,
     private val repository: SettingsRepository,
     private val navigator: SettingsNavigator,
-    private val errorService: ErrorService
+    private val errorService: ErrorService,
+    private val analyticsService: AnalyticsService
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingsState())
@@ -38,6 +42,12 @@ class SettingsViewModel(
                     selectedInstitution = institutionDataStore.getInstitution(),
                 )
             }
+            analyticsService.sendEvent(
+                event = LogEvent.OPEN_SCREEN,
+                params = mapOf(
+                    LogEventParam.SCREEN_NAME to "Settings screen",
+                )
+            )
         }
     }
 

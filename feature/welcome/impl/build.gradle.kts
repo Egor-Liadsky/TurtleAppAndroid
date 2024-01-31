@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":feature:group:api"))
     implementation(project(":feature:teacher:api"))
     implementation(project(":core_view"))
+    implementation(project(":analytics"))
     implementation(project(":core_navigation"))
     implementation(project(":core_data:api"))
     implementation(project(":storage"))

@@ -2,6 +2,9 @@ package com.turtleteam.impl.presentation.presentation.additional.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lyadsky.analytics.AnalyticsService
+import com.lyadsky.analytics.models.LogEvent
+import com.lyadsky.analytics.models.LogEventParam
 import com.turtleteam.api.config.ConfigService
 import com.turtleteam.api.data.repository.AdditionalRepository
 import com.turtleteam.api.network.error.exceptionHandleable
@@ -19,11 +22,21 @@ import org.koin.core.component.inject
 class AdditionalViewModel(
     private val configService: ConfigService,
     private val additionalRepository: AdditionalRepository,
-    private val errorService: ErrorService
+    private val errorService: ErrorService,
+    private val analyticsService: AnalyticsService
 ) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(AdditionalState())
     val state = _state.asStateFlow()
+
+    init {
+        analyticsService.sendEvent(
+            event = LogEvent.OPEN_SCREEN,
+            params = mapOf(
+                LogEventParam.SCREEN_NAME to "Additional screen",
+            )
+        )
+    }
 
     fun onRingsClick() {
         getRings()

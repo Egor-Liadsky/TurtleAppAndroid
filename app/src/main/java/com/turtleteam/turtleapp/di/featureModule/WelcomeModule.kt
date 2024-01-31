@@ -17,7 +17,7 @@ val welcomeModule = module {
         WelcomeNavigator(get(), get(), navController.get())
     }
     viewModel { params ->
-        OnBoardingViewModel(params.get())
+        OnBoardingViewModel(params.get(), get())
     }
     viewModel { params ->
         RegisterViewModel(params.get(), get())

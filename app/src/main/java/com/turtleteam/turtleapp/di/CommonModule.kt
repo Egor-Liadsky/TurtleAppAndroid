@@ -1,5 +1,7 @@
 package com.turtleteam.turtleapp.di
 
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.lyadsky.analytics.AnalyticsService
 import com.turtleteam.api.config.ConfigService
 import com.turtleteam.api.network.BaseRepository
 import com.turtleteam.core_navigation.error.ErrorService
@@ -39,6 +41,7 @@ val commonModule = module {
 
     // Services
     single { ErrorService() }
+    single { AnalyticsService() }
 
     // Storage
     single<Storage> { StorageImpl(get()) }

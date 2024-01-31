@@ -13,7 +13,5 @@ val groupModule = module {
     single<GroupNavigation> { GroupNavigationImpl() }
     single<GroupRepository> { GroupRepositoryImpl(get()) }
     single { navController -> GroupNavigator(navController.get()) }
-    viewModel { params ->
-        GroupViewModel(params.get())
-    }
+    viewModel { GroupViewModel(get(), get()) }
 }

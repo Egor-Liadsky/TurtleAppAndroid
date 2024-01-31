@@ -13,5 +13,5 @@ val teacherModule = module {
     single<TeacherRepository> { TeacherRepositoryImpl(get()) }
     single<TeacherNavigation> { TeacherNavigationImpl() }
     single<TeacherNavigator> { TeacherNavigator(get()) }
-    viewModel { TeacherViewModel(get()) }
+    viewModel { TeacherViewModel(get(), get()) }
 }
