@@ -23,6 +23,7 @@ class WelcomeNavigator(
     fun navigateToGroup() {
         navController.navigate(groupRoute){
             launchSingleTop = true
+            popUpTo(0)
         }
     }
 }

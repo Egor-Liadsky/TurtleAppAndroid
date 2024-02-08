@@ -1,6 +1,5 @@
 package com.turtleteam.core_view.view.button
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +15,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 
-@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun SelectButton(
     modifier: Modifier = Modifier,
@@ -38,7 +35,7 @@ fun SelectButton(
             .fillMaxWidth()
             .height(55.dp),
         onClick = { onClick() },
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White.copy(0.25f)),
+        colors = ButtonDefaults.buttonColors(backgroundColor = TurtleTheme.color.selectButtonBackground),
         shape = RoundedCornerShape(12.dp),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp,
@@ -46,7 +43,7 @@ fun SelectButton(
         ),
         border = BorderStroke(
             1.dp,
-            if (isSelected) TurtleTheme.color.textColor else TurtleTheme.color.textColor.copy(0.35f),
+            if (isSelected) TurtleTheme.color.selectButtonStrokeEnabled else TurtleTheme.color.selectButtonStrokeDisabled,
         ),
         contentPadding = PaddingValues(0.dp),
     ) {
@@ -66,7 +63,7 @@ fun SelectButton(
                     style = TextStyle(
                         fontSize = 22.sp,
                         fontFamily = fontQanelas,
-                        color = if (isSelected) TurtleTheme.color.textColor else TurtleTheme.color.selectTextColor,
+                        color = if (isSelected) TurtleTheme.color.textPrimary else TurtleTheme.color.textAccent,
                         textAlign = TextAlign.Center,
                     ),
                 )

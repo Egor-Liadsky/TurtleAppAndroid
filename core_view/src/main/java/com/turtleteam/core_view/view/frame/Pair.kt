@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,11 +41,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.core_view.R
-import com.turtleteam.core_view.theme.LocalColors
-import com.turtleteam.core_view.utils.toDate
 import com.turtleteam.api.models.Pair
 import com.turtleteam.api.models.PairInfo
+import com.turtleteam.core_view.R
+import com.turtleteam.core_view.theme.LocalColors
+import com.turtleteam.core_view.theme.TurtleTheme
+import com.turtleteam.core_view.utils.toDate
 
 @Composable
 fun PairItem(pair: Pair, scrollInProgress: Boolean) {
@@ -69,13 +72,14 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pair: Pair, scrollInProgre
     val pagerState = rememberPagerState { pair.pairInfo.size }
     val progressColor = LocalColors.current.numberBackground
     val endColor = LocalColors.current.pairInfo
-    var height by remember { mutableStateOf(0) }
+    var height by remember { mutableIntStateOf(0) }
     Row(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Column(
             modifier = Modifier
                 .width(55.dp)
+//                .padding(bottom = 24.dp)
                 .height(with(LocalDensity.current) { height.toDp() }),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
@@ -106,8 +110,8 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pair: Pair, scrollInProgre
         Box(
             Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(15.dp))
-                .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(15.dp))
+                .background(TurtleTheme.color.blocks, RoundedCornerShape(15.dp))
+                .border(1.dp, TurtleTheme.color.stroke, RoundedCornerShape(15.dp))
                 .padding(start = 12.dp)
                 .onGloballyPositioned {
                     height = it.size.height
@@ -164,10 +168,15 @@ fun BoxScope.Pair(pair: Pair, scrollInProgress: Boolean) {
     Row(
         Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(12.dp))
-            .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(12.dp)),
+            .background(TurtleTheme.color.blocks, RoundedCornerShape(12.dp))
+            .border(1.dp, TurtleTheme.color.stroke, RoundedCornerShape(12.dp)),
     ) {
-        Column(modifier = Modifier.width(71.dp), horizontalAlignment = Alignment.End) {
+        Column(
+            modifier = Modifier
+                .width(71.dp)
+                .padding(bottom = 24.dp),
+            horizontalAlignment = Alignment.End
+        ) {
             Text(
                 modifier = Modifier
                     .padding(top = 40.dp)
@@ -180,36 +189,36 @@ fun BoxScope.Pair(pair: Pair, scrollInProgress: Boolean) {
                 textAlign = TextAlign.Center,
             )
             Text(
-                modifier = Modifier
-                    .padding(top = 3.dp, end = 6.dp),
+                modifier = Modifier.padding(top = 3.dp, end = 6.dp),
                 fontSize = 20.sp,
                 text = pair.pairInfo.first().start,
                 color = LocalColors.current.numberBackground,
             )
             Text(
-                modifier = Modifier
-                    .padding(end = 8.dp),
+                modifier = Modifier.padding(end = 8.dp),
                 fontSize = 14.sp,
                 text = pair.pairInfo.first().end,
                 color = LocalColors.current.pairInfo,
             )
         }
-        if (pair.pairInfo.size > 1) {
-            HorizontalPager(
-                userScrollEnabled = !scrollInProgress,
-                state = pagerState,
-                flingBehavior = PagerDefaults.flingBehavior(
+        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+            if (pair.pairInfo.size > 1) {
+                HorizontalPager(
+                    userScrollEnabled = !scrollInProgress,
                     state = pagerState,
-                    lowVelocityAnimationSpec = tween(
-                        easing = LinearEasing,
-                        durationMillis = 200,
+                    flingBehavior = PagerDefaults.flingBehavior(
+                        state = pagerState,
+                        lowVelocityAnimationSpec = tween(
+                            easing = LinearEasing,
+                            durationMillis = 200,
+                        ),
                     ),
-                ),
-            ) {
-                PairInfo(pair.pairInfo[it])
+                ) {
+                    PairInfo(pair.pairInfo[it])
+                }
+            } else {
+                PairInfo(pair.pairInfo.first())
             }
-        } else {
-            PairInfo(pair.pairInfo.first())
         }
     }
     if (pair.pairInfo.size > 1) {
@@ -241,62 +250,70 @@ fun PairInfo(pair: PairInfo) {
             Text(
                 text = pair.doctrine,
                 fontSize = if (pair.doctrine.length > 20) 14.sp else 18.sp,
-                color = LocalColors.current.textColor,
+                color = TurtleTheme.color.textPrimary,
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, top = 11.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Icon(
-                modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.ic_teacher),
-                contentDescription = "",
-                tint = LocalColors.current.pairInfo,
-            )
-            Text(
-                text = pair.teacher,
-                fontSize = 14.sp,
-                color = LocalColors.current.pairInfo,
-            )
+        if (pair.teacher.isNotBlank()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 11.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(id = R.drawable.ic_teacher),
+                    contentDescription = "",
+                    tint = LocalColors.current.pairInfo,
+                )
+                Text(
+                    text = pair.teacher,
+                    fontSize = 14.sp,
+                    color = LocalColors.current.pairInfo,
+                )
+            }
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, top = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Icon(
-                modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.ic_auditorium),
-                contentDescription = "",
-                tint = LocalColors.current.pairInfo,
-            )
-            Text(
-                text = pair.auditoria,
-                fontSize = 14.sp,
-                color = LocalColors.current.pairInfo,
-            )
+
+        if (pair.auditoria.isNotBlank()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(id = R.drawable.ic_auditorium),
+                    contentDescription = "",
+                    tint = LocalColors.current.pairInfo,
+                )
+                Text(
+                    text = pair.auditoria,
+                    fontSize = 14.sp,
+                    color = LocalColors.current.pairInfo,
+                )
+            }
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, top = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            Icon(
-                modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.ic_corpus),
-                contentDescription = "",
-                tint = LocalColors.current.pairInfo,
-            )
-            Text(
-                text = pair.corpus,
-                fontSize = 14.sp,
-                color = LocalColors.current.pairInfo,
-            )
+
+        if (pair.corpus.isNotBlank()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(id = R.drawable.ic_corpus),
+                    contentDescription = "",
+                    tint = LocalColors.current.pairInfo,
+                )
+                Text(
+                    text = pair.corpus,
+                    fontSize = 14.sp,
+                    color = LocalColors.current.pairInfo,
+                )
+            }
         }
     }
 }

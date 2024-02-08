@@ -32,7 +32,7 @@ class BaseRepositoryImpl(private val httpClient: HttpClient) : KoinComponent,
     ): String {
         val port = institutionDataStore.getInstitution()?.port
 
-        val url = "http://45.155.207.232:${port ?: "8080"}/api/v2/"
+        val url = "http://45.155.207.232:${port ?: "8080"}/api/v2/" //TODO move to resources
         val response: HttpResponse
         try {
             response = httpClient.request(url) {

@@ -28,10 +28,10 @@ import com.turtleteam.core_view.theme.fontQanelas
 fun RingItem(name: String, rings: List<RingInfo>) {
     Column(
         modifier = Modifier
-            .background(Color(0xFFF5F6F1).copy(0.76f), RoundedCornerShape(15.dp))
-            .border(1.dp, Color(0xFF417B65).copy(0.35f), RoundedCornerShape(15.dp))
-            .size(238.dp, 306.dp)
-            .padding(vertical = 5.dp),
+            .background(TurtleTheme.color.blocks, RoundedCornerShape(15.dp))
+            .border(1.dp, TurtleTheme.color.stroke, RoundedCornerShape(15.dp))
+            .width(238.dp)
+            .padding(vertical = 14.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         Text(
@@ -58,7 +58,7 @@ fun RingItem(name: String, rings: List<RingInfo>) {
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = it.number.toString(),
+                        text = if (it.number == 3.1) "К" else it.number?.toInt().toString(),
                         fontFamily = fontQanelas,
                         fontSize = 20.sp,
                         color = Color.White,

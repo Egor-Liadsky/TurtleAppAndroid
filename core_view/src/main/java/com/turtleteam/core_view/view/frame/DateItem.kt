@@ -1,6 +1,5 @@
 package com.turtleteam.core_view.view.frame
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,12 +26,12 @@ import androidx.compose.ui.unit.sp
 import com.turtleteam.api.models.Day
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.LocalColors
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.utils.toCalendar
 import com.turtleteam.core_view.utils.toDayOfWeek
 import com.turtleteam.core_view.utils.toMonth
 import java.util.Calendar
 
-@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun DateItem(day: Day, onClick: () -> Unit) {
     val date = remember { day.isoDateDay.toCalendar() }
@@ -50,7 +49,7 @@ fun DateItem(day: Day, onClick: () -> Unit) {
         Icon(
             painter = painterResource(id = R.drawable.ic_arrow_left),
             contentDescription = "",
-            tint = LocalColors.current.textColor,
+            tint = TurtleTheme.color.primary,
         )
         Text(
             text = "${date.get(Calendar.DAY_OF_WEEK).toDayOfWeek()} ${date.toMonth()}",
@@ -58,13 +57,13 @@ fun DateItem(day: Day, onClick: () -> Unit) {
             fontWeight = FontWeight(700),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = LocalColors.current.textColor,
+            color = TurtleTheme.color.textPrimary,
         )
         Icon(
             modifier = Modifier.rotate(180F),
             painter = painterResource(id = R.drawable.ic_arrow_left),
             contentDescription = "",
-            tint = LocalColors.current.textColor,
+            tint = TurtleTheme.color.primary,
         )
     }
 }

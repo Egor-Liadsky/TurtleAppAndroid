@@ -1,8 +1,6 @@
 package com.turtleteam.impl.presentation.register.screen.layout
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetState
@@ -14,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.LocalColors
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.SelectButton
 import com.turtleteam.core_view.view.frame.ScheduleSelectFrame
 import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
@@ -25,16 +24,8 @@ fun SelectGroupLayout(viewModel: RegisterViewModel, sheetState: ModalBottomSheet
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    BackHandler {
-        if (sheetState.isVisible) {
-            scope.launch { sheetState.hide() }
-        } else {
-            viewModel.onBackAction()
-        }
-    }
-
     ScheduleSelectFrame(
-        image = R.drawable.ic_choose_group,
+        image = TurtleTheme.images.selectGroup,
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),

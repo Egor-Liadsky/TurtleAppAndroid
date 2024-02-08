@@ -47,7 +47,7 @@ fun SheetWrapper(
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontFamily = fontQanelas,
-                    color = TurtleTheme.color.textColor,
+                    color = TurtleTheme.color.textPrimary,
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier

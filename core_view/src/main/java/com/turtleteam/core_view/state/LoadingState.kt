@@ -1,5 +1,7 @@
 package com.turtleteam.core_view.state
 
+import java.util.Objects
+
 sealed class LoadingState {
     data object Loading: LoadingState()
     data object Success: LoadingState()

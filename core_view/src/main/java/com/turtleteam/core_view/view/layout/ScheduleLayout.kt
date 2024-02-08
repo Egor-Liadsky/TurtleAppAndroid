@@ -155,7 +155,7 @@ fun DatesPopup(
                                 fontWeight = FontWeight(700),
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
-                                color = LocalColors.current.textColor,
+                                color = LocalColors.current.textPrimary,
                             )
                         }
                     }

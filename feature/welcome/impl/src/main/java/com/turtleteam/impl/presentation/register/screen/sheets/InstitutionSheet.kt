@@ -53,7 +53,7 @@ fun InstitutionSheet(
                 ) {
                     CircularProgressIndicator(
                         Modifier.size(24.dp),
-                        color = TurtleTheme.color.textColor,
+                        color = TurtleTheme.color.primary,
                     )
                 }
             }

@@ -18,6 +18,6 @@ fun LoadingLayout() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        CircularProgressIndicator(Modifier.size(30.dp), color = TurtleTheme.color.textColor)
+        CircularProgressIndicator(Modifier.size(30.dp), color = TurtleTheme.color.primary)
     }
 }

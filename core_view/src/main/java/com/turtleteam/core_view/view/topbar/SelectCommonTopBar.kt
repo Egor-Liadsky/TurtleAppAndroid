@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.SelectGroupButton
 
 @Composable
@@ -19,7 +20,7 @@ fun SelectGroupTopBar(
     Column(
         Modifier
             .background(
-                Brush.horizontalGradient(colors = listOf(Color(0xFF488166), Color(0xFFA1C97A))),
+                TurtleTheme.color.topBar,
                 shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp),
             ),
     ) {

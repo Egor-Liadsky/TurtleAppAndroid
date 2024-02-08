@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":feature:settings:api"))
     implementation(project(":feature:settings:impl"))
 
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)

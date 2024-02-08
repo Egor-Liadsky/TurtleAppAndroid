@@ -66,7 +66,7 @@ fun ModalBottomSheetLayoutWrapper(
     ModalBottomSheetLayout(
         sheetState = modalBottomSheetState,
         sheetContent = { sheetContent() },
-        sheetShape = RoundedCornerShape(12.dp)
+        sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
     ) {
         Scaffold(
             scaffoldState = scaffoldState,

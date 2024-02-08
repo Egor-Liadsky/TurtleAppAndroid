@@ -53,7 +53,7 @@ fun AboutAppScreen(viewModel: AboutAppViewModel) {
                 style = TextStyle(
                     fontSize = 22.sp,
                     fontFamily = fontQanelas,
-                    color = TurtleTheme.color.textColor,
+                    color = TurtleTheme.color.textPrimary,
                 ),
                 modifier = Modifier.padding(top = 20.dp)
             )
@@ -62,7 +62,7 @@ fun AboutAppScreen(viewModel: AboutAppViewModel) {
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontFamily = fontQanelas,
-                    color = TurtleTheme.color.textColor,
+                    color = TurtleTheme.color.textPrimary,
                 ),
                 modifier = Modifier.padding(top = 8.dp)
             )

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -36,24 +35,24 @@ fun SheetItem(
         modifier
             .height(40.dp)
             .fillMaxWidth()
+            .background(
+                TurtleTheme.color.blocks,
+                shape = RoundedCornerShape(12.dp),
+            )
             .border(
                 1.dp,
                 color = if (isSelected) {
-                    Color(0xFF417B65)
+                    TurtleTheme.color.primary
                 } else {
-                    Color(0x417B6559)
+                    TurtleTheme.color.stroke
                 },
-                shape = RoundedCornerShape(12.dp),
-            )
-            .background(
-                TurtleTheme.color.institutionBackgroundColor,
                 shape = RoundedCornerShape(12.dp),
             )
             .clip(RoundedCornerShape(12.dp))
             .clickable(
                 onClick = onClick,
                 interactionSource = MutableInteractionSource(),
-                indication = SelectButtonIndicator(TurtleTheme.color.textColor, 12.dp),
+                indication = SelectButtonIndicator(TurtleTheme.color.primary, 12.dp),
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -63,7 +62,7 @@ fun SheetItem(
             style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = fontQanelas,
-                color = TurtleTheme.color.textColor,
+                color = TurtleTheme.color.textPrimary,
             ),
         )
     }

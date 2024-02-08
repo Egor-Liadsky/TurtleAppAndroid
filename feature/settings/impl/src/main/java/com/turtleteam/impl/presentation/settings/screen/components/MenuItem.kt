@@ -55,7 +55,7 @@ fun MenuItem(menuInfo: MenuInfo) {
                     fontFamily = fontQanelas,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
-                    color = TurtleTheme.color.textColor
+                    color = TurtleTheme.color.textPrimary
                 ), modifier = Modifier.padding(start = 18.dp)
             )
         }
@@ -68,7 +68,7 @@ fun MenuItem(menuInfo: MenuInfo) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_next), contentDescription = "ic_next",
                 modifier = Modifier.size(11.dp),
-                tint = TurtleTheme.color.textColor
+                tint = TurtleTheme.color.primary
             )
         }
     }

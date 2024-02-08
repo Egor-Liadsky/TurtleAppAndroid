@@ -37,7 +37,7 @@ fun OnBoardingItem(onBoarding: OnBoarding) {
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = fontQanelas,
-                color = TurtleTheme.color.textColor,
+                color = TurtleTheme.color.textPrimary,
             ),
             modifier = Modifier.padding(top = 20.dp),
         )

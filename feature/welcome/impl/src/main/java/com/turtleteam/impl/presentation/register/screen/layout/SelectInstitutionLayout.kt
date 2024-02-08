@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.LocalColors
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.button.SelectButton
 import com.turtleteam.core_view.view.frame.ScheduleSelectFrame
 import com.turtleteam.impl.presentation.register.viewModel.RegisterViewModel
@@ -26,16 +27,8 @@ fun SelectInstitutionLayout(viewModel: RegisterViewModel, sheetState: ModalBotto
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
 
-    BackHandler {
-        if (sheetState.isVisible) {
-            scope.launch { sheetState.hide() }
-        } else {
-            viewModel.onBackAction()
-        }
-    }
-
     ScheduleSelectFrame(
-        image = R.drawable.ic_choose_college,
+        image = TurtleTheme.images.selectInstitution,
     ) {
         SelectButton(
             Modifier.padding(top = 10.dp),

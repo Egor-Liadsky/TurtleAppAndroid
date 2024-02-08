@@ -1,6 +1,5 @@
 package com.turtleteam.impl.presentation.presentation.additional.screen.components
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -25,6 +24,7 @@ import com.turtleteam.api.models.Ring
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RingList(
+    modifier: Modifier = Modifier,
     rings: Ring,
 ) {
     val listState = rememberLazyListState(1)
@@ -33,7 +33,7 @@ fun RingList(
     val paddings = with(LocalDensity.current) { 8.dp.toPx() }
 
     LazyRow(
-        modifier = Modifier.alpha(alpha.value).padding(top = 16.dp),
+        modifier = modifier.alpha(alpha.value).padding(top = 16.dp),
         state = listState,
         flingBehavior = flingBehavior,
         horizontalArrangement = Arrangement.spacedBy(15.dp),

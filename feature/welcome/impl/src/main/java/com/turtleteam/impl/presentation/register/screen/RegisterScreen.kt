@@ -1,5 +1,6 @@
 package com.turtleteam.impl.presentation.register.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,6 +51,10 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
     )
     val errorService: ErrorService = koinInject()
 
+    BackHandler(modalBottomSheetState.isVisible) {
+        scope.launch { modalBottomSheetState.hide() }
+    }
+
     ModalBottomSheetLayout(
         modifier = Modifier.fillMaxSize(),
         sheetState = modalBottomSheetState,
@@ -70,7 +75,7 @@ fun WelcomeScreen(viewModel: RegisterViewModel) {
                     }
                 }
 
-                2 -> SheetWrapper(background = Color(0xFFfcfdd3)) {
+                2 -> SheetWrapper(background = TurtleTheme.color.groupSheetTopBar) {
                     GroupSheet(
                         sheetState = modalBottomSheetState,
                         textFieldValue = state.value.textFieldValue,

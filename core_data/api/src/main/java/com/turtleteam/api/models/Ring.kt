@@ -24,7 +24,7 @@ data class RingValue(
 
 @Serializable
 data class RingInfo(
-    val number: Int? = null,
+    val number: Double? = null,
     val from: String? = null,
     val to: String? = null,
     val name: String? = null

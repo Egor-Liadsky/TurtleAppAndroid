@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.layout.EmptyLayout
 import com.turtleteam.core_view.view.layout.ErrorLayout
 import com.turtleteam.core_view.view.layout.LoadingLayout
@@ -55,7 +56,7 @@ fun GroupLayout(modifier: Modifier, viewModel: GroupViewModel, sheetState: Modal
 
             LoadingState.Empty -> {
                 EmptyLayout(
-                    image = R.drawable.ic_select_group_empty,
+                    image = TurtleTheme.images.selectGroupEmpty,
                     title = "Выберите группу"
                 )
             }

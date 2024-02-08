@@ -1,6 +1,8 @@
 package com.turtleteam.impl.presentation.group.screen
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,6 +23,7 @@ import com.turtleteam.api.navigation.AdditionalNavigation
 import com.turtleteam.api.navigation.SettingsNavigation
 import com.turtleteam.api.navigation.TeacherNavigation
 import com.turtleteam.core_navigation.error.register
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.layout.ModalBottomSheetLayoutWrapper
 import com.turtleteam.core_view.view.sheet.GroupSheet
 import com.turtleteam.core_view.view.sheet.SheetWrapper
@@ -29,6 +32,8 @@ import com.turtleteam.impl.presentation.group.screen.layout.GroupLayout
 import com.turtleteam.impl.presentation.group.viewModel.GroupViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+
+private val animDuration = 500
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -59,7 +64,7 @@ fun GroupScreen(
         modalBottomSheetState = modalBottomSheetState,
         navController = navController,
         sheetContent = {
-            SheetWrapper(background = Color(0xFFfcfdd3)) {
+            SheetWrapper(background = TurtleTheme.color.groupSheetTopBar) {
                 GroupSheet(
                     sheetState = modalBottomSheetState,
                     textFieldValue = state.value.textFieldValue,

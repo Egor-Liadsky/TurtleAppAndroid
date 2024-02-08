@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.turtleteam.core_view.R
 import com.turtleteam.core_view.state.LoadingState
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.utils.searchItem
 import com.turtleteam.core_view.view.background.TurtlesBackground
 import com.turtleteam.core_view.view.layout.EmptyLayout
@@ -69,13 +70,14 @@ fun GroupSheet(
 
         Box {
             TurtlesBackground()
+
             when (loadingState) {
                 LoadingState.Loading -> LoadingLayout()
 
                 LoadingState.Success -> {
                     if (groupsFiltered.isEmpty()) {
                         EmptyLayout(
-                            image = R.drawable.ic_not_found,
+                            image = TurtleTheme.images.notFound,
                             title = "Ничего не найдено"
                         )
                     }

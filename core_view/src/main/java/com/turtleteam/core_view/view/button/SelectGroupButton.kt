@@ -1,6 +1,5 @@
 package com.turtleteam.core_view.view.button
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +19,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -30,7 +28,6 @@ import com.turtleteam.core_view.R
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 
-@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun SelectGroupButton(
     modifier: Modifier = Modifier,
@@ -44,21 +41,22 @@ fun SelectGroupButton(
         onClick = { onButtonClick() },
         border = BorderStroke(
             1.dp,
-            TurtleTheme.color.textColor,
+            TurtleTheme.color.selectGroupButtonStroke,
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp,
             pressedElevation = 0.dp
         ),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFF5F6F1).copy(0.76f)),
+        colors = ButtonDefaults.buttonColors(backgroundColor = TurtleTheme.color.selectGroupButtonBackground),
         shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(0.dp),
     ) {
-        Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(TurtleTheme.color.selectGroupButtonBackground)) {
             Column(
-                Modifier
-                    .fillMaxSize()
-                    .background(Color(0xFFF5F6F1).copy(0.76f)),
+                Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -67,7 +65,7 @@ fun SelectGroupButton(
                     style = TextStyle(
                         fontSize = 22.sp,
                         fontFamily = fontQanelas,
-                        color = TurtleTheme.color.textColor,
+                        color = TurtleTheme.color.textPrimary,
                         textAlign = TextAlign.Center,
                     ),
                 )
@@ -80,7 +78,7 @@ fun SelectGroupButton(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_next),
                     contentDescription = null,
-                    tint = Color(0xFF407A64),
+                    tint = TurtleTheme.color.selectGroupButtonArrow,
                     modifier = Modifier.size(24.dp),
                 )
             }

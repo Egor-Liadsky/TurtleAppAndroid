@@ -9,6 +9,6 @@ enum class LogEvent (val value: String) {
 
 enum class LogEventParam(val value: String) {
     SCREEN_NAME(FirebaseAnalytics.Param.SCREEN_NAME),
-    SELECTED_GROUP("selected_group"),
+    SELECTED_GROUP(FirebaseAnalytics.Param.CONTENT),
     ERROR_MESSAGE("error_message")
 }

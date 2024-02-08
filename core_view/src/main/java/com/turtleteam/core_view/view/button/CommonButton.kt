@@ -22,8 +22,8 @@ import com.turtleteam.core_view.theme.fontQanelas
 fun CommonButton(
     modifier: Modifier = Modifier,
     title: String,
-    textColor: Color = Color.White,
-    background: Color = TurtleTheme.color.textColor,
+    textColor: Color = TurtleTheme.color.commonButtonTextColor,
+    background: Color = TurtleTheme.color.commonButtonBackground,
     fontSize: TextUnit = 22.sp,
     onClick: () -> Unit,
 ) {

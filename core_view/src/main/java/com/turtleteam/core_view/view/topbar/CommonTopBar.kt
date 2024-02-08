@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.core_view.R
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 
 @Composable
@@ -32,7 +33,7 @@ fun CommonTopBar(title: String, backButtonClick: (() -> Unit)? = null) {
         Modifier
             .fillMaxWidth()
             .background(
-                Brush.horizontalGradient(colors = listOf(Color(0xFF488166), Color(0xFFA1C97A))),
+                TurtleTheme.color.topBar,
                 shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp),
             ),
     ) {

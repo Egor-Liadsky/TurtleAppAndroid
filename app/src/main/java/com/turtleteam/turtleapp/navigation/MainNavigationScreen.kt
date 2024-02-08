@@ -1,25 +1,38 @@
 package com.turtleteam.turtleapp.navigation
 
+import android.inputmethodservice.Keyboard
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarData
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.turtleteam.api.navigation.AdditionalNavigation
 import com.turtleteam.api.navigation.GroupNavigation
 import com.turtleteam.api.navigation.SettingsNavigation
@@ -33,6 +46,7 @@ import com.turtleteam.core_view.navigation.BottomNavigationBar
 import com.turtleteam.core_view.navigation.NavigationItem
 import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.view.background.TurtlesBackground
+import com.turtleteam.core_view.view.layout.SnackBarView
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.compose.koinInject
 
@@ -60,16 +74,12 @@ fun MainNavigationScreen(
         }
     }
 
+    rememberSystemUiController().setNavigationBarColor(color = TurtleTheme.color.systemNavigationBar)
+
     Scaffold(
         scaffoldState = scaffoldState,
         snackbarHost = { snackbarHostState ->
-            SnackbarHost(snackbarHostState) {
-                Snackbar(
-                    snackbarData = it,
-                    backgroundColor = TurtleTheme.color.textColor,
-                    actionColor = TurtleTheme.color.selectTextColor
-                )
-            }
+            SnackBarView(snackbarHostState = snackbarHostState)
         },
     ) { paddingValues ->
 

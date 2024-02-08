@@ -28,7 +28,7 @@ fun ErrorLayout(onClick: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_error),
+            painter = painterResource(id = TurtleTheme.images.error),
             contentDescription = null,
             Modifier.size(117.dp)
         )
@@ -39,7 +39,7 @@ fun ErrorLayout(onClick: () -> Unit) {
                 fontSize = 22.sp,
                 fontFamily = fontQanelas,
                 fontWeight = FontWeight.Bold,
-                color = TurtleTheme.color.textColor
+                color = TurtleTheme.color.textPrimary
             )
         )
         TextButton(
@@ -52,7 +52,7 @@ fun ErrorLayout(onClick: () -> Unit) {
                     fontSize = 16.sp,
                     fontFamily = fontQanelas,
                     fontWeight = FontWeight.Bold,
-                    color = TurtleTheme.color.selectTextColor
+                    color = TurtleTheme.color.textAccent
                 )
             )
         }

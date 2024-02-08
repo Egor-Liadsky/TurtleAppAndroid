@@ -16,10 +16,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.core_view.R
+import com.turtleteam.core_view.theme.TurtleTheme
 import com.turtleteam.core_view.theme.fontQanelas
 
 @Composable
@@ -47,7 +48,7 @@ fun CommonTextField(
         textStyle = TextStyle(
             fontSize = 16.sp,
             fontFamily = fontQanelas,
-            color = Color(0xFF417B65),
+            color = TurtleTheme.color.textPrimary,
         ),
         onValueChange = onValueChange,
         visualTransformation = visualTransformation,
@@ -58,8 +59,9 @@ fun CommonTextField(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color(0xFFB6CCBB), RoundedCornerShape(12.dp))
-                    .background(Color(0xFFF3F7E8))
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(1.dp, TurtleTheme.color.stroke, RoundedCornerShape(12.dp))
+                    .background(TurtleTheme.color.blocks)
                     .padding(horizontal = 20.dp, vertical = 13.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -73,7 +75,7 @@ fun CommonTextField(
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontFamily = fontQanelas,
-                                color = Color(0xFF9E9C9F),
+                                color = TurtleTheme.color.textAccent,
                             ),
                         )
                     }
@@ -89,7 +91,7 @@ fun CommonTextField(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(id = R.drawable.ic_close),
                                 contentDescription = "",
-                                tint = Color(0xFF9E9C9F),
+                                tint = TurtleTheme.color.accent,
                             )
                         }
                     } else {
@@ -97,7 +99,7 @@ fun CommonTextField(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = trailingIcon),
                             contentDescription = "",
-                            tint = Color(0xFF9E9C9F),
+                            tint = TurtleTheme.color.accent,
                         )
                     }
                 }

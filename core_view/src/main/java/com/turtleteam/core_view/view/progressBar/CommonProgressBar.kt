@@ -9,5 +9,5 @@ import com.turtleteam.core_view.theme.TurtleTheme
 
 @Composable
 fun CommonProgressBar(modifier: Modifier = Modifier) {
-    CircularProgressIndicator(modifier.size(30.dp), color = TurtleTheme.color.textColor)
+    CircularProgressIndicator(modifier.size(30.dp), color = TurtleTheme.color.primary)
 }

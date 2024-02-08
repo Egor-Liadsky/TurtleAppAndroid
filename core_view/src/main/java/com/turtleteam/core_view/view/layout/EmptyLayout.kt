@@ -40,7 +40,7 @@ fun EmptyLayout(
                 fontSize = 22.sp,
                 fontFamily = fontQanelas,
                 fontWeight = FontWeight.Bold,
-                color = TurtleTheme.color.textColor,
+                color = TurtleTheme.color.textPrimary,
                 textAlign = TextAlign.Center
             )
         )

@@ -53,7 +53,7 @@ fun FeedbackScreen(viewModel: FeedbackViewModel) {
                 style = TextStyle(
                     fontSize = 22.sp,
                     fontFamily = fontQanelas,
-                    color = TurtleTheme.color.textColor,
+                    color = TurtleTheme.color.textPrimary,
                     textAlign = TextAlign.Center
                 ),
             )
