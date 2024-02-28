@@ -28,15 +28,10 @@ import com.turtleteam.core_view.theme.fontQanelas
 fun StageBar(modifier: Modifier = Modifier, number: Int, count: Int) {
     val state = rememberLazyListState()
 
-    val width = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.toDp() }
-
     LazyRow(
+        modifier = modifier,
         state = state,
         userScrollEnabled = false,
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        contentPadding = PaddingValues(horizontal = (width)),
         horizontalArrangement = Arrangement.spacedBy(3.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {
